@@ -9,6 +9,8 @@ module.exports = {
         "gray-4": "#8491a4",
         "gray-3": "#ced4da",
         blue: "#14f1d7",
+        "regal-green": "#15f0d6",
+        green: "#14f1d7",
       },
       backgroundImage: {
         banner:

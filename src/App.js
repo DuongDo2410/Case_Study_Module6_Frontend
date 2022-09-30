@@ -7,6 +7,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Footer from "./components/footer/footer";
 import Booking from "./pages/booking/booking";
+import { RegisterPage } from "./pages/Register/RegisterPage";
+import { SignInPage } from "./pages/SignIn/SignInPage";
+
 function App() {
   const settings = {
     dots: true,
@@ -44,7 +47,7 @@ function App() {
   };
   return (
     <div>
-      {/* <Header />
+      <Header />
       <Banner />
       <div className="container mx-auto grid grid-cols-3 gap-6">
         <House />
@@ -57,8 +60,10 @@ function App() {
           <img src="" alt="" />
         </div>
       </div>
-      <Footer /> */}
-      <Booking />
+      <Footer />
+      {/* <Booking />  */}
+      {/* <RegisterPage /> */}
+      {/* <SignInPage /> */}
     </div>
   );
 }
