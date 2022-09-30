@@ -1,10 +1,15 @@
-import logo from "./logo.svg";
 import "./App.css";
+import {RegisterPage} from "./pages/Register/RegisterPage";
+import {SignInPage} from "./pages/SignIn/SignInPage";
 
 function App() {
   return (
     <div className="App">
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+        <RegisterPage />
+        {/*<SignInPage/>*/}
+
+
+
     </div>
   );
 }
