@@ -3,7 +3,7 @@ import React from "react";
 const Banner = () => {
   return (
     <>
-      <div>
+      <div className="mt-16">
         <div className="relative">
           <img
             src="https://firebasestorage.googleapis.com/v0/b/images-c1654.appspot.com/o/files%2Fbig-city.jpg?alt=media&token=8cf6b135-b966-40b8-88bf-083800166eb5"
@@ -111,7 +111,6 @@ const Banner = () => {
           </div>
         </div>
       </div>
-      <div>a</div>
     </>
   );
 };
