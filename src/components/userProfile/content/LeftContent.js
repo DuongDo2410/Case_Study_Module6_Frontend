@@ -6,43 +6,50 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import InboxIcon from '@mui/icons-material/Inbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import LogoutIcon from '@mui/icons-material/Logout';
+import {Avatar} from "@mui/material";
 
-export default function BasicList() {
+
+export default function LeftContent() {
     return (
         <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+            <Avatar alt="Remy Sharp" src="https://hanhtinhpet.com/wp-content/uploads/2021/07/cho-corgi-pembroke-wales-cung-cap-mong-huyen-thoai.webp" sx={{width: "70px" ,height:"70px" , margin: "5px 5px"}}/>
+            <Divider />
             <nav aria-label="main mailbox folders">
                 <List>
                     <ListItem disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
-                                <InboxIcon />
+                                <NotificationsNoneIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Inbox" />
+                            <ListItemText primary="Thông báo & tìm kiếm " />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
-                                <DraftsIcon />
+                                <FavoriteBorderIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Drafts" />
+                            <ListItemText primary="Bất động sản yêu thích " />
                         </ListItemButton>
                     </ListItem>
-                </List>
-            </nav>
-            <Divider />
-            <nav aria-label="secondary mailbox folders">
-                <List>
                     <ListItem disablePadding>
                         <ListItemButton>
-                            <ListItemText primary="Trash" />
+                            <ListItemIcon>
+                                <PermIdentityIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Thông tin cá nhân  " />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
-                        <ListItemButton component="a" href="#simple-list">
-                            <ListItemText primary="Spam" />
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <LogoutIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Thoát " />
                         </ListItemButton>
                     </ListItem>
                 </List>
