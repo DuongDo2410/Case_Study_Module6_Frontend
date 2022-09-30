@@ -16,7 +16,7 @@ import {Avatar} from "@mui/material";
 export default function LeftContent() {
     return (
         <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-            <Avatar alt="Remy Sharp" src="https://hanhtinhpet.com/wp-content/uploads/2021/07/cho-corgi-pembroke-wales-cung-cap-mong-huyen-thoai.webp" sx={{width: "70px" ,height:"70px" , margin: "5px 5px"}}/>
+            <Avatar alt="Remy Sharp" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU" sx={{width: "70px" ,height:"70px" , margin: "5px 5px"}}/>
             <Divider />
             <nav aria-label="main mailbox folders">
                 <List>

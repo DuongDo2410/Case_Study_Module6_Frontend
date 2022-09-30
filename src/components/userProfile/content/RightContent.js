@@ -129,7 +129,7 @@ export default function RightContent() {
                     />
                 </div>
                 <div style={{display: "flex", alignItems: "left", margin: " 20px 7px"}}>
-                    <Button variant="contained" color="success" type="submit">Cập nhật</Button>
+                    <Button variant="contained" color="success"  type="submit">Cập nhật</Button>
                 </div>
             </form>
         </div>
