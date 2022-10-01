@@ -85,7 +85,7 @@ const Banner = () => {
             <div className="mx-4">
               <label
                 htmlFor="start_day"
-                className="block mb-2 text-sm font-medium text-black dark:text-gray-300"
+                className="block mb-2 text-sm font-medium text-[#808080] dark:text-gray-300"
               >
                 Ngày bắt đầu
               </label>

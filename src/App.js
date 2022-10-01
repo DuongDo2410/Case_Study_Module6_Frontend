@@ -7,7 +7,18 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Footer from "./components/footer/footer";
 import Booking from "./pages/booking/booking";
+import Home from "./pages/home/home";
+import {useDispatch, useSelector} from "react-redux";
+import {getAllHouse} from "./redux/actionThunk/houseActionThunk";
+import {useEffect} from "react";
+
+
 function App() {
+  let dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllHouse());
+  }, [])
+  let houses = useSelector(state => state.house.houses)
   const settings = {
     dots: true,
     infinite: false,
@@ -44,21 +55,8 @@ function App() {
   };
   return (
     <div>
-      {/* <Header />
-      <Banner />
-      <div className="container mx-auto grid grid-cols-3 gap-6">
-        <House />
-        <House />
-        <House />
-      </div>
-      <div>
-        <h2>Báo chí nhận xét gì về chúng tôi</h2>
-        <div className="grid ">
-          <img src="" alt="" />
-        </div>
-      </div>
-      <Footer /> */}
-      <Booking />
+      <Home />
+      {/*<Booking />*/}
     </div>
   );
 }
