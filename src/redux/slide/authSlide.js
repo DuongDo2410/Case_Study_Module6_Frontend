@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { loginAction, setStatusAction } from "../actionThunk/authActionThunk";
 import { registerAction } from "../actionThunk/houseActionThunk";
 const authSlide = createSlice({
   name: "auth",
@@ -13,6 +14,16 @@ const authSlide = createSlice({
     });
     builder.addCase(registerAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
+    });
+    builder.addCase(loginAction.pending, (state, action) => {
+      state.status = "pending";
+    });
+    builder.addCase(loginAction.fulfilled, (state, action) => {
+      state.status = "fulfilled";
+      localStorage.setItem("accessToken", action.payload.token);
+    });
+    builder.addCase(setStatusAction.fulfilled, (state, action) => {
+      state.status = "idle";
     });
   },
 });

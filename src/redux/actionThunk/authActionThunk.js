@@ -9,6 +9,10 @@ export const registerAction = createAsyncThunk(
   }
 );
 export const loginAction = createAsyncThunk("auth/login", async (user) => {
-  const { data } = await authapi.register(user);
+  const { data } = await authapi.login(user);
   return data;
 });
+export const setStatusAction = createAsyncThunk(
+  "auth/setStatus",
+  async () => {}
+);

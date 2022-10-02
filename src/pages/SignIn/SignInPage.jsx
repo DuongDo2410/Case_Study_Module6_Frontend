@@ -1,10 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { loginAction } from "../../redux/actionThunk/authActionThunk";
 export function SignInPage() {
   const disPatch = useDispatch();
+  const navigate = useNavigate();
+
+  let { status } = useSelector((state) => state.auth);
+
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -16,9 +21,12 @@ export function SignInPage() {
       password: Yup.string().required("Không để trống"),
     }),
     onSubmit: (values) => {
-      //   disPatch(registerAction(values));
+      disPatch(loginAction(values));
     },
   });
+  console.log("1");
+  status == "fulfilled" && navigate("/");
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <section className="bg-gray-50 dark:bg-gray-900">
