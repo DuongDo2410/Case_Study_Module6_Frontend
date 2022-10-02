@@ -1,10 +1,6 @@
 import "./App.css";
 import Banner from "./components/banner/banner";
 import Header from "./components/header/header";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import UpdateProfile from "./pages/userProfile/UpdateProfile";
-import ChangePasswordPage from "./pages/userProfile/ChangePasswordPage";
-
 import House from "./components/house/house";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -13,6 +9,9 @@ import Footer from "./components/footer/footer";
 import Booking from "./pages/booking/booking";
 import { RegisterPage } from "./pages/Register/RegisterPage";
 import { SignInPage } from "./pages/SignIn/SignInPage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import UpdateProfile from "./pages/userProfile/UpdateProfile";
+import Home from "./pages/home/home";
 
 function App() {
     const settings = {
@@ -54,9 +53,9 @@ function App() {
             <Routes>
                 <Route path={"/profile"} element={<UpdateProfile/>}/>
                 <Route path={"/profile/changePassword"} element={<ChangePasswordPage/>}/>
-                <Route path={"/register"} element={<RegisterPage/>}/>
-                <Route path={"/login"} element={<SignInPage/>}/>
-                <Route path={"/"} element={<Banner/>}/>
+                <Route path={"/"} element={<Home />} />
+                <Route path={"/register"} element={<RegisterPage />} />
+                <Route path={"/login"} element={<SignInPage />} />
             </Routes>
         </BrowserRouter>
 
