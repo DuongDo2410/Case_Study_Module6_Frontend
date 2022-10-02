@@ -82,7 +82,7 @@ export default function RightContent() {
                             />
                             <br/>
 
-                            <Button color="success" variant="contained" component="span">
+                            <Button style={{backgroundColor: "#14f1d7"}} variant="contained" component="span">
                                 Tải ảnh lên
                             </Button>{" "}
                         </label>
@@ -119,7 +119,7 @@ export default function RightContent() {
                     />
                 </div>
                 <div style={{display: "flex", alignItems: "left", margin: " 20px 7px"}}>
-                    <Button variant="contained" color="success"  type="submit">Cập nhật</Button>
+                    <Button variant="contained" style={{backgroundColor: "#14f1d7"}}  type="submit">Cập nhật</Button>
                 </div>
             </form>
         </div>

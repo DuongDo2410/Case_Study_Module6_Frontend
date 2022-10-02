@@ -5,6 +5,15 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import UpdateProfile from "./pages/userProfile/UpdateProfile";
 import ChangePasswordPage from "./pages/userProfile/ChangePasswordPage";
 
+import House from "./components/house/house";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Footer from "./components/footer/footer";
+import Booking from "./pages/booking/booking";
+import { RegisterPage } from "./pages/Register/RegisterPage";
+import { SignInPage } from "./pages/SignIn/SignInPage";
+
 function App() {
     const settings = {
         dots: true,
@@ -45,6 +54,8 @@ function App() {
             <Routes>
                 <Route path={"/profile"} element={<UpdateProfile/>}/>
                 <Route path={"/profile/changePassword"} element={<ChangePasswordPage/>}/>
+                <Route path={"/register"} element={<RegisterPage/>}/>
+                <Route path={"/login"} element={<SignInPage/>}/>
                 <Route path={"/"} element={<Banner/>}/>
             </Routes>
         </BrowserRouter>
