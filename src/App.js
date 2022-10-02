@@ -9,62 +9,39 @@ import Footer from "./components/footer/footer";
 import Booking from "./pages/booking/booking";
 import { RegisterPage } from "./pages/Register/RegisterPage";
 import { SignInPage } from "./pages/SignIn/SignInPage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import UpdateProfile from "./pages/userProfile/UpdateProfile";
+import Home from "./pages/home/home";
 
 function App() {
-  const settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
   return (
-    <div>
-      <Header />
-      <Banner />
-      <div className="container mx-auto grid grid-cols-3 gap-6">
-        <House />
-        <House />
-        <House />
-      </div>
-      <div>
-        <h2>Báo chí nhận xét gì về chúng tôi</h2>
-        <div className="grid ">
-          <img src="" alt="" />
-        </div>
-      </div>
-      <Footer />
-      {/* <Booking />  */}
-      {/* <RegisterPage /> */}
-      {/* <SignInPage /> */}
-    </div>
+    // <div>
+    //   <Header />
+    //   <Banner />
+    //   <div className="container mx-auto grid grid-cols-3 gap-6">
+    //     <House />
+    //     <House />
+    //     <House />
+    //   </div>
+    //   <div>
+    //     <h2>Báo chí nhận xét gì về chúng tôi</h2>
+    //     <div className="grid ">
+    //       <img src="" alt="" />
+    //     </div>
+    //   </div>
+    //   <Footer />
+    //   {/* <Booking />  */}
+    //   {/* <RegisterPage /> */}
+    //   {/* <SignInPage /> */}
+    // </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path={"/profile"} element={<UpdateProfile />} />
+        <Route path={"/"} element={<Home />} />
+        <Route path={"/register"} element={<RegisterPage />} />
+        <Route path={"/login"} element={<SignInPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
