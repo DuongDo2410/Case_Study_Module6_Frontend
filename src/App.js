@@ -1,12 +1,15 @@
 import "./App.css";
-import {RegisterPage} from "./pages/Register/RegisterPage";
-import {SignInPage} from "./pages/SignIn/SignInPage";
+import {RegisterPage} from "./Pages/Register/RegisterPage";
+import {SignInPage} from "./Pages/SignIn/SignInPage";
+import {ChangePassword} from "./Pages/ChangePassword/ChangePassword";
 
 function App() {
   return (
     <div className="App">
-        <RegisterPage />
+        {/*<RegisterPage />*/}
         {/*<SignInPage/>*/}
+        <ChangePassword/>
+
 
 
 
