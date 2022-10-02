@@ -11,6 +11,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {Avatar} from "@mui/material";
+import SettingsIcon from '@mui/icons-material/Settings';
+import {Link} from "react-router-dom";
 
 
 export default function LeftContent() {
@@ -44,6 +46,16 @@ export default function LeftContent() {
                             <ListItemText primary="Thông tin cá nhân  " />
                         </ListItemButton>
                     </ListItem>
+                    <Link to={"/profile/changePassword"}>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <SettingsIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Đổi mật khẩu " />
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
                     <ListItem disablePadding>
                         <ListItemButton>
                             <ListItemIcon>

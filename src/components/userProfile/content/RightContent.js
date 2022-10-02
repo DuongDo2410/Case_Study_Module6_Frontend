@@ -2,7 +2,7 @@ import {Avatar, Button, Fab} from "@mui/material";
 import * as React from "react";
 import TextField from '@mui/material/TextField';
 import {useEffect, useState} from "react";
-import {useFormik, Formik} from "formik"
+import {useFormik} from "formik"
 import * as Yup from "yup"
 import {storage} from "../../../firebase";
 import {ref, getDownloadURL, uploadBytes} from "firebase/storage";
@@ -47,15 +47,7 @@ export default function RightContent() {
         }
     }, [image])
 
-    const handleSubmit = () => {
-        // let imageUpload =   ;
-        // const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-        // uploadBytes(imageRef, imageUpload).then((snapshot) => {
-        //     getDownloadURL(snapshot.ref).then((url) => {
-        //         log(url)
-        //     });
-        // });
-    }
+
     const handlePreviewAvatar = (e) => {
         const file = e.target.files[0]
         file.preview = URL.createObjectURL(file)
@@ -111,9 +103,7 @@ export default function RightContent() {
                         onBlur={formik.handleBlur}
                         value={formik.values.fullName}
                     />
-                    {/*{formik.touched.fullName && formik.errors.fullName ? (*/}
-                    {/*    <div>{formik.errors.fullName}</div>*/}
-                    {/*) : null}*/}
+
                 </div>
 
                 <div style={{display: "flex", alignItems: "left", margin: " 20px 7px"}}>

@@ -17,7 +17,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Content(){
     return (
         <div style={{backgroundColor: "#f6f8fa", height: "85vh"}}>
-            <Box sx={{ flexGrow: 1, margin: "100px 100px" }}>
+            <Box sx={{ flexGrow: 1, margin: "50px 100px", padding: "50px 0px" }}>
                 <Grid container spacing={4} sx={{ margin: "0px 0px" }}>
                     <Grid item xs={4}>
                         <Item>
