@@ -1,16 +1,14 @@
 import "./App.css";
-import Banner from "./components/banner/banner";
-import Header from "./components/header/header";
-import House from "./components/house/house";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Footer from "./components/footer/footer";
-import Booking from "./pages/booking/booking";
 import Home from "./pages/home/home";
-import {useDispatch, useSelector} from "react-redux";
+import Test from "./pages/post/test";
+import {useDispatch} from "react-redux";
 import {getAllHouse} from "./redux/actionThunk/houseActionThunk";
 import {useEffect} from "react";
+import UpdateProfile from "./pages/userProfile/UpdateProfile";
+import Booking from "./pages/booking/booking";
+import AddHome from "./pages/post/addHome";
 
 
 function App() {
@@ -18,7 +16,7 @@ function App() {
   useEffect(() => {
     dispatch(getAllHouse());
   }, [])
-  let houses = useSelector(state => state.house.houses)
+
   const settings = {
     dots: true,
     infinite: false,
@@ -56,7 +54,9 @@ function App() {
   return (
     <div>
       <Home />
+      {/*<AddHome />*/}
       {/*<Booking />*/}
+      {/*<UpdateProfile />*/}
     </div>
   );
 }

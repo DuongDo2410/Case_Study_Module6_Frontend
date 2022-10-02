@@ -5,11 +5,22 @@ import SingleBedOutlinedIcon from "@mui/icons-material/SingleBedOutlined";
 import BathtubOutlinedIcon from "@mui/icons-material/BathtubOutlined";
 import SquareFootOutlinedIcon from "@mui/icons-material/SquareFootOutlined";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
+import {useDispatch} from "react-redux";
+import {getOne} from "../../redux/actionThunk/houseActionThunk";
+import {useNavigate} from "react-router";
+
+
 const House = (props) => {
+  let dispatch = useDispatch();
+  let navigate = useNavigate();
+  const handleDetailsClick = async (id) => {
+    await dispatch(getOne(id));
+    navigate("/showDetail");
+  }
   return (
     <>
       <div className="rounded-lg my-10 shadow-lg shadow-slate-100 hover:shadow-slate-300 hover:scale-105 transition delay-150 duration-300 ease-in-out">
-        <a href="" className=" text-[#6a6969] font-semibold ">
+        <a className=" text-[#6a6969] font-semibold " onClick={() => handleDetailsClick(props.house?._id)}>
           <div>
             <img
               src={props.house?.idImage?.link}

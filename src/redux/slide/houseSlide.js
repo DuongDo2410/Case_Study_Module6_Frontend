@@ -4,7 +4,7 @@
 // idle
 
 import { createSlice } from "@reduxjs/toolkit";
-import {getAllHouse} from "../actionThunk/houseActionThunk";
+import {getAllHouse, getOne} from "../actionThunk/houseActionThunk";
 const houseSlide = createSlice({
   name: "house",
   initialState: {
@@ -24,6 +24,17 @@ const houseSlide = createSlice({
           })
           .addCase(getAllHouse.rejected, (state, action) => {
             state.status = 'rejected';
+          })
+          //getOne
+          .addCase(getOne.fulfilled, (state, action) => {
+              state.house = action.payload.checkHome;
+              state.status = 'fulfilled';
+          })
+          .addCase(getOne.pending, (state, action) => {
+              state.status = 'pending';
+          })
+          .addCase(getOne.rejected, (state, action) => {
+              state.status = 'rejected';
           })
 
   },
