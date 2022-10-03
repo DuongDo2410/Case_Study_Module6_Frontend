@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginAction, setStatusAction } from "../actionThunk/authActionThunk";
-import { registerAction } from "../actionThunk/houseActionThunk";
+import {
+  loginAction,
+  setStatusAction,
+  registerAction,
+} from "../actionThunk/authActionThunk";
 const authSlide = createSlice({
   name: "auth",
   initialState: {

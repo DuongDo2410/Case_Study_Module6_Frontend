@@ -24,7 +24,6 @@ export function SignInPage() {
       disPatch(loginAction(values));
     },
   });
-  console.log("1");
   status == "fulfilled" && navigate("/");
 
   return (
