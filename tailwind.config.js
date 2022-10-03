@@ -4,10 +4,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        gray: "#7f7f7f",
+        gray: "#ffffff",
         "gray-2": "#6a6969",
         "gray-4": "#8491a4",
         "gray-3": "#ced4da",
+        "gray-5": "#808080",
         blue: "#14f1d7",
         "regal-green": "#15f0d6",
         green: "#14f1d7",
@@ -21,5 +22,7 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // require('@tailwindcss/forms'),
+  ],
 };
