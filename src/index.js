@@ -1,13 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import { Route, Routes } from "react-router";
+import { BrowserRouter } from "react-router-dom";
+import UpdateProfile from "./pages/userProfile/UpdateProfile";
+import Banner from "./components/banner/banner";
+import router from "./router";
+import Booking from "./pages/booking/booking";
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+      {/* <Routes>
+                <Route path="/showDetail" element={<Booking />} />
+            </Routes> */}
+    </Provider>
   </React.StrictMode>
 );
 
