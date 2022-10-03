@@ -46,7 +46,6 @@ export function RegisterPage() {
       disPatch(setStatusAction());
     }
   }, [status]);
-
   return (
     <form onSubmit={formik.handleSubmit}>
       <section className="bg-gray-50 dark:bg-gray-900 mt-10">
