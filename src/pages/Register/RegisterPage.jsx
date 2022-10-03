@@ -131,7 +131,7 @@ export function RegisterPage() {
                   htmlFor="confirmPassword"
                   className="  flex justify-start  mb-2 text-sm font-medium text-gray-900 "
                 >
-                  Mật khẩu *
+                 Nhập lại mật khẩu *
                 </label>
                 <input
                   type="password"

@@ -1,17 +1,31 @@
 import React, {useState} from "react";
+import {Form, useFormik} from "formik";
+import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
+import {storage} from "../../firebase";
 
 export default function ChangePassword() {
     const [state, setState] = useState({});
-    const handleSubmit = () => {
+    const formik = useFormik({
+        initialValues: {
+            passwordNow: '',
+            newPassword:'',
+            confirmNewPassword:'',
+        },
+        onSubmit: async (values, helpers) => {
+            console.log(values)
 
-    }
 
-    const handleChange = (e) => {
-        setState({
-            ...state,
-            [e.target.name]: e.target.value
-        })
-    }
+        },
+
+    })
+
+
+    // const handleChange = (e) => {
+    //     setState({
+    //         ...state,
+    //         [e.target.name]: e.target.value
+    //     })
+    // }
 
     return (
         <div>
@@ -29,45 +43,50 @@ export default function ChangePassword() {
                             {/*<p className="text-center text-muted">*/}
                             {/*    Vui lòng nhập số điện thoại của bạn và chúng tôi sẽ gửi mật khẩu mới đến bạn</p>*/}
 
-                            <form className="space-y-4 md:space-y-6" action="#">
+                            <form className="space-y-4 md:space-y-6" action="#" onSubmit={formik.handleSubmit}>
                                 <div>
-                                    <label htmlFor="password"
+                                    <label htmlFor="passwordNow"
                                            className="flex justify-start block mb-2 text-sm font-medium dark:text-black dark:text-black"> Mật
                                         khẩu hiện tại *</label>
-                                    <input type="password" name="password" id="password"
+                                    <input type="password"
+                                           name="passwordNow"
+                                           id="passwordNow"
                                            className=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                            placeholder="*********"
-                                           onChange={e => handleChange(e)}
-                                           required/>
+                                           onChange={formik.handleChange}
+                                           onBlur={formik.handleBlur}
+                                           value={formik.values.passwordNow}
+                                    />
                                 </div>
                                 <div>
                                     <label htmlFor="password"
                                            className="flex justify-start block mb-2 text-sm font-medium dark:text-black dark:text-black"> Mật
                                         khẩu mới *</label>
-                                    <input type="password" name="newPassword"
+                                    <input type="password"
+                                           name="newPassword"
                                            className=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                            placeholder="*********"
-                                           onChange={e => handleChange(e)}
-                                           required/>
+                                           onChange={formik.handleChange}
+                                           onBlur={formik.handleBlur}
+                                           value={formik.values.newPassword}/>
                                 </div>
                                 <div>
                                     <label htmlFor="confirmNewPassword"
                                            className="flex justify-start block mb-2 text-sm font-medium dark:text-black dark:text-black"> Nhập
                                         lại mật khẩu mới *</label>
-                                    <input type="password" name="confirmNewPassword"
+                                    <input type="password"
+                                           name="confirmNewPassword"
                                            className=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                            placeholder="*********"
-                                           onChange={e => handleChange(e)}
-                                           required/>
+                                           onChange={formik.handleChange}
+                                           onBlur={formik.handleBlur}
+                                           value={formik.values.confirmNewPassword}/>
                                 </div>
 
                                 <button type="submit"
                                         className="w-full text-white bg-[#14f1d7] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Đổi
                                     mật khẩu
                                 </button>
-                                {/*<p className="text-sm font-light text-gray-500 dark:text-gray-400 ">*/}
-                                {/*    Bạn đã có sẵn tài khoản? <a href="#" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Đăng nhập</a>*/}
-                                {/*</p>*/}
                             </form>
                         </div>
                     </div>

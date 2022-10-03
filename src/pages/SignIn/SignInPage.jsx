@@ -91,15 +91,21 @@ export function SignInPage() {
               >
                 Đăng nhập
               </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400 ">
-                Bạn chưa có sẵn tài khoản?
-                <Link
-                  to={"/register"}
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                >
-                  Đăng ký
-                </Link>
-              </p>
+              <div className="flex justify-between ">
+                <p className="text-sm font-light text-gray-500 dark:text-gray-400 ">
+                  Bạn chưa có sẵn tài khoản?
+                  <Link
+                      to={"/register"}
+                      className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                  >
+                    Đăng ký
+                  </Link>
+                </p>
+                <p>
+
+                </p>
+              </div>
+
             </div>
           </div>
         </div>
