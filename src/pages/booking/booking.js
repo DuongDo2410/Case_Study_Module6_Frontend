@@ -13,6 +13,7 @@ const Booking = () => {
   let house = useSelector((state) => state.house.house);
   let dispatch = useDispatch();
   let { id } = useParams();
+  console.log(id);
   useEffect(() => {
     dispatch(getOne(id));
   }, []);
@@ -27,11 +28,11 @@ const Booking = () => {
             <img
               alt="ecommerce"
               className="lg:w-1/2 w-full h-128 object-cover object-center rounded border border-gray-200"
-              src={house?.idImage[0]?.link}
+              src={house && house?.idImage[0]?.link}
             />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                {house.name}
+                {house && house.name}
               </h1>
               <div className="flex mb-4">
                 <span className="flex items-center">
@@ -133,26 +134,26 @@ const Booking = () => {
               </div>
               <p className="text-sm mt-4 text-[#14f1d7]">
                 <LocationOnOutlinedIcon />
-                <span>{house.address}</span>
+                <span>{house && house.address}</span>
               </p>
-              <p className="leading-relaxed">{house.description}</p>
+              <p className="leading-relaxed">{house && house.description}</p>
               <div className="flex justify-between item-center text-[#8491a4] my-5">
                 <p className="flex items-center">
                   <SingleBedOutlinedIcon />
-                  <span>{house.amountBedroom}</span>
+                  <span>{house && house.amountBedroom}</span>
                 </p>
                 <p className="flex items-center">
                   <BathtubOutlinedIcon />
-                  <span>{house.amountBathroom}</span>
+                  <span>{house && house.amountBathroom}</span>
                 </p>
                 <p className="flex items-center">
                   <SquareFootOutlinedIcon />
-                  <span>{house.area}</span>
+                  <span>{house && house.area}</span>
                 </p>
               </div>
               <div className="flex mt-10">
                 <span className="title-font font-medium text-2xl text-gray-900">
-                  {house.price} VND
+                  {house && house.price} VND
                 </span>
                 <button className="flex ml-auto text-white bg-[#14f1d7] border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
                   Booking

@@ -10,8 +10,16 @@ export const getUserById = createAsyncThunk("user/getUserById", async () => {
 export const updateUserAction = createAsyncThunk(
   "user/updateUser",
   async (payload) => {
-    console.log("aaaaaaaaaaaaaaaaaaaaa", payload);
     const { data } = await userApi.update(payload.id, payload.user);
+    return data;
+  }
+);
+
+export const changePasswordAction = createAsyncThunk(
+  "user/changePassword",
+  async (payload) => {
+    let token = localStorage.getItem("accessToken");
+    const { data } = await userApi.changePassword(payload, token);
     return data;
   }
 );

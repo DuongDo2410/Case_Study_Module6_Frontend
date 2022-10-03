@@ -12,6 +12,7 @@ import { SignInPage } from "./pages/SignIn/SignInPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RightContent from "./components/userProfile/content/RightContent";
 import AddHouse from "./components/addHouse/addHouse";
+import { ChangePassword } from "./components/changePassword/changePassword";
 
 function App() {
   let dispatch = useDispatch();
@@ -24,6 +25,10 @@ function App() {
         <Route path={"/profile"} element={<UpdateProfile />}>
           <Route path={"/profile/:id"} element={<RightContent />} />
           <Route path={"/profile/addHouse"} element={<AddHouse />} />
+          <Route
+            path={"/profile/changePassword"}
+            element={<ChangePassword />}
+          />
         </Route>
         <Route path={"/"} element={<Home />} />
         <Route path={"/register"} element={<RegisterPage />} />

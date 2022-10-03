@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { loginAction } from "../../redux/actionThunk/authActionThunk";
+import {
+  loginAction,
+  setStatusAction,
+} from "../../redux/actionThunk/authActionThunk";
 export function SignInPage() {
   const disPatch = useDispatch();
   const navigate = useNavigate();
@@ -24,7 +27,13 @@ export function SignInPage() {
       disPatch(loginAction(values));
     },
   });
-  status == "fulfilled" && navigate("/");
+  useEffect(() => {
+    if (status == "fulfilled") {
+      navigate("/");
+      disPatch(setStatusAction());
+    }
+  }, [status]);
+  //   status == "fulfilled" && navigate("/");
 
   return (
     <form onSubmit={formik.handleSubmit}>
