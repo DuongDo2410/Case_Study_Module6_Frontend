@@ -12,6 +12,7 @@ import { SignInPage } from "./pages/SignIn/SignInPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UpdateProfile from "./pages/userProfile/UpdateProfile";
 import Home from "./pages/home/home";
+import ChangePasswordPage from "./pages/userProfile/ChangePasswordPage";
 
 function App() {
     const settings = {
