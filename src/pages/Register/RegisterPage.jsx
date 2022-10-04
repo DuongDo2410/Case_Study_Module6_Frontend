@@ -6,16 +6,29 @@ import {
   registerAction,
   setStatusAction,
 } from "../../redux/actionThunk/authActionThunk";
-import { Link, useNavigate } from "react-router-dom";
-export function RegisterPage() {
-  const navigation = useNavigate()
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
+import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
+
+
+export function RegisterPage () {
   const handleRegister = (values) => {
     disPatch(registerAction(values));
-    navigation('')
   }
   const disPatch = useDispatch();
   let { status } = useSelector((state) => state.auth);
+  console.log(status);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (status === "fulfilled") {
+      openNotificationWithIcon({type: 'success', message: "Thành Công!!!"});
+      navigate("/login");
+      disPatch(setStatusAction());
+    }else if (status === "rejected") {
+      openNotificationWithIcon({type: 'error', message: "Tài Khoản Đã Tồn Tại!!!"});
+    }
+  }, [status]);
 
   const formik = useFormik({
     initialValues: {
@@ -45,12 +58,7 @@ export function RegisterPage() {
       handleRegister(values);
     },
   });
-  useEffect(() => {
-    if (status == "fulfilled") {
-      navigate("/login");
-      disPatch(setStatusAction());
-    }
-  }, [status]);
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <section className="bg-gray-50 dark:bg-gray-900 mt-10">

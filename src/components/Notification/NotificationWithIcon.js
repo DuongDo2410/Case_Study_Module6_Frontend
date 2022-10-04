@@ -1,9 +1,14 @@
-import {notification} from 'antd';
+import {notification, message} from 'antd';
+import 'antd/dist/antd.css';
 
-export const openNotificationWithIcon = (type) => {
-    notification[type]({
-        message: 'Notification Title',
-        description:
-            'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+export const openNotificationWithIcon = (props) => {
+    notification[props.type]({
+        message: props.message,
+        duration: 3
     });
+};
+
+export const loading = () => {
+    message.loading('Action in progress..')
+        .then(() => openNotificationWithIcon('success'));
 };

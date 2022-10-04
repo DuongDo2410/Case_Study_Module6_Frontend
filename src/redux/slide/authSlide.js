@@ -4,7 +4,7 @@ import {
   setStatusAction,
   registerAction,
 } from "../actionThunk/authActionThunk";
-import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
+import {loading, openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
 const authSlide = createSlice({
   name: "auth",
   initialState: {
@@ -18,8 +18,11 @@ const authSlide = createSlice({
     });
     builder.addCase(registerAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
-      openNotificationWithIcon("success");
     });
+    builder.addCase(registerAction.rejected, (state, action) => {
+      state.status = "rejected";
+    });
+    //Login
     builder.addCase(loginAction.pending, (state, action) => {
       state.status = "pending";
     });

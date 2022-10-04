@@ -13,6 +13,13 @@ export function SignInPage() {
 
   let { status } = useSelector((state) => state.auth);
 
+  useEffect(() => {
+    if (status == "fulfilled") {
+      navigate("/");
+      disPatch(setStatusAction());
+    }
+  }, [status]);
+
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -27,13 +34,6 @@ export function SignInPage() {
       disPatch(loginAction(values));
     },
   });
-  useEffect(() => {
-    if (status == "fulfilled") {
-      navigate("/");
-      disPatch(setStatusAction());
-    }
-  }, [status]);
-  //   status == "fulfilled" && navigate("/");
 
   return (
     <form onSubmit={formik.handleSubmit}>
