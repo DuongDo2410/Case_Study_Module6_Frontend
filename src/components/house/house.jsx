@@ -24,7 +24,7 @@ const House = (props) => {
         <Link
           to={`/detail/${props.house?._id}`}
           className=" text-[#6a6969] font-semibold "
-          onClick={() => dispatch(getOne(props.house?._id))}
+          // onClick={() => dispatch(getOne(props.house?._id))}
         >
           <div>
             <img

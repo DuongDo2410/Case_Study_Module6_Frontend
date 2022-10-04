@@ -2,55 +2,48 @@ import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  registerAction,
-  setStatusAction,
-} from "../../redux/actionThunk/authActionThunk";
 import { Link, useNavigate } from "react-router-dom";
-export function RegisterPage() {
-  const navigation = useNavigate()
-  const handleRegister = (values) => {
-    disPatch(registerAction(values));
-    navigation('')
-  }
+import { changePasswordAction } from "../../redux/actionThunk/userActionThunk";
+import { setStatusAction } from "../../redux/actionThunk/authActionThunk";
+export function ChangePassword() {
   const disPatch = useDispatch();
   let { status } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
-      username: "",
-      phoneNumber: "",
       password: "",
+      newPassword: "",
       confirmPassword: "",
     },
 
     validationSchema: Yup.object({
-      username: Yup.string().required("Không để trống"),
-      phoneNumber: Yup.number()
-        .typeError("Chỉ bao gồm các số từ 0-9")
-        .integer("Số điện thoại không được bao gồm dấu thập phân")
-        .required("Không để trống"),
       password: Yup.string()
+        .min(6, "Tối thiểu 6 ký tự")
+        .max(8, "Tối đa 8 ký tự")
+        .required("Không để trống"),
+      newPassword: Yup.string()
         .min(6, "Tối thiểu 6 ký tự")
         .max(8, "Tối đa 8 ký tự")
         .required("Không để trống"),
       confirmPassword: Yup.string()
         .required("Không để trống")
-        .oneOf([Yup.ref("password"), null], "Mật khẩu không khớp"),
+        .oneOf([Yup.ref("newPassword"), null], "Mật khẩu không khớp"),
     }),
     onSubmit: (values) => {
-      values.avatar =
-        "https://firebasestorage.googleapis.com/v0/b/shop-11594.appspot.com/o/image%2Favatar.jpg?alt=media&token=0cf016f4-f295-4d46-942f-ae8a8a79c53d";
-      handleRegister(values);
+      console.log(values);
+      disPatch(changePasswordAction(values));
     },
   });
   useEffect(() => {
     if (status == "fulfilled") {
       navigate("/login");
+      localStorage.removeItem("accessToken");
       disPatch(setStatusAction());
     }
   }, [status]);
+  // status == "fulfilled" && navigate("/login");
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <section className="bg-gray-50 dark:bg-gray-900 mt-10">
@@ -62,66 +55,14 @@ export function RegisterPage() {
           <div className=" regal-write w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-white dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black">
-                Đăng ký
+                Sửa mật khẩu
               </h1>
               <div>
                 <label
-                  htmlFor="username"
-                  className="flex justify-start  mb-2 text-sm font-medium  dark:text-black"
-                >
-                  Nhập tên đăng nhập *
-                </label>
-                <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  className={
-                    formik.touched.username && formik.errors.username
-                      ? "bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:outline-none focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                      : "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  }
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.username}
-                />
-                {formik.touched.username && formik.errors.username ? (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                    {formik.errors.username}
-                  </p>
-                ) : null}
-              </div>
-              <div>
-                <label
-                  htmlFor="phoneNumber"
-                  className="flex justify-start  mb-2 text-sm font-medium  dark:text-black"
-                >
-                  Nhập Số Điện Thoại *
-                </label>
-                <input
-                  type="text"
-                  name="phoneNumber"
-                  id="phoneNumber"
-                  className={
-                    formik.touched.phoneNumber && formik.errors.phoneNumber
-                      ? "bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:outline-none focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                      : "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  }
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.phoneNumber}
-                />
-                {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                    {formik.errors.phoneNumber}
-                  </p>
-                ) : null}
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
+                  htmlFor="oldPassword"
                   className="  flex justify-start  mb-2 text-sm font-medium text-gray-900 "
                 >
-                  Mật khẩu *
+                  Mật khẩu cũ *
                 </label>
                 <input
                   type="password"
@@ -145,10 +86,37 @@ export function RegisterPage() {
 
               <div>
                 <label
-                  htmlFor="confirmPassword"
+                  htmlFor="newPassword"
                   className="  flex justify-start  mb-2 text-sm font-medium text-gray-900 "
                 >
                   Mật khẩu *
+                </label>
+                <input
+                  type="password"
+                  name="newPassword"
+                  id="newPassword"
+                  className={
+                    formik.touched.newPassword && formik.errors.newPassword
+                      ? "bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:outline-none focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
+                      : "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  }
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.newPassword}
+                />
+                {formik.touched.newPassword && formik.errors.newPassword ? (
+                  <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+                    {formik.errors.newPassword}
+                  </p>
+                ) : null}
+              </div>
+
+              <div>
+                <label
+                  htmlFor="confirmPassword"
+                  className="  flex justify-start  mb-2 text-sm font-medium text-gray-900 "
+                >
+                  Nhập lại mật khẩu *
                 </label>
                 <input
                   type="password"
@@ -174,17 +142,8 @@ export function RegisterPage() {
                 type="submit"
                 className="w-full text-white bg-[#14f1d7] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                Tạo một tài khoản{" "}
+                Thay đổi mật khẩu
               </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400 ">
-                Bạn có sẵn sàng tạo một tài khoản?
-                <Link
-                  to={"/login"}
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                >
-                  Đăng nhập
-                </Link>
-              </p>
             </div>
           </div>
         </div>

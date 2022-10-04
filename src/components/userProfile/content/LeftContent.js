@@ -49,7 +49,8 @@ export default function LeftContent() {
               <ListItemIcon>
                 <PermIdentityIcon />
               </ListItemIcon>
-              <ListItemText primary="Thông tin cá nhân  " />
+              {/* <ListItemText primary="Thông tin cá nhân  " /> */}
+              <Link to={"/profile/changePassword"}>Thay đổi mật khẩu </Link>
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
