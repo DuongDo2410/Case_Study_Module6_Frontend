@@ -11,6 +11,7 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
 const House = (props) => {
+  console.log(props)
   let dispatch = useDispatch();
   let navigate = useNavigate();
   // const handleDetailsClick = async (id) => {

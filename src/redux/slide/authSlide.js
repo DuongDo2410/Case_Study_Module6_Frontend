@@ -4,6 +4,7 @@ import {
   setStatusAction,
   registerAction,
 } from "../actionThunk/authActionThunk";
+import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
 const authSlide = createSlice({
   name: "auth",
   initialState: {
@@ -17,6 +18,7 @@ const authSlide = createSlice({
     });
     builder.addCase(registerAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
+      openNotificationWithIcon("success");
     });
     builder.addCase(loginAction.pending, (state, action) => {
       state.status = "pending";

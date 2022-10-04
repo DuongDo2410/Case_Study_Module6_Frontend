@@ -3,8 +3,16 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { registerAction } from "../../redux/actionThunk/authActionThunk";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import {useNavigate} from "react-router";
+
+
 export function RegisterPage() {
+  const navigation = useNavigate()
+  const handleRegister = (values) => {
+    disPatch(registerAction(values));
+    navigation('')
+  }
   const disPatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -31,7 +39,7 @@ export function RegisterPage() {
     onSubmit: (values) => {
       values.avatar =
         "https://firebasestorage.googleapis.com/v0/b/shop-11594.appspot.com/o/image%2Favatar.jpg?alt=media&token=0cf016f4-f295-4d46-942f-ae8a8a79c53d";
-      disPatch(registerAction(values));
+      handleRegister(values);
     },
   });
   return (
