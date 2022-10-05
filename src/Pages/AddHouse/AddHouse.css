@@ -1,0 +1,36 @@
+.header {
+    display: block;
+}
+.py-0 {
+    padding-bottom: 0!important;
+    padding-top: 0!important;
+}
+
+.shadow {
+    -webkit-box-shadow: 0 0 1rem rgba(0,0,0,.15)!important;
+    box-shadow: 0 0 1rem rgba(0,0,0,.15)!important;
+}
+.fixed-top {
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    top: 0;
+}
+
+.bg-white {
+    background-color: #fff!important;
+}
+.navbar-expand-lg {
+    flex-flow: row nowrap;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+
+}
+.navbar{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}

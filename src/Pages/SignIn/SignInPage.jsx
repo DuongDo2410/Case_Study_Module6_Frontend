@@ -28,7 +28,7 @@ export function SignInPage() {
                                 </div>
                                 <div className="ml-3 text-sm">
                                     <label htmlFor="terms" className="  flex justify-start font-light text-gray-500 dark:text-gray-300"><a className="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">
-                                        Nhớ mật khẩu  </a></label>
+                                        Nhớ mật khẩu  </a> </label>
                                 </div>
                             </div>
 
