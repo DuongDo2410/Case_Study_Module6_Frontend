@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Footer from "../../components/footer/footer";
 import Header from "../../components/header/header";
 import SingleBedOutlinedIcon from "@mui/icons-material/SingleBedOutlined";
 import BathtubOutlinedIcon from "@mui/icons-material/BathtubOutlined";
 import SquareFootOutlinedIcon from "@mui/icons-material/SquareFootOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
+import { getOne } from "../../redux/actionThunk/houseActionThunk";
 
 const Booking = () => {
+  let house = useSelector((state) => state.house.house);
+  let dispatch = useDispatch();
+  let { id } = useParams();
+  console.log(id);
+  useEffect(() => {
+    dispatch(getOne(id));
+  }, []);
+  console.log(house);
   return (
     <div>
       <Header />
@@ -17,11 +28,11 @@ const Booking = () => {
             <img
               alt="ecommerce"
               className="lg:w-1/2 w-full h-128 object-cover object-center rounded border border-gray-200"
-              src="https://www.whitmorerarebooks.com/pictures/medium/2465.jpg"
+              src={house && house?.idImage[0]?.link}
             />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                The Catcher in the Rye
+                {house && house.name}
               </h1>
               <div className="flex mb-4">
                 <span className="flex items-center">
@@ -123,33 +134,26 @@ const Booking = () => {
               </div>
               <p className="text-sm mt-4 text-[#14f1d7]">
                 <LocationOnOutlinedIcon />
-                <span>Phạm Văn Đồng</span>
+                <span>{house && house.address}</span>
               </p>
-              <p className="leading-relaxed">
-                Fam locavore kickstarter distillery. Mixtape chillwave tumeric
-                sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo
-                juiceramps cornhole raw denim forage brooklyn. Everyday carry +1
-                seitan poutine tumeric. Gastropub blue bottle austin listicle
-                pour-over, neutra jean shorts keytar banjo tattooed umami
-                cardigan.
-              </p>
+              <p className="leading-relaxed">{house && house.description}</p>
               <div className="flex justify-between item-center text-[#8491a4] my-5">
                 <p className="flex items-center">
                   <SingleBedOutlinedIcon />
-                  <span>2</span>
+                  <span>{house && house.amountBedroom}</span>
                 </p>
                 <p className="flex items-center">
                   <BathtubOutlinedIcon />
-                  <span>2</span>
+                  <span>{house && house.amountBathroom}</span>
                 </p>
                 <p className="flex items-center">
                   <SquareFootOutlinedIcon />
-                  <span>150m</span>
+                  <span>{house && house.area}</span>
                 </p>
               </div>
               <div className="flex mt-10">
                 <span className="title-font font-medium text-2xl text-gray-900">
-                  $58.00
+                  {house && house.price} VND
                 </span>
                 <button className="flex ml-auto text-white bg-[#14f1d7] border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
                   Booking

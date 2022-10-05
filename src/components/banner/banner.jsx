@@ -1,9 +1,11 @@
 import React from "react";
+import Header from "../header/header";
 
 const Banner = () => {
   return (
     <>
-      <div className="mt-16">
+      <div>
+        <Header />
         <div className="relative">
           <img
             src="https://firebasestorage.googleapis.com/v0/b/images-c1654.appspot.com/o/files%2Fbig-city.jpg?alt=media&token=8cf6b135-b966-40b8-88bf-083800166eb5"
@@ -85,7 +87,7 @@ const Banner = () => {
             <div className="mx-4">
               <label
                 htmlFor="start_day"
-                className="block mb-2 text-sm font-medium text-black dark:text-gray-300"
+                className="block mb-2 text-sm font-medium text-[#ffffff] dark:text-gray-300"
               >
                 Ngày bắt đầu
               </label>
