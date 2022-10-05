@@ -39,6 +39,7 @@ export function SignInPage() {
       password: Yup.string().required("Không để trống"),
     }),
     onSubmit: (values) => {
+      console.log(values)
       disPatch(loginAction(values));
     },
   });

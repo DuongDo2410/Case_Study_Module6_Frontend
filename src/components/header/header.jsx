@@ -11,10 +11,8 @@ const Header = () => {
   let { user } = useSelector((state) => state.user);
   console.log(user)
   let { status } = useSelector((state) => state.auth);
-  let token = localStorage.getItem("accessToken") ? true : false;
-
+  let token = !!localStorage.getItem("accessToken")
   const handellogout = () => {
-    localStorage.removeItem("accessToken");
     navigate("/login");
   };
   useEffect(() => {
@@ -61,7 +59,7 @@ const Header = () => {
                         alt="11"
                         className="w-8 h-8 rounded-3xl"
                       />
-                      {user && user.username}
+                      {user && user?.username}
                     </button>
 
                   </div>

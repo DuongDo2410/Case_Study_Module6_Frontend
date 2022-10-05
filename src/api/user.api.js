@@ -25,5 +25,10 @@ const userApi = {
     const url = `/auth/login`;
     return axiosConfig.post(url, user);
   },
+  loginGoogle(user) {
+    const url = `/auth/loginGoogle`;
+    return axiosConfig.post(url, user);
+  },
+
 };
 export default userApi;

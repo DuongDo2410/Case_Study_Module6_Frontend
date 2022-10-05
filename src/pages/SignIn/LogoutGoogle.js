@@ -6,6 +6,7 @@ const clientSecret = "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";
 export default function LogoutGoogle(){
     const navigate = useNavigate()
     const handleLogout = (res) => {
+        localStorage.removeItem("currentUser");
         localStorage.removeItem("accessToken");
 
         navigate("/login");
