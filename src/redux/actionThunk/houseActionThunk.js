@@ -22,3 +22,8 @@ export const getOne = createAsyncThunk(
     return data;
   }
 );
+
+export const setStatusHouseAction = createAsyncThunk(
+    "auth/setStatus",
+    async () => {}
+);

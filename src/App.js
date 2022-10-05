@@ -16,6 +16,7 @@ import { ChangePassword } from "./components/changePassword/changePassword";
 import {openNotificationWithIcon, loading} from "./components/Notification/NotificationWithIcon";
 
 function App() {
+  console.log(123)
   let dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllHouse());

@@ -5,8 +5,9 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loginAction,
-  setStatusAction,
+  setStatusAuthAction,
 } from "../../redux/actionThunk/authActionThunk";
+import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
 export function SignInPage() {
   const disPatch = useDispatch();
   const navigate = useNavigate();
@@ -14,9 +15,12 @@ export function SignInPage() {
   let { status } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (status == "fulfilled") {
+    if (status === "fulfilled") {
+      openNotificationWithIcon({type: 'success', message: "Đăng nhập thành công!!!"});
       navigate("/");
-      disPatch(setStatusAction());
+      disPatch(setStatusAuthAction());
+    }else if (status === "rejected") {
+      openNotificationWithIcon({type: 'error', message: "Tài khoản hoặc mật khẩu sai!!!"});
     }
   }, [status]);
 

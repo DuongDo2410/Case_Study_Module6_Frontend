@@ -12,7 +12,7 @@ export const loginAction = createAsyncThunk("auth/login", async (user) => {
   const { data } = await authapi.login(user);
   return data;
 });
-export const setStatusAction = createAsyncThunk(
+export const setStatusAuthAction = createAsyncThunk(
   "auth/setStatus",
   async () => {}
 );

@@ -23,3 +23,8 @@ export const changePasswordAction = createAsyncThunk(
     return data;
   }
 );
+
+export const setStatusUserAction = createAsyncThunk(
+    "auth/setStatus",
+    async () => {}
+);

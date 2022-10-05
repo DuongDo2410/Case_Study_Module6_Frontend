@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import {
   registerAction,
-  setStatusAction,
+  setStatusAuthAction,
 } from "../../redux/actionThunk/authActionThunk";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
@@ -24,7 +24,7 @@ export function RegisterPage () {
     if (status === "fulfilled") {
       openNotificationWithIcon({type: 'success', message: "Thành Công!!!"});
       navigate("/login");
-      disPatch(setStatusAction());
+      disPatch(setStatusAuthAction());
     }else if (status === "rejected") {
       openNotificationWithIcon({type: 'error', message: "Tài Khoản Đã Tồn Tại!!!"});
     }

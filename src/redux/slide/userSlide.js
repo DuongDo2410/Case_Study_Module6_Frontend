@@ -3,6 +3,7 @@ import {
   changePasswordAction,
   getUserById,
   updateUserAction,
+  setStatusUserAction
 } from "../actionThunk/userActionThunk";
 const userSlide = createSlice({
   name: "auth",
@@ -31,6 +32,10 @@ const userSlide = createSlice({
     });
     builder.addCase(changePasswordAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
+    });
+    //setStatus
+    builder.addCase(setStatusUserAction.fulfilled, (state, action) => {
+      state.status = "idle";
     });
   },
 });
