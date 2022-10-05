@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserById } from "../../redux/actionThunk/userActionThunk";
+
+import LogoutGoogle from "../../pages/SignIn/LogoutGoogle";
 const Header = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const disPatch = useDispatch();
   let { user } = useSelector((state) => state.user);
+  console.log(user)
   let { status } = useSelector((state) => state.auth);
   let token = localStorage.getItem("accessToken") ? true : false;
+
   const handellogout = () => {
     localStorage.removeItem("accessToken");
     navigate("/login");
@@ -46,29 +50,30 @@ const Header = () => {
                   <div>
                     <button
                       type="button"
-                      class="inline-flex w-full justify-center items-center rounded-md py-2 text-sm font-medium text-gray-700 shadow-sm "
+                      className="inline-flex w-full justify-center items-center rounded-md py-2 text-sm font-medium text-gray-700 shadow-sm "
                       id="menu-button"
                       aria-expanded="true"
                       aria-haspopup="true"
                       onClick={() => setShow(!show)}
                     >
                       <img
-                        src={user && `${user.avatar}`}
-                        alt=""
+                        src={user && `${user?.avatar}`}
+                        alt="11"
                         className="w-8 h-8 rounded-3xl"
                       />
                       {user && user.username}
                     </button>
+
                   </div>
                   {show && (
                     <div
-                      class="absolute top-16 right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                      className="absolute top-16 right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                       role="menu"
                       aria-orientation="vertical"
                       aria-labelledby="menu-button"
-                      tabindex="-1"
+                      // tabindex="-1"
                     >
-                      <div class="py-1" role="none">
+                      <div className="py-1" role="none">
                         <Link
                           to={user && `/profile/${user._id}`}
                           class="text-gray-700 block px-4 py-2 text-sm"
@@ -78,16 +83,17 @@ const Header = () => {
                         >
                           Account
                         </Link>
-                        <button
-                          type="submit"
-                          class="text-gray-700 block w-full px-4 py-2 text-left text-sm"
-                          role="menuitem"
-                          tabindex="-1"
-                          id="menu-item-3"
-                          onClick={() => handellogout()}
-                        >
-                          Sign out
-                        </button>
+                        <LogoutGoogle/>
+                        {/*<button*/}
+                        {/*  type="submit"*/}
+                        {/*  className="text-gray-700 block w-full px-4 py-2 text-left text-sm"*/}
+                        {/*  role="menuitem"*/}
+                        {/*  // tabindex="-1"*/}
+                        {/*  id="menu-item-3"*/}
+                        {/*  onClick={() => handellogout()}*/}
+                        {/*>*/}
+                        {/*  Sign out*/}
+                        {/*</button>*/}
                       </div>
                     </div>
                   )}

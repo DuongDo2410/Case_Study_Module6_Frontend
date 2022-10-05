@@ -160,7 +160,7 @@ export default function RightContent() {
             label="phoneNumber"
             variant="outlined"
             sx={{ width: "70%" }}
-            name="phoneNumber"
+            name="Phone number"
             type="text"
             onChange={formik.handleChange}
             error={

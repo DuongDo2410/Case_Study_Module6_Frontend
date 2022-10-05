@@ -5,10 +5,10 @@ import {
   updateUserAction,
 } from "../actionThunk/userActionThunk";
 const userSlide = createSlice({
-  name: "auth",
+  name: "user",
   initialState: {
     status: "idle",
-    user: null,
+    user: {}
   },
   reducers: {},
   extraReducers: (builder) => {
