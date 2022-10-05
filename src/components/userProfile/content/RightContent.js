@@ -157,10 +157,10 @@ export default function RightContent() {
         >
           <TextField
             id="outlined-basic"
-            label="phoneNumber"
+            label="Phone number"
             variant="outlined"
             sx={{ width: "70%" }}
-            name="Phone number"
+            name="phoneNumber"
             type="text"
             onChange={formik.handleChange}
             error={
@@ -182,7 +182,7 @@ export default function RightContent() {
         >
           <TextField
             id="outlined-basic"
-            label="address"
+            label="Address"
             variant="outlined"
             sx={{ width: "70%" }}
             name="address"
