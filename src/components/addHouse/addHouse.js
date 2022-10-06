@@ -53,7 +53,7 @@ export default function AddHouse() {
       area: Yup.number()
         .typeError("Chỉ bao gồm các số từ 0-9")
         .required("Không để trống"),
-      address: Yup.string().required("Không để trống"),
+      // address: Yup.string().required("Không để trống"),
     }),
     onSubmit: async (values) => {
       //   console.log(values);

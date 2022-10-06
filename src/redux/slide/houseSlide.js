@@ -6,7 +6,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   createHouse,
-  getAllHouse,
+  getAllHouse, getHistory,
   getOne,
 } from "../actionThunk/houseActionThunk";
 const houseSlide = createSlice({
@@ -15,6 +15,7 @@ const houseSlide = createSlice({
     houses: [],
     status: "idle",
     house: null,
+    history:[]
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -48,6 +49,17 @@ const houseSlide = createSlice({
         state.status = "pending";
       })
       .addCase(getOne.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      .addCase(getHistory.fulfilled, (state, action) => {
+        console.log("slide",action.payload.bookings)
+        state.history = action.payload.bookings;
+        state.status = "fulfilled";
+      })
+      .addCase(getHistory.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(getHistory.rejected, (state, action) => {
         state.status = "rejected";
       });
   },

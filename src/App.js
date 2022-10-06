@@ -13,6 +13,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RightContent from "./components/userProfile/content/RightContent";
 import AddHouse from "./components/addHouse/addHouse";
 import { ChangePassword } from "./components/changePassword/changePassword";
+import HistoryRentHouse from "./components/history/HistoryRentHouse";
+import Notification from "./components/notification/Notification";
+import BookingPending from "./components/bookingPending/BookingPending";
 
 function App() {
   let dispatch = useDispatch();
@@ -34,6 +37,9 @@ function App() {
         <Route path={"/register"} element={<RegisterPage />} />
         <Route path={"/login"} element={<SignInPage />} />
         <Route path={"/detail/:id"} element={<Booking />} />
+        <Route path={"/history"} element={<HistoryRentHouse/>}/>
+        <Route path={"/notification"} element={<Notification/>}/>
+        <Route path={"/bookingPending"} element={<BookingPending/>}/>
       </Routes>
     </BrowserRouter>
   );
