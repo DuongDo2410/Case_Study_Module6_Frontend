@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../../components/footer/footer";
 import Header from "../../components/header/header";
 import SingleBedOutlinedIcon from "@mui/icons-material/SingleBedOutlined";
@@ -8,175 +8,134 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getOne } from "../../redux/actionThunk/houseActionThunk";
-
+import moment from "moment";
+import { bookingAction } from "../../redux/actionThunk/bookingActionThunk";
 const Booking = () => {
   let house = useSelector((state) => state.house.house);
   let dispatch = useDispatch();
   let { id } = useParams();
-  console.log(id);
+  const [startDay, setStartDay] = useState();
+  const [endDay, setEndDay] = useState();
+  const [totalMoney, setTotalMoney] = useState();
+  const [booking, setBooking] = useState({
+    startDay: "",
+    endDay: "",
+    totalMoney: "",
+    idHome: "",
+    idOwner: "",
+  });
   useEffect(() => {
     dispatch(getOne(id));
   }, []);
-  console.log(house);
+  useEffect(() => {
+    if (startDay && endDay) {
+      let mountDay = moment(endDay).diff(moment(startDay), "days");
+      setBooking({
+        ...booking,
+        startDay: startDay,
+        endDay: endDay,
+        totalMoney: mountDay * house.price,
+      });
+    }
+  }, [startDay, endDay]);
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    booking.idOwner = house.idUser;
+    booking.idHome = house._id;
+
+    console.log(booking);
+    dispatch(bookingAction(booking));
+  };
   return (
-    <div>
-      <Header />
-      {/* component */}
-      <section className="text-gray-700 body-font overflow-hidden bg-white">
-        <div className="container px-5 py-24 mx-auto">
-          <div className="lg:w-4/5 mx-auto flex flex-wrap">
-            <img
-              alt="ecommerce"
-              className="lg:w-1/2 w-full h-128 object-cover object-center rounded border border-gray-200"
-              src={house && house?.idImage[0]?.link}
-            />
-            <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                {house && house.name}
-              </h1>
-              <div className="flex mb-4">
-                <span className="flex items-center">
-                  <svg
-                    fill="currentColor"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    className="w-4 h-4 text-[#14f1d7]"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                  <svg
-                    fill="currentColor"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    className="w-4 h-4 text-[#14f1d7]"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                  <svg
-                    fill="currentColor"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    className="w-4 h-4 text-[#14f1d7]"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                  <svg
-                    fill="currentColor"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    className="w-4 h-4 text-[#14f1d7]"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    className="w-4 h-4 text-[#14f1d7]"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                  <span className="text-gray-600 ml-3">4 Reviews</span>
-                </span>
-                <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
-                  <a className="text-gray-500">
-                    <svg
-                      fill="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      className="w-5 h-5"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
-                    </svg>
-                  </a>
-                  <a className="ml-2 text-gray-500">
-                    <svg
-                      fill="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      className="w-5 h-5"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
-                    </svg>
-                  </a>
-                  <a className="ml-2 text-gray-500">
-                    <svg
-                      fill="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      className="w-5 h-5"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" />
-                    </svg>
-                  </a>
-                </span>
-              </div>
-              <p className="text-sm mt-4 text-[#14f1d7]">
-                <LocationOnOutlinedIcon />
-                <span>{house && house.address}</span>
-              </p>
-              <p className="leading-relaxed">{house && house.description}</p>
-              <div className="flex justify-between item-center text-[#8491a4] my-5">
-                <p className="flex items-center">
-                  <SingleBedOutlinedIcon />
-                  <span>{house && house.amountBedroom}</span>
-                </p>
-                <p className="flex items-center">
-                  <BathtubOutlinedIcon />
-                  <span>{house && house.amountBathroom}</span>
-                </p>
-                <p className="flex items-center">
-                  <SquareFootOutlinedIcon />
-                  <span>{house && house.area}</span>
-                </p>
-              </div>
-              <div className="flex mt-10">
-                <span className="title-font font-medium text-2xl text-gray-900">
-                  {house && house.price} VND
-                </span>
-                <button className="flex ml-auto text-white bg-[#14f1d7] border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
-                  Booking
-                </button>
-                <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
-                  <svg
-                    fill="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    className="w-5 h-5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
-                  </svg>
-                </button>
-              </div>
+    <div className="max-w-[1440px] mx-auto bg-white">
+      <div className="container mx-auto min-h-[800px] mb-14">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <h2 className="text-2xl font-semibold">{house && house?.name}</h2>
+            <h3 className="text-lg mb-4">{house && house?.address}</h3>
+          </div>
+          <div className="mb-4 lg:mb-0 flex gap-x-2 text-sm">
+            <div className="bg-green-500 rounded-full text-white px-3 inline-block">
+              {house && house?.typeRoom}
+            </div>
+            <div className="bg-violet-500 rounded-full text-white px-3 inline-block">
+              {/* {property?.country} */}
             </div>
           </div>
+          <div className="text-3xl font-semibold text-violet-600">
+            {house && house?.price}/1 ngày
+          </div>
         </div>
-      </section>
-
-      <Footer />
+        <div className="flex flex-col items-start gap-8 lg:flex-row">
+          <div className="max-w-[768px]">
+            <div className="mb-8">
+              <img src={house && house?.idImage[0]?.link} alt="" />
+            </div>
+            <div className="flex gap-x-6 text-violet-700 mb-6">
+              <div className="flex gap-x-2 items-center">
+                {/* <BiBed className="text-2xl" /> */}
+                <div className="text-lg font-medium">
+                  {house && house?.amountBedroom}
+                </div>
+              </div>
+              <div className="flex gap-x-2 items-center">
+                {/* <BiBath className="text-2xl" /> */}
+                <div className="text-lg font-medium">
+                  {house && house?.amountBathroom}
+                </div>
+              </div>
+              <div className="flex gap-x-2 items-center">
+                {/* <BiArea className="text-2xl" /> */}
+                <div className="text-lg font-medium">{}</div>
+              </div>
+            </div>
+            <p>{house && house?.description}</p>
+          </div>
+          <div className="flex-1 w-full mb-8 bg-white border border-gray-100 rounded-lg px-6 py-8">
+            <form className="flex flex-col gap-y-4" onSubmit={handelSubmit}>
+              <div>
+                <label
+                  htmlFor="first_name"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Ngày bắt đầu
+                </label>
+                <input
+                  type="date"
+                  id="first_name"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  onChange={(e) => setStartDay(e.target.value)}
+                  name="startDay"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="first_name"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Ngày kết thúc
+                </label>
+                <input
+                  type="date"
+                  id="first_name"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  onChange={(e) => setEndDay(e.target.value)}
+                  name="endDay"
+                />
+              </div>
+              <h2>Tổng tiền:{booking.totalMoney}</h2>
+              <div className="flex gap-x-2">
+                <button
+                  type="submit"
+                  className="bg-violet-700 hover:bg-violet-800 text-white rounded p-4 text-sm w-full transition"
+                >
+                  Đặt phòng
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
