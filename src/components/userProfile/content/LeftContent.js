@@ -58,7 +58,8 @@ export default function LeftContent() {
               <ListItemIcon>
                 <LogoutIcon />
               </ListItemIcon>
-              <ListItemText primary="Thoát " />
+              {/*<ListItemText primary="Thoát "/>*/}
+              <Link to ={"/"}>Thoát</Link>
             </ListItemButton>
           </ListItem>
         </List>
