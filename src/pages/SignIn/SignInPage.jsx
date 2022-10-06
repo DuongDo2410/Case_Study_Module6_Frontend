@@ -9,11 +9,10 @@ import {
 } from "../../redux/actionThunk/authActionThunk";
 import { gapi } from 'gapi-script'
 import LoginGoogle from "./GoogleLogin";
+import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
 const clientID = "834466386428-j6ifk7es8vo0k3r86c50ekojr26jd1m1.apps.googleusercontent.com";
 const clientSecret = "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";
 
-
-import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
 export function SignInPage() {
   const disPatch = useDispatch();
   const navigate = useNavigate();
