@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   loginAction,
-  setStatusAction,
-  registerAction,
+  registerAction, setStatusAuthAction,
 } from "../actionThunk/authActionThunk";
+import {loading, openNotificationWithIcon} from "../../components/notification/NotificationWithIcon";
 const authSlide = createSlice({
   name: "auth",
   initialState: {
@@ -18,6 +18,13 @@ const authSlide = createSlice({
     builder.addCase(registerAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
     });
+    builder.addCase(registerAction.rejected, (state, action) => {
+      state.status = "rejected";
+    });
+    //Login
+    builder.addCase(loginAction.rejected, (state, action) => {
+      state.status = "rejected";
+    });
     builder.addCase(loginAction.pending, (state, action) => {
       state.status = "pending";
     });
@@ -25,7 +32,7 @@ const authSlide = createSlice({
       state.status = "fulfilled";
       localStorage.setItem("accessToken", action.payload.token);
     });
-    builder.addCase(setStatusAction.fulfilled, (state, action) => {
+    builder.addCase(setStatusAuthAction.fulfilled, (state, action) => {
       state.status = "idle";
     });
   },

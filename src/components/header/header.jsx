@@ -38,7 +38,7 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <a href="#" className="mx-3 hover:text-[#6a6969]">
+              <a href="/profile/addHouse" className="mx-3 hover:text-[#6a6969]">
                 Đăng tin
               </a>
             </li>

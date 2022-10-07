@@ -7,7 +7,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import BreakfastDiningIcon from '@mui/icons-material/BreakfastDining';import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import BreakfastDiningIcon from '@mui/icons-material/BreakfastDining';
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Avatar } from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
@@ -62,7 +63,7 @@ export default function LeftContent() {
                 <LogoutIcon />
               </ListItemIcon>
               {/*<ListItemText primary="Lịch sử thuê nhà  "/>*/}
-              <Link to ={"/history"}
+              <Link to={"/profile/history"}
                     onClick={handelGetHistory}
               >
                 Lịch sử thuê nhà</Link>

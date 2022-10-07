@@ -31,12 +31,14 @@ export const changePasswordAction = createAsyncThunk(
   }
 );
 export const loginGoogleAction = createAsyncThunk(
-  "user/loginGoogle",
-  async (user) => {
-      console.log("thunk",user)
-    // let token = localStorage.getItem("accessToken");
-    const { data } = await userApi.loginGoogle(user);
-      console.log(data)
-    return data;
-  }
+    "user/loginGoogle",
+    async (user) => {
+        const res = await userApi.loginGoogle(user);
+        return res.data;
+    }
+);
+
+export const setStatusUserAction = createAsyncThunk(
+    "auth/setStatus",
+    async () => {}
 );

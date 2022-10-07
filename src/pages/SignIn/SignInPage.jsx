@@ -5,13 +5,13 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loginAction,
-  setStatusAction,
+  setStatusAuthAction,
 } from "../../redux/actionThunk/authActionThunk";
 import { gapi } from 'gapi-script'
 import LoginGoogle from "./GoogleLogin";
+import {openNotificationWithIcon} from "../../components/notification/NotificationWithIcon";
 const clientID = "834466386428-j6ifk7es8vo0k3r86c50ekojr26jd1m1.apps.googleusercontent.com";
 const clientSecret = "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";
-
 
 export function SignInPage() {
   const disPatch = useDispatch();
@@ -28,6 +28,16 @@ export function SignInPage() {
     gapi.load("client:auth2", start)
   })
 
+  useEffect(() => {
+    if (status === "fulfilled") {
+      // openNotificationWithIcon({type: 'success', message: "Đăng nhập thành công!!!"});
+      navigate("/");
+      disPatch(setStatusAuthAction());
+    }else if (status === "rejected") {
+      openNotificationWithIcon({type: 'error', message: "Tài khoản hoặc mật khẩu sai!!!"});
+    }
+  }, [status]);
+
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -39,14 +49,13 @@ export function SignInPage() {
       password: Yup.string().required("Không để trống"),
     }),
     onSubmit: (values) => {
-      console.log(values)
       disPatch(loginAction(values));
     },
   });
   useEffect(() => {
     if (status == "fulfilled") {
       navigate("/");
-      disPatch(setStatusAction());
+      disPatch(setStatusAuthAction());
     }
   }, [status]);
   //   status == "fulfilled" && navigate("/");

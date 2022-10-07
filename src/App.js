@@ -2,7 +2,7 @@ import "./App.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Home from "./pages/home/home";
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { getAllHouse } from "./redux/actionThunk/houseActionThunk";
 import { useEffect } from "react";
 import UpdateProfile from "./pages/userProfile/UpdateProfile";
@@ -22,6 +22,7 @@ function App() {
   useEffect(() => {
     dispatch(getAllHouse());
   }, []);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -32,12 +33,13 @@ function App() {
             path={"/profile/changePassword"}
             element={<ChangePassword />}
           />
+          <Route path={"/profile/history"} element={<HistoryRentHouse/>}/>
+
         </Route>
         <Route path={"/"} element={<Home />} />
         <Route path={"/register"} element={<RegisterPage />} />
         <Route path={"/login"} element={<SignInPage />} />
         <Route path={"/detail/:id"} element={<Booking />} />
-        <Route path={"/history"} element={<HistoryRentHouse/>}/>
         <Route path={"/notification"} element={<Notification/>}/>
         <Route path={"/bookingPending"} element={<BookingPending/>}/>
       </Routes>

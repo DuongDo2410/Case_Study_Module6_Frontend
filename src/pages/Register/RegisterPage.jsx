@@ -4,13 +4,31 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import {
   registerAction,
-  setStatusAction,
+  setStatusAuthAction,
 } from "../../redux/actionThunk/authActionThunk";
-import { Link, useNavigate } from "react-router-dom";
-export function RegisterPage() {
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
+import {openNotificationWithIcon} from "../../components/notification/NotificationWithIcon";
+
+
+export function RegisterPage () {
+  const handleRegister = (values) => {
+    disPatch(registerAction(values));
+  }
   const disPatch = useDispatch();
   let { status } = useSelector((state) => state.auth);
+  console.log(status);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (status === "fulfilled") {
+      openNotificationWithIcon({type: 'success', message: "Thành Công!!!"});
+      navigate("/login");
+      disPatch(setStatusAuthAction());
+    }else if (status === "rejected") {
+      openNotificationWithIcon({type: 'error', message: "Tài Khoản Đã Tồn Tại!!!"});
+    }
+  }, [status]);
 
   const formik = useFormik({
     initialValues: {
@@ -37,15 +55,10 @@ export function RegisterPage() {
     onSubmit: (values) => {
       values.avatar =
         "https://firebasestorage.googleapis.com/v0/b/shop-11594.appspot.com/o/image%2Favatar.jpg?alt=media&token=0cf016f4-f295-4d46-942f-ae8a8a79c53d";
-      disPatch(registerAction(values));
+      handleRegister(values);
     },
   });
-  useEffect(() => {
-    if (status == "fulfilled") {
-      navigate("/login");
-      disPatch(setStatusAction());
-    }
-  }, [status]);
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <section className="bg-gray-50 dark:bg-gray-900 mt-10">
