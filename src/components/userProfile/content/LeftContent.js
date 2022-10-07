@@ -47,6 +47,15 @@ export default function LeftContent() {
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
+                <FavoriteBorderIcon />
+              </ListItemIcon>
+              {/* <ListItemText primary="Bất động sản yêu thích " /> */}
+              <Link to={"/profile/addHouse"}>Danh sách đặt trước</Link>
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
                 <PermIdentityIcon />
               </ListItemIcon>
               {/* <ListItemText primary="Thông tin cá nhân  " /> */}
@@ -59,7 +68,7 @@ export default function LeftContent() {
                 <LogoutIcon />
               </ListItemIcon>
               {/*<ListItemText primary="Thoát "/>*/}
-              <Link to ={"/"}>Thoát</Link>
+              <Link to={"/"}>Thoát</Link>
             </ListItemButton>
           </ListItem>
         </List>
