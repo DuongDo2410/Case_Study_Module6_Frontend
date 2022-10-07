@@ -9,6 +9,7 @@ import UpdateProfile from "./pages/userProfile/UpdateProfile";
 import Booking from "./pages/booking/booking";
 import { RegisterPage } from "./pages/Register/RegisterPage";
 import { SignInPage } from "./pages/SignIn/SignInPage";
+
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RightContent from "./components/userProfile/content/RightContent";
 import AddHouse from "./components/addHouse/addHouse";
@@ -22,6 +23,7 @@ import Notification from "./components/Notification/Notification";
 import BookingPending from "./components/bookingPending/BookingPending";
 import HomeManagement from "./components/home-management";
 import PendingBooking from "./components/home-management/pending-booking/pending-booking";
+import Content from "./components/search/content";
 
 function App() {
   let dispatch = useDispatch();
@@ -49,6 +51,7 @@ function App() {
           </Route>
         </Route>
         <Route path={"/"} element={<Home />} />
+        <Route path={"/search"} element={<Content />} />
         <Route path={"/register"} element={<RegisterPage />} />
         <Route path={"/login"} element={<SignInPage />} />
         <Route path={"/detail/:id"} element={<Booking />} />

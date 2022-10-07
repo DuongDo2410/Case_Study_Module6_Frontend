@@ -25,3 +25,11 @@ export const getHistory = createAsyncThunk("house/history", async () => {
   console.log(data.bookings);
   return data.bookings;
 });
+
+export const search = createAsyncThunk(
+  "house/search",
+  async (values) => {
+      const {data} = await houseApi.search(values);
+      return data
+  }
+);
