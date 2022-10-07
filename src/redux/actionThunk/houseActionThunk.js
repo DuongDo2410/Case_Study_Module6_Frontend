@@ -31,10 +31,8 @@ export const setStatusHouseAction = createAsyncThunk(
 export const getHistory = createAsyncThunk(
   "house/history",
   async () => {
-      let token = localStorage.getItem("accessToken");
-      const { data } = await houseApi.getHistory(token);
-      localStorage.removeItem("accessToken");
-
-      return data;
+      console.log('vào thunk')
+      const res = await houseApi.getHistory();
+      return res.data.bookings;
   }
 );

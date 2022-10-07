@@ -22,6 +22,7 @@ const userSlide = createSlice({
       state.status = "fulfilled";
       state.user = action.payload;
     });
+    //update User
     builder.addCase(updateUserAction.pending, (state, action) => {
       state.status = "pending";
     });
@@ -29,20 +30,22 @@ const userSlide = createSlice({
       state.status = "fulfilled";
       state.user = action.payload;
     });
+    //change Password
     builder.addCase(changePasswordAction.pending, (state, action) => {
       state.status = "pending";
     });
     builder.addCase(changePasswordAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
     });
+    //login Google
     builder.addCase(loginGoogleAction.pending, (state, action) => {
       state.status = "pending";
     });
     builder.addCase(loginGoogleAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
-      state.user = action.payload;
-      console.log(action.payload)
-      localStorage.setItem('currentUser',JSON.stringify(action.payload))
+      state.user = action.payload.user;
+      localStorage.setItem('accessToken', action.payload.token);
+      localStorage.setItem('currentUser', JSON.stringify(action.payload.user));
     });
     builder.addCase(loginGoogleAction.rejected, (state, action) => {
       state.status = "rejected";

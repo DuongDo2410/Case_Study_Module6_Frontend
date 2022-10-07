@@ -1,4 +1,4 @@
-import React from "react";
+import {memo} from "react";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 import SingleBedOutlinedIcon from "@mui/icons-material/SingleBedOutlined";
@@ -79,4 +79,4 @@ const House = (props) => {
   );
 };
 
-export default House;
+export default memo(House);

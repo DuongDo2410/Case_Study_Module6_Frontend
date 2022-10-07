@@ -62,7 +62,7 @@ export default function LeftContent() {
                 <LogoutIcon />
               </ListItemIcon>
               {/*<ListItemText primary="Lịch sử thuê nhà  "/>*/}
-              <Link to ={"/history"}
+              <Link to={"/profile/history"}
                     onClick={handelGetHistory}
               >
                 Lịch sử thuê nhà</Link>

@@ -13,13 +13,9 @@ const houseApi = {
     const url = `/homes`;
     return axiosConfig.post(url, house);
   },
-  getHistory(token) {
-    const url = `booking/history-renter`;
-    return axiosConfig.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  getHistory() {
+    const url = `/booking/historyRenter`;
+    return axiosConfig.get(url)
   },
 };
 export default houseApi;
