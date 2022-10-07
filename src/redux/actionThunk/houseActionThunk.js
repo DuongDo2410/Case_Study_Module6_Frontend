@@ -22,3 +22,17 @@ export const getOne = createAsyncThunk(
     return data;
   }
 );
+
+export const setStatusHouseAction = createAsyncThunk(
+    "auth/setStatus",
+    async () => {}
+);
+
+export const getHistory = createAsyncThunk(
+  "house/history",
+  async () => {
+      console.log('vào thunk')
+      const res = await houseApi.getHistory();
+      return res.data.bookings;
+  }
+);
