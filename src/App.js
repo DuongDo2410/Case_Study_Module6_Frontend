@@ -14,8 +14,12 @@ import RightContent from "./components/userProfile/content/RightContent";
 import AddHouse from "./components/addHouse/addHouse";
 import { ChangePassword } from "./components/changePassword/changePassword";
 import {openNotificationWithIcon, loading} from "./components/Notification/NotificationWithIcon";
+import HistoryRentHouse from "./components/history/HistoryRentHouse";
+import Notification from "./components/notification/Notification";
+import BookingPending from "./components/bookingPending/BookingPending";
 
 function App() {
+  console.log(123)
   let dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllHouse());
@@ -36,6 +40,9 @@ function App() {
         <Route path={"/register"} element={<RegisterPage />} />
         <Route path={"/login"} element={<SignInPage />} />
         <Route path={"/detail/:id"} element={<Booking />} />
+        <Route path={"/history"} element={<HistoryRentHouse/>}/>
+        <Route path={"/notification"} element={<Notification/>}/>
+        <Route path={"/bookingPending"} element={<BookingPending/>}/>
       </Routes>
     </BrowserRouter>
   );

@@ -14,6 +14,7 @@ import "swiper/css/scrollbar";
 
 const Home = () => {
   let houses = useSelector((state) => state.house.houses);
+    console.log(houses)
   return (
     <>
       <Header />

@@ -22,3 +22,19 @@ export const getOne = createAsyncThunk(
     return data;
   }
 );
+
+export const setStatusHouseAction = createAsyncThunk(
+    "auth/setStatus",
+    async () => {}
+);
+
+export const getHistory = createAsyncThunk(
+  "house/history",
+  async () => {
+      let token = localStorage.getItem("accessToken");
+      const { data } = await houseApi.getHistory(token);
+      localStorage.removeItem("accessToken");
+
+      return data;
+  }
+);

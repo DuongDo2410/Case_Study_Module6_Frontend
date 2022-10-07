@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 export const openNotificationWithIcon = (props) => {
     notification[props.type]({
         message: props.message,
-        duration: 3
+        duration: 2
     });
 };
 
