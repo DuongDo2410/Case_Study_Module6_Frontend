@@ -4,12 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { getUserById } from "../../redux/actionThunk/userActionThunk";
 
 import LogoutGoogle from "../../pages/SignIn/LogoutGoogle";
+import {getHistory} from "../../redux/actionThunk/houseActionThunk";
 const Header = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const disPatch = useDispatch();
   let { user } = useSelector((state) => state.user);
-  console.log(user)
   let { status } = useSelector((state) => state.auth);
   let token = !!localStorage.getItem("accessToken")
   const handellogout = () => {
@@ -38,7 +38,7 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <a href="#" className="mx-3 hover:text-[#6a6969]">
+              <a href="/profile/addHouse" className="mx-3 hover:text-[#6a6969]">
                 Đăng tin
               </a>
             </li>
@@ -56,7 +56,7 @@ const Header = () => {
                     >
                       <img
                         src={user && `${user?.avatar}`}
-                        alt="11"
+                        alt=""
                         className="w-8 h-8 rounded-3xl"
                       />
                       {user && user?.username}
@@ -82,6 +82,18 @@ const Header = () => {
                           Account
                         </Link>
                         <LogoutGoogle/>
+
+                        <Link
+                            to={"/notification"}
+                            class="text-gray-700 block px-4 py-2 text-sm"
+                            role="menuitem"
+                            tabindex="-1"
+                            id="menu-item-0"
+                        >
+                          Notification
+                        </Link>
+
+
                         {/*<button*/}
                         {/*  type="submit"*/}
                         {/*  className="text-gray-700 block w-full px-4 py-2 text-left text-sm"*/}

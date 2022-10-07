@@ -9,5 +9,25 @@ const bookingApi = {
       },
     });
   },
+  bookingPending(token) {
+    const url = `/booking/booking-pending`;
+    return axiosConfig.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  bookingAccept(idHome, idBooking, token) {
+    const url = `/booking/accept/${idBooking}`;
+    return axiosConfig.post(
+      url,
+      { idHome: idHome },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  },
 };
 export default bookingApi;
