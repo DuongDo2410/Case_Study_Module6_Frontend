@@ -7,7 +7,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   createHouse,
   getAllHouse, getHistory,
-  getOne,
+  getOne, search,
   setStatusHouseAction
 } from "../actionThunk/houseActionThunk";
 const houseSlide = createSlice({
@@ -16,7 +16,8 @@ const houseSlide = createSlice({
     houses: [],
     status: "idle",
     house: null,
-    history:[]
+    history:[],
+    houseSearch:[],
   },
   reducers: {},
     extraReducers: (builder) => {
@@ -61,6 +62,17 @@ const houseSlide = createSlice({
                 state.status = "pending";
             })
             .addCase(getOne.rejected, (state, action) => {
+                state.status = "rejected";
+            })
+            //search
+            .addCase(search.fulfilled, (state, action) => {
+                state.houseSearch = action.payload
+                state.status = "fulfilled";
+            })
+            .addCase(search.pending, (state, action) => {
+                state.status = "pending";
+            })
+            .addCase(search.rejected, (state, action) => {
                 state.status = "rejected";
             })
             //setStatus

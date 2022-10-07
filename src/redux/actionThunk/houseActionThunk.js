@@ -36,3 +36,11 @@ export const getHistory = createAsyncThunk(
       return res.data.bookings;
   }
 );
+
+export const search = createAsyncThunk(
+  "house/search",
+  async (values) => {
+      const {data} = await houseApi.search(values);
+      return data
+  }
+);
