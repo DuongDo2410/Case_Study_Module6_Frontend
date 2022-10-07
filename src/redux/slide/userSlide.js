@@ -6,12 +6,12 @@ import {
   updateUserAction,
   setStatusUserAction
 } from "../actionThunk/userActionThunk";
-import {setLocale} from "yup";
+import { setLocale } from "yup";
 const userSlide = createSlice({
   name: "user",
   initialState: {
     status: "idle",
-    user: JSON.parse(localStorage.getItem('currentUser')) || {}
+    user: JSON.parse(localStorage.getItem("currentUser")) || {},
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -29,6 +29,9 @@ const userSlide = createSlice({
     builder.addCase(updateUserAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
       state.user = action.payload;
+      console.log("logggg", action.payload);
+      localStorage.removeItem("currentUser");
+      localStorage.setItem("currentUser", JSON.stringify(action.payload));
     });
     //change Password
     builder.addCase(changePasswordAction.pending, (state, action) => {
