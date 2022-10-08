@@ -7,9 +7,12 @@ import * as Yup from "yup";
 import { storage } from "../../firebase";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { useDispatch, useSelector } from "react-redux";
-import {createHouse, setStatusHouseAction} from "../../redux/actionThunk/houseActionThunk";
-import {openNotificationWithIcon} from "../notification/NotificationWithIcon";
-import {useNavigate} from "react-router";
+import {
+  createHouse,
+  setStatusHouseAction,
+} from "../../redux/actionThunk/houseActionThunk";
+import { openNotificationWithIcon } from "../notification/NotificationWithIcon";
+import { useNavigate } from "react-router";
 
 export default function AddHouse() {
   const navigate = useNavigate();
@@ -17,15 +20,15 @@ export default function AddHouse() {
   let { user } = useSelector((state) => state.user);
   let { status } = useSelector((state) => state.house);
   const [image, setImage] = useState();
-    useEffect(() => {
-        if (status === "fulfilled") {
-          openNotificationWithIcon({type: 'success', message: "Thành Công!!!"});
-          disPatch(setStatusHouseAction());
-          navigate('/profile/addHouse')
-        }else if (status === "rejected") {
-          openNotificationWithIcon({type: 'error', message: "Thất Bại!!!"});
-        }
-      }, [status]);
+  useEffect(() => {
+    if (status === "fulfilled") {
+      // openNotificationWithIcon({ type: "success", message: "Thành Công!!!" });
+      disPatch(setStatusHouseAction());
+      // navigate("/profile/house/list");
+    } else if (status === "rejected") {
+      openNotificationWithIcon({ type: "error", message: "Thất Bại!!!" });
+    }
+  }, [status]);
 
   const handlePreviewAvatar = (e) => {
     const file = e.target.files[0];

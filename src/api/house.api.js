@@ -14,8 +14,12 @@ const houseApi = {
     return axiosConfig.post(url, house);
   },
   getHistory() {
-    const url = `/booking/historyRenter`;
-    return axiosConfig.get(url)
+    const url = `/booking/history-renter`;
+    return axiosConfig.get(url);
+  },
+  search(values) {
+    const url = `/homes/find`;
+    return axiosConfig.post(url, values)
   },
 };
 export default houseApi;
