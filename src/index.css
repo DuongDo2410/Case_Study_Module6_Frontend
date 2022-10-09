@@ -25,30 +25,22 @@ code {
     monospace;
 }
 
-/*@layer base1 {*/
-/*    body {*/
-/*        @apply font-[Poppins]*/
-/*    }*/
 
-/*    li {*/
-/*        @apply p-4*/
-/*    }*/
 
-/*    h1 {*/
-/*        @apply text-3xl md:text-4xl font-bold*/
-/*    }*/
 
-/*    h2 {*/
-/*        @apply text-3xl font-bold*/
-/*    }*/
+    .dropdown {
+        @apply w-full lg:max-w-[296px] cursor-pointer;
+    }
+    .dropdown-btn {
+        @apply flex h-[64px] items-center px-[18px] border rounded-lg;
+    }
+    .dropdown-icon-primary {
+        @apply text-2xl mr-[18px] text-violet-700;
+    }
+    .dropdown-icon-secondary {
+        @apply text-2xl text-violet-700 ml-auto;
+    }
+    .dropdown-menu {
+        @apply px-6 py-8 text-[15px] space-y-6 shadow-md bg-white absolute w-full z-10 list-none rounded-b-lg;
+    }
 
-/*    h3 {*/
-/*        @apply text-xl font-bold*/
-/*    }*/
-/*    button {*/
-/*        @apply p-3 border bg-gradient-to-r from-[var(--primary-dark)] to-[var(--primary-light)] text-white rounded-md*/
-/*    }*/
-/*    .icon {*/
-/*        @apply text-2xl cursor-pointer*/
-/*    }*/
-/*}*/

@@ -7,10 +7,10 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import UpdateProfile from "./pages/userProfile/UpdateProfile";
+import UpdateProfile from "./Pages/userProfile/UpdateProfile";
 import Banner from "./components/banner/banner";
 import router from "./router";
-import Booking from "./pages/booking/booking";
+import Booking from "./Pages/booking/booking";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
