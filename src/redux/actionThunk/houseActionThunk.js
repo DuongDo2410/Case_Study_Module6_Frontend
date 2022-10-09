@@ -14,15 +14,18 @@ export const getOne = createAsyncThunk("house/create", async (id) => {
   return data;
 });
 
+export const ratingHouse = createAsyncThunk("house/rating", async ({id, rating}) => {
+  await houseApi.ratingHouse({id, rating});
+  return rating;
+});
+
 export const setStatusHouseAction = createAsyncThunk(
   "auth/setStatus",
   async () => {}
 );
 
 export const getHistory = createAsyncThunk("house/history", async () => {
-  console.log("vào thunk");
   const { data } = await houseApi.getHistory();
-  console.log(data.bookings);
   return data.bookings;
 });
 

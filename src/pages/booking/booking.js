@@ -10,6 +10,7 @@ import { useParams } from "react-router";
 import { getOne } from "../../redux/actionThunk/houseActionThunk";
 import moment from "moment";
 import { bookingAction } from "../../redux/actionThunk/bookingActionThunk";
+import Rate from "../../components/house/rate/Rate.js";
 const Booking = () => {
   let house = useSelector((state) => state.house.house);
   let dispatch = useDispatch();
@@ -64,7 +65,8 @@ const Booking = () => {
                 {/*  /!* {property?.country} *!/*/}
                 {/*</div>*/}
               </div>
-              <div className="text-3xl font-semibold text-violet-600">
+
+              <div className="text-3xl font-semibold text-violet-600 flex">
                 {house && house?.price}/1 ngày
               </div>
             </div>
@@ -72,6 +74,9 @@ const Booking = () => {
               <div className="max-w-[768px]">
                 <div className="mb-8">
                   <img src={house && house?.idImage[0]?.link} alt="" />
+                </div>
+                <div>
+                  <Rate rating={house?.rating}/>
                 </div>
                 <div className="flex gap-x-6 text-violet-700 mb-6">
                   <div className="flex gap-x-2 items-center">
@@ -85,6 +90,10 @@ const Booking = () => {
                     <div className="text-lg font-medium">
                       Phòng Tắm: {house && house?.amountBathroom}
                     </div>
+                  </div>
+                  <div className="flex gap-x-2 items-center">
+                    {/* <BiBath className="text-2xl" /> */}
+
                   </div>
                   <div className="flex gap-x-2 items-center">
                     {/* <BiArea className="text-2xl" /> */}
@@ -135,6 +144,7 @@ const Booking = () => {
                     </button>
                   </div>
                 </form>
+
               </div>
             </div>
           </div>

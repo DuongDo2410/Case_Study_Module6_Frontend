@@ -21,5 +21,9 @@ const houseApi = {
     const url = `/homes/find`;
     return axiosConfig.post(url, values)
   },
+  ratingHouse({id,rating}) {
+    const url = `/homes/rating/${id}`;
+    return axiosConfig.post(url, {rating})
+  },
 };
 export default houseApi;

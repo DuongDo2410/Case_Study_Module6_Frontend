@@ -8,7 +8,8 @@ import {
   createHouse,
   getAllHouse, getHistory,
   getOne, search,
-  setStatusHouseAction
+  setStatusHouseAction,
+    ratingHouse
 } from "../actionThunk/houseActionThunk";
 const houseSlide = createSlice({
   name: "house",
@@ -46,6 +47,9 @@ const houseSlide = createSlice({
             .addCase(getHistory.fulfilled, (state, action) => {
                 state.history = action.payload;
                 state.status = "fulfilled";
+            })
+             .addCase(ratingHouse.fulfilled, (state, action) => {
+                state.house.rating = action.payload
             })
             .addCase(getHistory.pending, (state, action) => {
                 state.status = "pending";
