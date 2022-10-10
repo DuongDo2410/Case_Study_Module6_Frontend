@@ -17,6 +17,14 @@ const bookingApi = {
       },
     });
   },
+  bookingActionOwner(token) {
+    const url = `/booking/booking-accept`;
+    return axiosConfig.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
   bookingAccept(idHome, idBooking, token) {
     const url = `/booking/accept/${idBooking}`;
     return axiosConfig.post(
