@@ -25,5 +25,9 @@ const houseApi = {
     const url = `/homes/rating/${id}`;
     return axiosConfig.post(url, {rating})
   },
+  updateComment({id,comment}) {
+    const url = `/homes/comments/${id}`;
+    return axiosConfig.post(url, {comment})
+  },
 };
 export default houseApi;

@@ -11,6 +11,7 @@ import { getOne } from "../../redux/actionThunk/houseActionThunk";
 import moment from "moment";
 import { bookingAction } from "../../redux/actionThunk/bookingActionThunk";
 import Rate from "../../components/house/rate/Rate.js";
+import Comments from "../../components/house/comment/Comment";
 const Booking = () => {
   let house = useSelector((state) => state.house.house);
   let dispatch = useDispatch();
@@ -43,8 +44,6 @@ const Booking = () => {
     e.preventDefault();
     booking.idOwner = house.idUser;
     booking.idHome = house._id;
-
-    console.log(booking);
     dispatch(bookingAction(booking));
   };
   return (
@@ -101,7 +100,13 @@ const Booking = () => {
                   </div>
                 </div>
                 <p>{house && house?.description}</p>
+                <div className="max-w-full">
+                  <Comments house={house}/>
+                </div>
+
+
               </div>
+
               <div className="flex-1 w-full mb-8 bg-white border border-gray-100 rounded-lg px-6 py-8">
                 <form className="flex flex-col gap-y-4" onSubmit={handelSubmit}>
                   <div>

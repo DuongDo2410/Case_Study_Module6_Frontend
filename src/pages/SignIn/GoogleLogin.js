@@ -12,6 +12,7 @@ export default function LoginGoogle(){
         localStorage.setItem("accessToken", res.accessToken);
         // console.log(res.profileObj)
         // console.log(req.body)
+
         dispatch(loginGoogleAction(res.profileObj))
         navigate("/");
     }

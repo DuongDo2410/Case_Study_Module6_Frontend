@@ -19,6 +19,16 @@ export const ratingHouse = createAsyncThunk("house/rating", async ({id, rating})
   return rating;
 });
 
+
+export const updateComment  = createAsyncThunk(
+    'house/comments',
+    async ({id, comment}) => {
+      const {data} = await houseApi.updateComment({id: id, comment: comment});
+        console.log(data)
+      return data;
+    }
+)
+
 export const setStatusHouseAction = createAsyncThunk(
   "auth/setStatus",
   async () => {}

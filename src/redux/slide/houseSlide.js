@@ -5,18 +5,18 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  createHouse,
-  getAllHouse, getHistory,
-  getOne, search,
-  setStatusHouseAction,
-    ratingHouse
+    createHouse,
+    getAllHouse, getHistory,
+    getOne, search,
+    setStatusHouseAction,
+    ratingHouse, updateComment
 } from "../actionThunk/houseActionThunk";
 const houseSlide = createSlice({
   name: "house",
   initialState: {
     houses: [],
     status: "idle",
-    house: null,
+    house: {} | null,
     history:[],
     houseSearch:[],
   },
@@ -48,9 +48,7 @@ const houseSlide = createSlice({
                 state.history = action.payload;
                 state.status = "fulfilled";
             })
-             .addCase(ratingHouse.fulfilled, (state, action) => {
-                state.house.rating = action.payload
-            })
+
             .addCase(getHistory.pending, (state, action) => {
                 state.status = "pending";
             })
@@ -82,6 +80,12 @@ const houseSlide = createSlice({
             //setStatus
             .addCase(setStatusHouseAction.fulfilled, (state, action) => {
                 state.status = "idle";
+            })
+            .addCase(ratingHouse.fulfilled, (state, action) => {
+                state.house.rating = action.payload
+            })
+            .addCase(updateComment.fulfilled, (state, action) => {
+                state.house = action.payload;
             })
     },
 });
