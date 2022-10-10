@@ -6,7 +6,7 @@ import {search} from "../../redux/actionThunk/houseActionThunk";
 import {useNavigate} from "react-router-dom";
 
 const Banner = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   return (
@@ -22,12 +22,13 @@ const Banner = () => {
               endDay: ''
             }}
             onSubmit={(values) => {
+                console.log("aaaaaaaaaaaaaaaaaaa", values);
               dispatch(search(values));
               navigate('/search')
             }}
         >
           {props => (
-              <Form onSubmit={props.handleSubmit}>
+              <Form >
                 <div>
                   <Header />
                   <div className="relative">
@@ -50,6 +51,7 @@ const Banner = () => {
 
                       <button
                           type="submit"
+                          onSubmit={props.handleSubmit}
                           className="absolute top-0 right-5 p-2.5 py-3 text-sm font-medium bg-[#14f1d7] hover:bg-green-800 rounded-r-lg focus:outline-none"
                       >
                         <svg
