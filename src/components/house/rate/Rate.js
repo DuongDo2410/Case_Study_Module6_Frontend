@@ -7,12 +7,14 @@ import {ratingHouse} from "../../../redux/actionThunk/houseActionThunk";
 import {useParams} from "react-router";
 
 
+
 export default function Rate({rating}) {
     const dispatch = useDispatch();
     const {id} = useParams();
     const handleRating = (e) => {
         dispatch(ratingHouse({id: id, rating: e.target.value}))
     }
+
 
     return (
         <Box
