@@ -4,14 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { getUserById } from "../../redux/actionThunk/userActionThunk";
 
 import LogoutGoogle from "../../pages/SignIn/LogoutGoogle";
-import {getHistory} from "../../redux/actionThunk/houseActionThunk";
+import { getHistory } from "../../redux/actionThunk/houseActionThunk";
 const Header = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const disPatch = useDispatch();
   let { user } = useSelector((state) => state.user);
   let { status } = useSelector((state) => state.auth);
-  let token = !!localStorage.getItem("accessToken")
+  let token = !!localStorage.getItem("accessToken");
   const handellogout = () => {
     navigate("/login");
   };
@@ -61,7 +61,6 @@ const Header = () => {
                       />
                       {user && user?.username}
                     </button>
-
                   </div>
                   {show && (
                     <div
@@ -81,18 +80,17 @@ const Header = () => {
                         >
                           Account
                         </Link>
-                        <LogoutGoogle/>
+                        <LogoutGoogle />
 
                         <Link
-                            to={"/notification"}
-                            class="text-gray-700 block px-4 py-2 text-sm"
-                            role="menuitem"
-                            tabindex="-1"
-                            id="menu-item-0"
+                          to={"/notification"}
+                          class="text-gray-700 block px-4 py-2 text-sm"
+                          role="menuitem"
+                          tabindex="-1"
+                          id="menu-item-0"
                         >
                           Notification
                         </Link>
-
 
                         {/*<button*/}
                         {/*  type="submit"*/}
