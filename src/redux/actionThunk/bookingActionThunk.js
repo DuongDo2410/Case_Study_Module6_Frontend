@@ -22,7 +22,26 @@ export const bookingAcceptAction = createAsyncThunk(
   async (payload) => {
     let token = localStorage.getItem("accessToken");
     console.log("thunk", payload);
-    await bookingApi.bookingAccept(payload.idHome, payload.idBooking, token);
-    return payload.idBooking;
+    let { data } = await bookingApi.bookingAccept(
+      payload.idHome,
+      payload.idBooking,
+      token
+    );
+    // let payloadd = {
+    //     idBooking:payload.idBooking,
+    //     booking:data.booking
+    // }
+    return {
+      idBooking: payload.idBooking,
+      booking: data.booking,
+    };
+  }
+);
+export const bookingAcceptOwnerAction = createAsyncThunk(
+  "booking/acceptOwner",
+  async (payload) => {
+    let token = localStorage.getItem("accessToken");
+    const { data } = await bookingApi.bookingActionOwner(token);
+    return data;
   }
 );

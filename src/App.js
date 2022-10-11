@@ -24,6 +24,8 @@ import BookingPending from "./components/bookingPending/BookingPending";
 import HomeManagement from "./components/home-management";
 import PendingBooking from "./components/home-management/pending-booking/pending-booking";
 import Content from "./components/search/content";
+import BookingAcceptOwner from "./components/home-management/accept-booking/accept-booking";
+import Dasboard from "./pages/admin/dasboard";
 
 function App() {
   let dispatch = useDispatch();
@@ -48,6 +50,10 @@ function App() {
               path={"/profile/house/list/pending"}
               element={<PendingBooking />}
             />
+            <Route
+              path={"/profile/house/list/accept"}
+              element={<BookingAcceptOwner />}
+            />
           </Route>
         </Route>
         <Route path={"/"} element={<Home />} />
@@ -57,6 +63,7 @@ function App() {
         <Route path={"/detail/:id"} element={<Booking />} />
         <Route path={"/notification"} element={<Notification />} />
         <Route path={"/bookingPending"} element={<BookingPending />} />
+        <Route path={"/admin"} element={<Dasboard />} />
       </Routes>
     </BrowserRouter>
   );
