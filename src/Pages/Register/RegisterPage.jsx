@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
+import IMAGE from './bg-register.jpg';
 import {
   registerAction,
   setStatusAction,
@@ -44,18 +45,18 @@ export function RegisterPage() {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <section className="bg-gray-50 dark:bg-gray-900 mt-14">
-        {/*<div>*/}
-        {/*<img src={IMAGE}/>*/}
-        {/*</div>*/}
-        <div className=" flex justify-center px-6 py-8 mx-auto lg:py-0">
+      <section className="bg-gray-50 dark:bg-gray-900">
+        <div className=" flex justify-center py-8 mx-auto lg:py-0">
           <a
             href="#"
             className="flex items-center mb-6 text-2xl font-semibold text-gray-900 white:text-white"
           ></a>
-          <div className=" regal-write w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-white dark:border-gray-700">
+        {/*<div>*/}
+        {/*<img src={IMAGE}/>*/}
+        {/*</div>*/}
+          <div style={{margin: "60px"}} className=" regal-write w-full absolute bg-white rounded-lg shadow  dark:border md:mt-0 sm:max-w-md xl:p-0 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black">
+              <h1 style={{textAlign: "center"}} className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black">
                 Đăng ký
               </h1>
               <div>

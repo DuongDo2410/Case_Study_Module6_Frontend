@@ -24,8 +24,8 @@ function App() {
             <BrowserRouter>
               <Routes>
                   <Route path={'/'}  element={<Home/>} />
-                  <Route path={'/Register'}  element={<RegisterPage/>} />
-                  <Route path={'/SignInPage'}  element={<SignInPage/>} />
+                  <Route path={'/register'}  element={<RegisterPage/>} />
+                  <Route path={'/login'}  element={<SignInPage/>} />
               </Routes>
             </BrowserRouter>
       </HouseContextProvider>
