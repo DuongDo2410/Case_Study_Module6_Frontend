@@ -35,13 +35,13 @@ const Comment = ({house}) => {
               <input type="text"
                      value={comment}
                      placeholder={"Write comment ...."}
-                     className="ml-4 w-3/5 border rounded-3xl pl-8"
+                     className="ml-4 w-3/5 border rounded-3xl pl-8 focus:outline-0 "
                      onChange={e => setComment(e.target.value)}/>
             </form>
 
 
             {house?.comment?.map((comment, index) =>(
-                    <div style={{display: "flex", flexDirection: "row", marginTop: "5px"}} key={index} >
+                    <div style={{display: "flex", flexDirection: "row", marginTop: "50px"}} key={index} >
                       <div>
                         <img
                             src={user && user.avatar}

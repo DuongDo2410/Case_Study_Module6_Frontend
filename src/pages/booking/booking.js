@@ -11,7 +11,6 @@ import { getOne } from "../../redux/actionThunk/houseActionThunk";
 import moment from "moment";
 import { bookingAction } from "../../redux/actionThunk/bookingActionThunk";
 import Rate from "../../components/house/rate/Rate.js";
-import Comments from "../../components/house/comment/Comment";
 import Comment from "../../components/comment/comemnt";
 
 const Booking = () => {
@@ -65,7 +64,7 @@ const Booking = () => {
                 {house && house?.address}
               </h3>
             </div>
-            <div className="text-3xl font-semibold text-violet-600">******</div>
+            <div className="text-3xl font-semibold text-violet-600"></div>
           </div>
           <div className="flex flex-col items-start gap-8 lg:flex-row">
             <div className="max-w-[768px]">
