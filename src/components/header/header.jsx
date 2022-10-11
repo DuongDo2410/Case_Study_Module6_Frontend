@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getUserById } from "../../redux/actionThunk/userActionThunk";
+import {getUserById, setStatusUserAction} from "../../redux/actionThunk/userActionThunk";
 
 import LogoutGoogle from "../../pages/SignIn/LogoutGoogle";
 import {getHistory} from "../../redux/actionThunk/houseActionThunk";
 const Header = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
-  const disPatch = useDispatch();
   let { user } = useSelector((state) => state.user);
-  let { status } = useSelector((state) => state.auth);
   let token = !!localStorage.getItem("accessToken")
   const handellogout = () => {
     navigate("/login");
   };
-  useEffect(() => {
-    disPatch(getUserById());
-  }, []);
   return (
     <div className="  font-bold text-[#7f7f7f] fixed top-0 left-0 right-0 z-50 bg-white shadow-md shadow-slate-400">
       <div className="container mx-auto flex justify-between items-center">
@@ -59,7 +54,7 @@ const Header = () => {
                         alt=""
                         className="w-8 h-8 rounded-3xl"
                       />
-                      {user && user?.username}
+                      {user && user?.fullName}
                     </button>
 
                   </div>
@@ -73,7 +68,7 @@ const Header = () => {
                     >
                       <div className="py-1" role="none">
                         <Link
-                          to={user && `/profile/${user._id}`}
+                          to={user && `/profile/${user.fullName}`}
                           class="text-gray-700 block px-4 py-2 text-sm"
                           role="menuitem"
                           tabindex="-1"

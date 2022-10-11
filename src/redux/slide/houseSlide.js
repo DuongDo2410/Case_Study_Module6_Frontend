@@ -5,11 +5,12 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  createHouse,
   getAllHouse, getHistory,
-  getOne, search,
-  setStatusHouseAction
+  getOne, search, createHouse
 } from "../actionThunk/houseActionThunk";
+import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
+
+
 const houseSlide = createSlice({
   name: "house",
   initialState: {
@@ -19,7 +20,14 @@ const houseSlide = createSlice({
     history:[],
     houseSearch:[],
   },
-  reducers: {},
+    reducers: {
+        setStatusUserActionPending(state) {
+            state.status = "pending"
+        },
+        setStatusUserActionIdle(state) {
+            state.status = "idle"
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getAllHouse.pending, (state, action) => {
@@ -32,16 +40,17 @@ const houseSlide = createSlice({
                 state.houses = action.payload;
                 state.status = "fulfilled";
             })
-            //   .addCase(createHouse.pending, (state, action) => {
-            //     state.status = "pending";
-            //   })
-            //   .addCase(createHouse.rejected, (state, action) => {
-            //     state.status = "rejected";
-            //   })
-            //   .addCase(createHouse.fulfilled, (state, action) => {
-            //     state.houses = action.payload;
-            //     state.status = "fulfilled";
-            //   })
+            //get One
+            .addCase(createHouse.fulfilled, (state, action) => {
+                state.house = action.payload.checkHome;
+                state.status = "fulfilled";
+            })
+            .addCase(createHouse.pending, (state, action) => {
+                state.status = "pending";
+            })
+            .addCase(createHouse.rejected, (state, action) => {
+                state.status = "rejected";
+            })
             //get History
             .addCase(getHistory.fulfilled, (state, action) => {
                 state.history = action.payload;
@@ -53,21 +62,11 @@ const houseSlide = createSlice({
             .addCase(getHistory.rejected, (state, action) => {
                 state.status = "rejected";
             })
-            //get One
-            .addCase(getOne.fulfilled, (state, action) => {
-                state.house = action.payload.checkHome;
-                state.status = "fulfilled";
-            })
-            .addCase(getOne.pending, (state, action) => {
-                state.status = "pending";
-            })
-            .addCase(getOne.rejected, (state, action) => {
-                state.status = "rejected";
-            })
             //search
             .addCase(search.fulfilled, (state, action) => {
                 state.houseSearch = action.payload
                 state.status = "fulfilled";
+                openNotificationWithIcon({type: "success", message: "Thành Công!"})
             })
             .addCase(search.pending, (state, action) => {
                 state.status = "pending";
@@ -75,10 +74,19 @@ const houseSlide = createSlice({
             .addCase(search.rejected, (state, action) => {
                 state.status = "rejected";
             })
-            //setStatus
-            .addCase(setStatusHouseAction.fulfilled, (state, action) => {
-                state.status = "idle";
+            // addHouse
+            .addCase(getOne.fulfilled, (state, action) => {
+                state.status = "fulfilled";
+                openNotificationWithIcon({type: "success", message: "Thành Công!"})
+            })
+            .addCase(getOne.pending, (state, action) => {
+                state.status = "pending";
+            })
+            .addCase(getOne.rejected, (state, action) => {
+                state.status = "rejected";
             })
     },
 });
+export const {setStatusUserActionPending, setStatusUserActionIdle} = houseSlide.actions
+
 export default houseSlide;

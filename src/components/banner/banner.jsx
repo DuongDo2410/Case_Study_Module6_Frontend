@@ -4,11 +4,11 @@ import {Formik, Form} from "formik";
 import {useDispatch} from "react-redux";
 import {search} from "../../redux/actionThunk/houseActionThunk";
 import {useNavigate} from "react-router-dom";
+import {setStatusUserActionIdle} from "../../redux/slide/houseSlide";
 
 const Banner = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   return (
       <>
         <Formik
@@ -22,8 +22,8 @@ const Banner = () => {
               endDay: ''
             }}
             onSubmit={(values) => {
-                console.log("aaaaaaaaaaaaaaaaaaa", values);
               dispatch(search(values));
+              dispatch(setStatusUserActionIdle());
               navigate('/search')
             }}
         >

@@ -11,16 +11,10 @@ export const getUserById = createAsyncThunk("user/getUserById", async () => {
 export const updateUserAction = createAsyncThunk(
   "user/updateUser",
   async (payload) => {
-    const { data } = await userApi.update(payload.id, payload.user);
+    const { data } = await userApi.update(payload.user);
     return data;
   }
 );
-
-export const loginAction = createAsyncThunk("auth/login", async (user) => {
-    const { data } = await authapi.login(user);
-    console.log(data, "data");
-    return data;
-});
 
 export const changePasswordAction = createAsyncThunk(
   "user/changePassword",
@@ -36,9 +30,4 @@ export const loginGoogleAction = createAsyncThunk(
         const res = await userApi.loginGoogle(user);
         return res.data;
     }
-);
-
-export const setStatusUserAction = createAsyncThunk(
-    "auth/setStatus",
-    async () => {}
 );

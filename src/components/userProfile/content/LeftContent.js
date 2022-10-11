@@ -14,12 +14,14 @@ import { Avatar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getHistory } from "../../../redux/actionThunk/houseActionThunk";
+import {setStatusUserActionIdle} from "../../../redux/slide/houseSlide";
 
 export default function LeftContent() {
   let { user } = useSelector((state) => state.user);
   const disPatch = useDispatch();
   const handelGetHistory = () => {
     disPatch(getHistory());
+    disPatch(setStatusUserActionIdle());
   };
   return (
     <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>

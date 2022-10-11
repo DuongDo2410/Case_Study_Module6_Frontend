@@ -2,19 +2,19 @@ import { axiosConfig } from "./axios";
 
 const userApi = {
   getUserById(token) {
-    const url = `/auth/profile`;
+    const url = `/user/profile`;
     return axiosConfig.get(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
   },
-  update(id, user) {
-    const url = `/auth/updateProfile/${id}`;
+  update(user) {
+    const url = `/user/updateProfile`;
     return axiosConfig.put(url, user);
   },
   changePassword(payload, token) {
-    const url = `/auth/changePassword`;
+    const url = `/user/changePassword`;
     return axiosConfig.post(url, payload, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -26,6 +26,7 @@ const userApi = {
     return axiosConfig.post(url, user);
   },
   loginGoogle(user) {
+    console.log('login gg', user);
     const url = `/auth/loginGoogle`;
     return axiosConfig.post(url, user);
   },

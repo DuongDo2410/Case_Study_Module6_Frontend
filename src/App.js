@@ -14,51 +14,58 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RightContent from "./components/userProfile/content/RightContent";
 import AddHouse from "./components/addHouse/addHouse";
 import { ChangePassword } from "./components/changePassword/changePassword";
-import {
-  openNotificationWithIcon,
-  loading,
-} from "./components/Notification/NotificationWithIcon";
+
 import HistoryRentHouse from "./components/history/HistoryRentHouse";
 import Notification from "./components/Notification/Notification";
 import BookingPending from "./components/bookingPending/BookingPending";
 import HomeManagement from "./components/home-management";
 import PendingBooking from "./components/home-management/pending-booking/pending-booking";
 import Content from "./components/search/content";
+import Loading from "./components/Notification/loading";
+import * as React from "react";
 
 function App() {
+  let statusUser= useSelector((state) => state.user.status);
+  console.log(statusUser)
+  let statusHouse= useSelector((state) => state.house.status);
+  let statusBooking = useSelector((state) => state.booking.status);
+  let statusAuth = useSelector((state) => state.auth.status);
   let dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllHouse());
   }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={"/profile"} element={<UpdateProfile />}>
-          <Route path={"/profile/:id"} element={<RightContent />} />
-          <Route
-            path={"/profile/changePassword"}
-            element={<ChangePassword />}
-          />
-          <Route path={"/profile/history"} element={<HistoryRentHouse />} />
+      <div>
+        {(statusAuth === "pending" || statusUser === "pending" || statusHouse === "pending" || statusBooking === "pending") && <Loading />}
+        <BrowserRouter>
+          <Routes>
+            <Route path={"/profile"} element={<UpdateProfile />}>
+              <Route path={"/profile/:fullName"} element={<RightContent />} />
+              <Route
+                  path={"/profile/changePassword"}
+                  element={<ChangePassword />}
+              />
+              <Route path={"/profile/history"} element={<HistoryRentHouse />} />
 
-          <Route path={"/profile/house/list"} element={<HomeManagement />}>
-            <Route path={"/profile/house/list/create"} element={<AddHouse />} />
-            <Route
-              path={"/profile/house/list/pending"}
-              element={<PendingBooking />}
-            />
-          </Route>
-        </Route>
-        <Route path={"/"} element={<Home />} />
-        <Route path={"/search"} element={<Content />} />
-        <Route path={"/register"} element={<RegisterPage />} />
-        <Route path={"/login"} element={<SignInPage />} />
-        <Route path={"/detail/:id"} element={<Booking />} />
-        <Route path={"/notification"} element={<Notification />} />
-        <Route path={"/bookingPending"} element={<BookingPending />} />
-      </Routes>
-    </BrowserRouter>
+              <Route path={"/profile/house/list"} element={<HomeManagement />}>
+                <Route path={"/profile/house/list/create"} element={<AddHouse />} />
+                <Route
+                    path={"/profile/house/list/pending"}
+                    element={<PendingBooking />}
+                />
+              </Route>
+            </Route>
+            <Route path={"/"} element={<Home />} />
+            <Route path={"/search"} element={<Content />} />
+            <Route path={"/register"} element={<RegisterPage />} />
+            <Route path={"/login"} element={<SignInPage />} />
+            <Route path={"/detail/:id"} element={<Booking />} />
+            <Route path={"/notification"} element={<Notification />} />
+            <Route path={"/bookingPending"} element={<BookingPending />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
   );
 }
 

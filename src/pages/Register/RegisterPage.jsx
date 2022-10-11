@@ -4,16 +4,17 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import {
   registerAction,
-  setStatusAuthAction,
 } from "../../redux/actionThunk/authActionThunk";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
+import {setStatusUserActionIdle} from "../../redux/slide/authSlide";
 
 
 export function RegisterPage () {
   const handleRegister = (values) => {
     disPatch(registerAction(values));
+    disPatch(setStatusUserActionIdle());
   }
   const disPatch = useDispatch();
   let { status } = useSelector((state) => state.auth);
@@ -22,9 +23,7 @@ export function RegisterPage () {
 
   useEffect(() => {
     if (status === "fulfilled") {
-      openNotificationWithIcon({type: 'success', message: "Thành Công!!!"});
       navigate("/login");
-      disPatch(setStatusAuthAction());
     }else if (status === "rejected") {
       openNotificationWithIcon({type: 'error', message: "Tài Khoản Đã Tồn Tại!!!"});
     }

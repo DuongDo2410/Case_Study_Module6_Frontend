@@ -10,6 +10,7 @@ import { useParams } from "react-router";
 import { getOne } from "../../redux/actionThunk/houseActionThunk";
 import moment from "moment";
 import { bookingAction } from "../../redux/actionThunk/bookingActionThunk";
+import {setStatusUserActionIdle} from "../../redux/slide/houseSlide";
 const Booking = () => {
   let house = useSelector((state) => state.house.house);
   let dispatch = useDispatch();
@@ -26,6 +27,7 @@ const Booking = () => {
   });
   useEffect(() => {
     dispatch(getOne(id));
+    dispatch(setStatusUserActionIdle());
   }, []);
   useEffect(() => {
     if (startDay && endDay) {
