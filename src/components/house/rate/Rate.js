@@ -15,6 +15,7 @@ export default function Rate({rating}) {
         dispatch(ratingHouse({id: id, rating: e.target.value}))
     }
 
+    const myRating = 0;
 
     return (
         <Box
@@ -29,10 +30,11 @@ export default function Rate({rating}) {
                 <div className="mt-1">
                     <Rating
                         name="simple-controlled"
-                        value={rating ? rating : 0}
+                        value={myRating}
                         onChange={e => handleRating(e)
                         }
                     />
+                    <span style={{top: '-6px', position: 'relative', fontSize:'17px'}}>{" ("+rating+")"}</span>
                 </div>
             </div>
 
