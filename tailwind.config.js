@@ -72,13 +72,17 @@ module.exports = {
         secondary: "#7F56D9",
         "4fba81": "#4fba81",
         "48a573": "#48a573",
-        "3a3939": "3a3939",
+        "3a3939": "#3a3939",
+        "6861BA": "#6861BA",
       },
       boxShadow: {
         1: "0px 4px 30px rgba(0, 0, 0, 0.08)",
       },
       width: {
         600: "600px",
+      },
+      height: {
+        550: "550px",
       },
     },
   },
