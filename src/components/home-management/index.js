@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
-import { bookingPendingAction } from "../../redux/actionThunk/bookingActionThunk";
+import {
+  bookingAcceptOwnerAction,
+  bookingPendingAction,
+} from "../../redux/actionThunk/bookingActionThunk";
 
 const HomeManagement = () => {
   let disPatch = useDispatch();
   useEffect(() => {
     disPatch(bookingPendingAction());
+    disPatch(bookingAcceptOwnerAction());
   }, []);
   return (
     <div>
@@ -29,7 +33,7 @@ const HomeManagement = () => {
               Danh sách chờ xác nhận
             </Link>
             <Link
-              to="/picks"
+              to="/profile/house/list/accept"
               className={`block px-3 py-2 rounded-md bg-slate-50
               `}
             >

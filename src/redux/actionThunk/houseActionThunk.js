@@ -14,8 +14,8 @@ export const getOne = createAsyncThunk("house/create", async (id) => {
   return data;
 });
 
-export const ratingHouse = createAsyncThunk("house/rating", async ({id, rating}) => {
-  await houseApi.ratingHouse({id, rating});
+export const ratingHouse = createAsyncThunk("rating", async ({id, rating, idUser}) => {
+  await houseApi.ratingHouse({id, rating, idUser});
   return rating;
 });
 

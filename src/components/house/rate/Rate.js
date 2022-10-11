@@ -2,17 +2,17 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {ratingHouse} from "../../../redux/actionThunk/houseActionThunk";
 import {useParams} from "react-router";
 
 
-
 export default function Rate({rating}) {
     const dispatch = useDispatch();
+    let { user } = useSelector((state) => state.user);
     const {id} = useParams();
     const handleRating = (e) => {
-        dispatch(ratingHouse({id: id, rating: e.target.value}))
+        dispatch(ratingHouse({id: id, rating: e.target.value, idUser: user._id}))
     }
 
     const myRating = 0;
@@ -20,7 +20,7 @@ export default function Rate({rating}) {
     return (
         <Box
             sx={{
-                mt: -3, mb: 3
+                mt: 4, mb: 2
             }}
         >
             <div className="flex">
@@ -35,6 +35,7 @@ export default function Rate({rating}) {
                         }
                     />
                     <span style={{top: '-6px', position: 'relative', fontSize:'17px'}}>{" ("+rating+")"}</span>
+
                 </div>
             </div>
 

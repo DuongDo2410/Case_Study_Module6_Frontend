@@ -11,26 +11,24 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   let houses = useSelector((state) => state.house.houses);
-    console.log(houses)
+  console.log(houses);
   return (
     <>
-      <Header />
+      {/* <Header />
       <Banner />
       <div className="text-gray-700 text-center">
         <h5 className="text-2xl font-bold my-10">NHỮNG CĂN HỘ NỔI BẬT</h5>
-        {/*<p className="text-base mt-10">Bạn có bất kỳ thắc mắc? Liên hệ với chúng tôi</p>*/}
       </div>
       <Swiper
-        // install Swiper modules
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={50}
         slidesPerView={3}
         navigation={{ hideOnClick: true }}
         pagination={{ clickable: true }}
-        // scrollbar={{ draggable: true }}
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log("slide change")}
       >
@@ -43,6 +41,35 @@ const Home = () => {
             ))}
         </div>
       </Swiper>
+      <Footer /> */}
+      <Header />
+      <Banner />
+      {/* <Swiper
+        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        spaceBetween={50}
+        slidesPerView={3}
+        navigation={{ hideOnClick: true }}
+        pagination={{ clickable: true }}
+        // onSwiper={(swiper) => console.log(swiper)}
+        // onSlideChange={() => console.log("slide change")}
+      >
+        <div className="container mx-auto grid grid-cols-3 ">
+          {houses &&
+            houses.map((house) => (
+              <SwiperSlide>
+                <House house={house} />
+              </SwiperSlide>
+            ))}
+        </div>
+      </Swiper> */}
+      <div className="container mx-auto grid grid-cols-3 gap-10 mb-8">
+        {houses &&
+          houses.map((house) => (
+            <SwiperSlide>
+              <House house={house} />
+            </SwiperSlide>
+          ))}
+      </div>
       <Footer />
     </>
   );
