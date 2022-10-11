@@ -3,24 +3,29 @@ import { useDispatch } from "react-redux";
 import { getAllHouse } from "./redux/actionThunk/houseActionThunk";
 import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Header from "./components/header/header";
-import {Home} from "./Pages/HomePages/home";
+// import Header from "./components/header/header";
 import HouseContextProvider from "./components/search/HouseContext";
-// import
+import Home from "./Pages/Home/home";
+import {RegisterPage} from "./Pages/Register/RegisterPage";
+import {SignInPage} from "./Pages/SignIn/SignInPage";
+// import {ChangePassword} from "./Pages/ChangePassword/ChangePassword";
+
 
 
 function App() {
   let dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllHouse());
+    // dispatch(getAllHouse());
   }, []);
 
   return (
       <HouseContextProvider>
             <BrowserRouter>
               <Routes>
-                  <Route path={'/'}  element={<Home />} />
+                  <Route path={'/'}  element={<Home/>} />
+                  <Route path={'/Register'}  element={<RegisterPage/>} />
+                  <Route path={'/SignInPage'}  element={<SignInPage/>} />
               </Routes>
             </BrowserRouter>
       </HouseContextProvider>

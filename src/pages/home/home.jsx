@@ -11,12 +11,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import HouseList from "../../components/house/HouseList";
 
 const Home = () => {
-  let houses = useSelector((state) => state.house.houses);
+  // let houses = useSelector((state) => state.house.houses);
   return (
     <>
-      <Header />
       <Banner />
       <div className="text-gray-700 text-center">
         <h5 className="text-2xl font-bold my-10">NHỮNG CĂN HỘ NỔI BẬT</h5>
@@ -34,12 +34,13 @@ const Home = () => {
         onSlideChange={() => console.log("slide change")}
       >
         <div className="container mx-auto grid grid-cols-3 gap-6">
-          {houses &&
-            houses.map((house) => (
-              <SwiperSlide>
-                <House house={house} />
-              </SwiperSlide>
-            ))}
+          {/*{houses &&*/}
+          {/*  houses.map((house) => (*/}
+          {/*    <SwiperSlide>*/}
+          {/*      <House house={house} />*/}
+          {/*    </SwiperSlide>*/}
+          {/*  ))}*/}
+            {HouseList}
         </div>
       </Swiper>
       <Footer />

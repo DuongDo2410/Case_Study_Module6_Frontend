@@ -9,7 +9,7 @@ export function ChangePassword() {
                 <div className=" regal- write w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-white dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black">
-                            Đổi mật khẩu                        </h1>
+                            Đổi mật khẩu </h1>
                         <p className="text-center text-muted">
                             Vui lòng nhập số điện thoại của bạn và chúng tôi sẽ gửi mật khẩu mới đến bạn</p>
 

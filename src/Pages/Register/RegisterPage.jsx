@@ -37,19 +37,18 @@ export function RegisterPage() {
     onSubmit: (values) => {
       values.avatar =
         "https://firebasestorage.googleapis.com/v0/b/shop-11594.appspot.com/o/image%2Favatar.jpg?alt=media&token=0cf016f4-f295-4d46-942f-ae8a8a79c53d";
-      disPatch(registerAction(values));
+      // disPatch(registerAction(values));
     },
   });
-  useEffect(() => {
-    if (status == "fulfilled") {
-      navigate("/login");
-      disPatch(setStatusAction());
-    }
-  }, [status]);
+  console.log(window.location)
+
   return (
     <form onSubmit={formik.handleSubmit}>
-      <section className="bg-gray-50 dark:bg-gray-900 mt-10">
-        <div className=" bg-[#ffffff] flex justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <section className="bg-gray-50 dark:bg-gray-900 mt-14">
+        {/*<div>*/}
+        {/*<img src={IMAGE}/>*/}
+        {/*</div>*/}
+        <div className=" flex justify-center px-6 py-8 mx-auto lg:py-0">
           <a
             href="#"
             className="flex items-center mb-6 text-2xl font-semibold text-gray-900 white:text-white"
@@ -72,8 +71,8 @@ export function RegisterPage() {
                   id="username"
                   className={
                     formik.touched.username && formik.errors.username
-                      ? "bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:outline-none focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                      : "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      ? "border-cyan-600 bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:outline-none focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
+                      : "border-cyan-600 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   }
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -98,8 +97,8 @@ export function RegisterPage() {
                   id="phoneNumber"
                   className={
                     formik.touched.phoneNumber && formik.errors.phoneNumber
-                      ? "bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:outline-none focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                      : "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      ? "border-cyan-600 bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:outline-none focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
+                      : "border-cyan-600 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   }
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -124,8 +123,8 @@ export function RegisterPage() {
                   id="password"
                   className={
                     formik.touched.password && formik.errors.password
-                      ? "bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:outline-none focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                      : "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      ? "border-cyan-600 bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:outline-none focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
+                      : "border-cyan-600 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   }
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -143,7 +142,7 @@ export function RegisterPage() {
                   htmlFor="confirmPassword"
                   className="  flex justify-start  mb-2 text-sm font-medium text-gray-900 "
                 >
-                  Mật khẩu *
+                 Xác Nhận Mật khẩu *
                 </label>
                 <input
                   type="password"
@@ -152,8 +151,8 @@ export function RegisterPage() {
                   className={
                     formik.touched.confirmPassword &&
                     formik.errors.confirmPassword
-                      ? "bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:outline-none focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                      : "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      ? "border-cyan-600 border- bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:outline-none focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
+                      : "border-cyan-600 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   }
                   onChange={formik.handleChange}
                   value={formik.values.confirmPassword}

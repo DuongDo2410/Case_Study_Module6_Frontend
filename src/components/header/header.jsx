@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserById } from "../../redux/actionThunk/userActionThunk";
-import Logo from "../../Pages/HomePages/assets/img/logo.svg";
+import Logo from "../../logo.svg"
 const Header = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
