@@ -43,7 +43,7 @@ const authSlide = createSlice({
       state.status = "fulfilled";
       state.user = action.payload.user;
       localStorage.setItem("accessToken", action.payload.token);
-      localStorage.setItem('currentUser', JSON.stringify(action.payload.user));
+      localStorage.setItem("currentUser", JSON.stringify(action.payload.user));
     });
     //LoginGoogle
     builder.addCase(loginGoogleAction.pending, (state, action) => {
@@ -52,9 +52,9 @@ const authSlide = createSlice({
     builder.addCase(loginGoogleAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
       state.user = action.payload.user;
-      openNotificationWithIcon({type: "success", message: "Thành Công!"})
-      localStorage.setItem('accessToken', action.payload.token);
-      localStorage.setItem('currentUser', JSON.stringify(action.payload.user));
+      openNotificationWithIcon({ type: "success", message: "Thành Công!" });
+      localStorage.setItem("accessToken", action.payload.token);
+      localStorage.setItem("currentUser", JSON.stringify(action.payload.user));
     });
     //update User
     builder.addCase(updateUserAction.pending, (state, action) => {

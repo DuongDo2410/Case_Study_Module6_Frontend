@@ -153,7 +153,13 @@ const Booking = () => {
                       name="endDay"
                     />
                   </div>
-                  <h2 className="text-xl">Tổng tiền: {booking.totalMoney}</h2>
+                  <h2 className="text-xl">
+                    Tổng tiền:{" "}
+                    {new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(booking.totalMoney)}
+                  </h2>
                   <div className="flex gap-x-2">
                     <button
                       type="submit"
