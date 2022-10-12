@@ -7,6 +7,7 @@ import {
   changePasswordAction,
   setStatusUserAction,
 } from "../../redux/actionThunk/userActionThunk";
+import {setStatusUserActionIdle} from "../../redux/slide/userSlide";
 export function ChangePassword() {
   const disPatch = useDispatch();
   let { status } = useSelector((state) => state.user);
@@ -35,6 +36,7 @@ export function ChangePassword() {
     onSubmit: (values) => {
       console.log(values);
       disPatch(changePasswordAction(values));
+      disPatch(setStatusUserActionIdle());
     },
   });
   // useEffect(() => {

@@ -50,6 +50,7 @@ const Banner = () => {
 
                       <button
                           type="submit"
+                          onSubmit={props.handleSubmit}
                           className="absolute top-0 right-5 p-2.5 py-3 text-sm font-medium bg-[#14f1d7] hover:bg-green-800 rounded-r-lg focus:outline-none"
                       >
                         <svg

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import {Link, NavLink, Outlet, useNavigate} from "react-router-dom";
 import { BiCalendarMinus } from "react-icons/bi";
 import { BiClipboard } from "react-icons/bi";
 import { BiBuildingHouse } from "react-icons/bi";
@@ -8,7 +8,17 @@ import { BiUser } from "react-icons/bi";
 import { BiLogOut } from "react-icons/bi";
 import { BiBarChartAlt2 } from "react-icons/bi";
 import "./dashboard.css";
+import {useDispatch} from "react-redux";
+import {getStatistic} from "../../redux/actionThunk/userActionThunk";
+import {setStatusUserActionIdle} from "../../redux/slide/userSlide";
 const Dasboard = () => {
+  let dispatch = useDispatch();
+  let navigate = useNavigate();
+  const toggleStatistics = () => {
+    dispatch(getStatistic());
+    dispatch(setStatusUserActionIdle);
+    navigate('/admin/statistical');
+  };
   return (
     <>
       <div className="min-h-screen flex">
@@ -23,7 +33,7 @@ const Dasboard = () => {
             </div>
             <div>
               <NavLink
-                to={"/admin/statistical"}
+                onClick={toggleStatistics}
                 className={({ isActive }) =>
                   isActive
                     ? "flex items-center space-x-4 mt-6 p-2 bg-[#4fba81] text-white hover:text-white rounded-md cursor-pointer"

@@ -1,16 +1,32 @@
 import React, { useEffect, useState } from "react";
+import { message, Popconfirm } from 'antd';
 import { BiPlus } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { getHouseByUser } from "../../../redux/actionThunk/houseActionThunk";
+import {deleteHome, getHouseById, getHouseByUser} from "../../../redux/actionThunk/houseActionThunk";
 import { AiOutlineEye } from "react-icons/ai";
 import { BiPencil } from "react-icons/bi";
 import { BiTrash } from "react-icons/bi";
 import Create from "./create/create";
 import Update from "./update/update";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {setStatusUserActionIdle} from "../../../redux/slide/houseSlide";
 const Houses = () => {
+  let navigate = useNavigate()
   let { customerHouse } = useSelector((state) => state.house);
   const disPatch = useDispatch();
+  const handleUpdate = (id) => {
+    disPatch(getHouseById(id));
+    disPatch(setStatusUserActionIdle())
+    navigate(`/admin/houses/update/${id}`)
+  }
+  const confirm = (id) => {
+    disPatch(deleteHome(id));
+    disPatch(setStatusUserActionIdle())
+  }
+  const cancel = () => {
+
+  };
+
   useEffect(() => {
     disPatch(getHouseByUser());
   }, []);
@@ -80,14 +96,23 @@ const Houses = () => {
                             </button>
                           </div>
                           <div className="w-4 mr-3 transform hover:text-purple-500 hover:scale-110">
-                            <Link to={`/admin/houses/update/${house._id}`}>
+                            <div className="hover:cursor-pointer" onClick={() => handleUpdate(house._id)}>
                               <BiPencil size={20} />
-                            </Link>
+                            </div>
                           </div>
                           <div className="w-4 transform hover:text-purple-500 hover:scale-110">
-                            <button>
-                              <BiTrash size={20} />
-                            </button>
+                            <Popconfirm
+                                placement="left"
+                                title="Bạn có muốn xoá không?"
+                                onConfirm={() => confirm(house._id)}
+                                onCancel={cancel}
+                                okText="Có"
+                                cancelText="Không"
+                            >
+                              <button>
+                                <BiTrash size={20} />
+                              </button>
+                            </Popconfirm>
                           </div>
                         </div>
                       </td>
