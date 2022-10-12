@@ -1,5 +1,5 @@
-import React from "react";
-import {Link, NavLink, Outlet, useNavigate} from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { BiCalendarMinus } from "react-icons/bi";
 import { BiClipboard } from "react-icons/bi";
 import { BiBuildingHouse } from "react-icons/bi";
@@ -8,17 +8,15 @@ import { BiUser } from "react-icons/bi";
 import { BiLogOut } from "react-icons/bi";
 import { BiBarChartAlt2 } from "react-icons/bi";
 import "./dashboard.css";
-import {useDispatch} from "react-redux";
-import {getStatistic} from "../../redux/actionThunk/userActionThunk";
-import {setStatusUserActionIdle} from "../../redux/slide/userSlide";
+import { useDispatch, useSelector } from "react-redux";
+import { getbookingSuccessOwnerAction } from "../../redux/actionThunk/bookingActionThunk";
 const Dasboard = () => {
-  let dispatch = useDispatch();
-  let navigate = useNavigate();
-  const toggleStatistics = () => {
-    dispatch(getStatistic());
-    dispatch(setStatusUserActionIdle);
-    navigate('/admin/statistical');
-  };
+  const { bookingSuccess } = useSelector((state) => state.booking);
+  console.log(bookingSuccess);
+  const disPatch = useDispatch();
+  useEffect(() => {
+    disPatch(getbookingSuccessOwnerAction());
+  }, []);
   return (
     <>
       <div className="min-h-screen flex">
@@ -33,7 +31,7 @@ const Dasboard = () => {
             </div>
             <div>
               <NavLink
-                to="/admin/statistical"
+                to={"/admin/statistical"}
                 className={({ isActive }) =>
                   isActive
                     ? "flex items-center space-x-4 mt-6 p-2 bg-[#4fba81] text-white hover:text-white rounded-md cursor-pointer"
