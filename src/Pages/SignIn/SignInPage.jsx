@@ -5,13 +5,38 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loginAction,
-  setStatusAction,
+  setStatusAuthAction,
 } from "../../redux/actionThunk/authActionThunk";
+import { gapi } from 'gapi-script'
+import LoginGoogle from "./GoogleLogin";
+import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
+const clientID = "834466386428-j6ifk7es8vo0k3r86c50ekojr26jd1m1.apps.googleusercontent.com";
+const clientSecret = "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";
+
 export function SignInPage() {
   const disPatch = useDispatch();
   const navigate = useNavigate();
 
   let { status } = useSelector((state) => state.auth);
+  useEffect(()=> {
+    function start(){
+      gapi.client.init({
+        clientId: clientID,
+        scope: "profile"
+      })
+    }
+    gapi.load("client:auth2", start)
+  })
+
+  useEffect(() => {
+    if (status === "fulfilled") {
+      openNotificationWithIcon({type: 'success', message: "Đăng nhập thành công!!!"});
+      navigate("/");
+      disPatch(setStatusAuthAction());
+    }else if (status === "rejected") {
+      openNotificationWithIcon({type: 'error', message: "Tài khoản hoặc mật khẩu sai!!!"});
+    }
+  }, [status]);
 
   const formik = useFormik({
     initialValues: {
@@ -30,12 +55,13 @@ export function SignInPage() {
   useEffect(() => {
     if (status == "fulfilled") {
       navigate("/");
-      disPatch(setStatusAction());
+      disPatch(setStatusAuthAction());
     }
   }, [status]);
   //   status == "fulfilled" && navigate("/");
 
   return (
+      <div>
     <form onSubmit={formik.handleSubmit}>
       <section className="bg-gray-50 dark:bg-gray-900">
         <div className=" bg-[] flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -101,25 +127,27 @@ export function SignInPage() {
                 ) : null}
               </div>
 
-              <button
-                type="submit"
-                className="w-full text-white bg-[#14f1d7] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-              >
-                Đăng nhập
-              </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400 ">
-                Bạn chưa có sẵn tài khoản?
-                <Link
-                  to={"/register"}
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                >
-                  Đăng ký
-                </Link>
-              </p>
+                  <button
+                      type="submit"
+                      className="w-full text-white bg-[#14f1d7] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  >
+                    Đăng nhập
+                  </button>
+                  <LoginGoogle/>
+                  <p className="text-sm font-light text-gray-500 dark:text-gray-400 ">
+                    Bạn chưa có sẵn tài khoản?
+                    <Link
+                        to={"/register"}
+                        className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                    >
+                      Đăng ký
+                    </Link>
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
-    </form>
+          </section>
+        </form>
+      </div>
   );
 }

@@ -3,11 +3,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { changePasswordAction } from "../../redux/actionThunk/userActionThunk";
-import { setStatusAction } from "../../redux/actionThunk/authActionThunk";
+import {
+  changePasswordAction,
+  setStatusUserAction,
+} from "../../redux/actionThunk/userActionThunk";
 export function ChangePassword() {
   const disPatch = useDispatch();
-  let { status } = useSelector((state) => state.auth);
+  let { status } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -35,13 +37,14 @@ export function ChangePassword() {
       disPatch(changePasswordAction(values));
     },
   });
-  useEffect(() => {
-    if (status == "fulfilled") {
-      navigate("/login");
-      localStorage.removeItem("accessToken");
-      disPatch(setStatusAction());
-    }
-  }, [status]);
+  // useEffect(() => {
+  //   if (status === "fulfilled") {
+  //     navigate("/login");
+  //     disPatch(setStatusUserAction())
+  //     localStorage.removeItem("accessToken");
+  //     disPatch(setStatusUserAction());
+  //   }
+  // }, [status]);
   // status == "fulfilled" && navigate("/login");
 
   return (

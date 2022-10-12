@@ -7,16 +7,20 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import BreakfastDiningIcon from "@mui/icons-material/BreakfastDining";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Avatar } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getHistory } from "../../../redux/actionThunk/houseActionThunk";
 
 export default function LeftContent() {
   let { user } = useSelector((state) => state.user);
-
+  const disPatch = useDispatch();
+  const handelGetHistory = () => {
+    disPatch(getHistory());
+  };
   return (
     <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
       <Avatar
@@ -32,16 +36,24 @@ export default function LeftContent() {
               <ListItemIcon>
                 <NotificationsNoneIcon />
               </ListItemIcon>
-              <ListItemText primary="Thông báo & tìm kiếm " />
+              {/* <ListItemText primary="Thông tin cá nhân  " /> */}
+              <Link to={`/profile/${user._id}`}>Thông tin tài khoản</Link>
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <FavoriteBorderIcon />
+                <BreakfastDiningIcon />
               </ListItemIcon>
+              {/*<ListItemText primary="Đơn chờ " />*/}
+              <Link to={"/bookingPending"}>Đơn chờ </Link>
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>{/* <FavoriteBorderIcon /> */}</ListItemIcon>
               {/* <ListItemText primary="Bất động sản yêu thích " /> */}
-              <Link to={"/profile/addHouse"}>Thêm nhà </Link>
+              <Link to={"/profile/house/list"}>Quản lý nhà</Link>
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -58,7 +70,10 @@ export default function LeftContent() {
               <ListItemIcon>
                 <LogoutIcon />
               </ListItemIcon>
-              <ListItemText primary="Thoát " />
+              {/*<ListItemText primary="Lịch sử thuê nhà  "/>*/}
+              <Link to={"/profile/history"} onClick={handelGetHistory}>
+                Lịch sử thuê nhà
+              </Link>
             </ListItemButton>
           </ListItem>
         </List>

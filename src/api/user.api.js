@@ -1,7 +1,7 @@
 import { axiosConfig } from "./axios";
 
 const userApi = {
-  getUserByIb(token) {
+  getUserById(token) {
     const url = `/auth/profile`;
     return axiosConfig.get(url, {
       headers: {
@@ -21,5 +21,14 @@ const userApi = {
       },
     });
   },
+  login(user) {
+    const url = `/auth/login`;
+    return axiosConfig.post(url, user);
+  },
+  loginGoogle(user) {
+    const url = `/auth/loginGoogle`;
+    return axiosConfig.post(url, user);
+  },
+
 };
 export default userApi;
