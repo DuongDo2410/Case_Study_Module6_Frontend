@@ -11,7 +11,7 @@ import {
   createHouse,
 } from "../../../../redux/actionThunk/houseActionThunk";
 import { useNavigate } from "react-router";
-import {setStatusUserActionIdle, setStatusUserActionPending} from "../../../../redux/slide/houseSlide";
+import {setStatusHouseActionIdle, setStatusHouseActionPending} from "../../../../redux/slide/houseSlide";
 
 const Create = ({ createForm, setCreateForm }) => {
   const navigate = useNavigate();
@@ -59,7 +59,7 @@ const Create = ({ createForm, setCreateForm }) => {
       // address: Yup.string().required("Không để trống"),
     }),
     onSubmit: async (values) => {
-      disPatch(setStatusUserActionPending())
+      disPatch(setStatusHouseActionPending())
       let imageUpload = image;
       if (imageUpload) {
         const imageRef = ref(storage, `images/${imageUpload?.name}`);
@@ -69,7 +69,7 @@ const Create = ({ createForm, setCreateForm }) => {
             values.idUser = user && user._id;
             console.log(values);
             disPatch(createHouse(values));
-            disPatch(setStatusUserActionIdle());
+            disPatch(setStatusHouseActionIdle());
           });
         });
       }

@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   loginAction,
-  registerAction, setStatusAuthAction,
+  registerAction,
 } from "../actionThunk/authActionThunk";
-import {openNotificationWithIcon} from "../../components/notification/NotificationWithIcon";
-import userSlide from "./userSlide";
-import {loginGoogleAction} from "../actionThunk/userActionThunk";
+import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
+import {loginGoogleAction, updateUserAction} from "../actionThunk/userActionThunk";
 const authSlide = createSlice({
   name: "auth",
   initialState: {
@@ -14,10 +13,10 @@ const authSlide = createSlice({
     user: JSON.parse(localStorage.getItem("currentUser")) || {},
   },
   reducers: {
-    setStatusUserActionPending(state) {
+    setStatusAuthActionPending(state) {
       state.status = "pending"
     },
-    setStatusUserActionIdle(state) {
+    setStatusAuthActionIdle(state) {
       state.status = "idle"
     },
   },
@@ -26,8 +25,8 @@ const authSlide = createSlice({
       state.status = "pending";
     });
     builder.addCase(registerAction.fulfilled, (state, action) => {
-      state.status = "fulfilled";
       openNotificationWithIcon({type: "success", message: "Đăng Kí Thành Công!!"})
+      state.status = "fulfilled";
     });
     builder.addCase(registerAction.rejected, (state, action) => {
       state.status = "rejected";
@@ -35,6 +34,7 @@ const authSlide = createSlice({
     //Login
     builder.addCase(loginAction.rejected, (state, action) => {
       state.status = "rejected";
+      openNotificationWithIcon({type: "error", message: "Tài Khoản Hoặc Mật Khẩu Sai!"})
     });
     builder.addCase(loginAction.pending, (state, action) => {
       state.status = "pending";
@@ -56,7 +56,18 @@ const authSlide = createSlice({
       localStorage.setItem('accessToken', action.payload.token);
       localStorage.setItem('currentUser', JSON.stringify(action.payload.user));
     });
+    //update User
+    builder.addCase(updateUserAction.pending, (state, action) => {
+      state.status = "pending";
+    });
+    builder.addCase(updateUserAction.fulfilled, (state, action) => {
+      state.status = "fulfilled";
+      state.user = action.payload;
+      localStorage.removeItem("currentUser");
+      localStorage.setItem("currentUser", JSON.stringify(action.payload));
+      openNotificationWithIcon({type: "success", message: 'Cập Nhật Thành Công'});
+    });
   },
 });
-export const {setStatusUserActionPending, setStatusUserActionIdle} = authSlide.actions
+export const {setStatusAuthActionPending, setStatusAuthActionIdle} = authSlide.actions
 export default authSlide;

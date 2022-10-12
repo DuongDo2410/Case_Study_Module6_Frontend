@@ -8,13 +8,13 @@ import {updateComment} from "../../redux/actionThunk/houseActionThunk";
 
 const Comment = ({house}) => {
   const [comment, setComment] = useState('');
-  let { user } = useSelector((state) => state.user);
+  let { user } = useSelector((state) => state.auth);
   let { id } = useParams();
   const disPatch = useDispatch();
   // useEffect(() => {
   //   disPatch(getUserById());
   // }, []);
-
+  //   console.log('comment', house.comment)
   const handleComment = (event) => {
     event.preventDefault()
     disPatch(updateComment({id: id, comment: {user: user, text: comment}}))
@@ -44,7 +44,7 @@ const Comment = ({house}) => {
                     <div style={{display: "flex", flexDirection: "row", marginTop: "50px"}} key={index} >
                       <div>
                         <img
-                            src={user && user.avatar}
+                            src={comment && comment?.user?.avatar}
                             alt=""
                             className="w-10 h-10 object-cover rounded-3xl"
                             placeholder="Bình luận của bạn ...."

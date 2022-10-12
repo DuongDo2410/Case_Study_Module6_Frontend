@@ -9,7 +9,9 @@ import { BiTrash } from "react-icons/bi";
 import Create from "./create/create";
 import Update from "./update/update";
 import {Link, useNavigate} from "react-router-dom";
-import {setStatusUserActionIdle} from "../../../redux/slide/houseSlide";
+import {setStatusHouseActionIdle} from "../../../redux/slide/houseSlide";
+
+
 const Houses = () => {
   let navigate = useNavigate()
   let { customerHouse } = useSelector((state) => state.house);
@@ -17,12 +19,12 @@ const Houses = () => {
   const disPatch = useDispatch();
   const handleUpdate = (id) => {
     disPatch(getHouseById(id));
-    disPatch(setStatusUserActionIdle())
+    disPatch(setStatusHouseActionIdle())
     navigate(`/admin/houses/update/${id}`)
   }
   const confirm = (id) => {
     disPatch(deleteHome(id));
-    disPatch(setStatusUserActionIdle())
+    disPatch(setStatusHouseActionIdle())
   }
   const cancel = () => {
 

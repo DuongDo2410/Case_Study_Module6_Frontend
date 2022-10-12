@@ -8,7 +8,7 @@ import {
   getBookingAction,
   getbookingSuccessOwnerAction,
 } from "../actionThunk/bookingActionThunk";
-import { openNotificationWithIcon } from "../../components/notification/NotificationWithIcon";
+import { openNotificationWithIcon } from "../../components/Notification/NotificationWithIcon";
 import userSlide from "./userSlide";
 
 const bookingSlide = createSlice({
@@ -22,10 +22,10 @@ const bookingSlide = createSlice({
     bookingSuccess: [],
   },
   reducers: {
-    setStatusUserActionPending(state) {
+    setStatusBookingActionPending(state) {
       state.status = "pending";
     },
-    setStatusUserActionIdle(state) {
+    setStatusBookingActionIdle(state) {
       state.status = "idle";
     },
   },
@@ -91,7 +91,7 @@ const bookingSlide = createSlice({
     });
   },
 });
-export const { setStatusUserActionPending, setStatusUserActionIdle } =
+export const { setStatusBookingActionPending, setStatusBookingActionIdle } =
   bookingSlide.actions;
 
 export default bookingSlide;

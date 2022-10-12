@@ -9,7 +9,7 @@ import moment from "moment";
 import { bookingAction } from "../../redux/actionThunk/bookingActionThunk";
 import Rate from "../../components/house/rate/Rate.js";
 import Comment from "../../components/comment/comemnt";
-import {setStatusUserActionIdle} from "../../redux/slide/houseSlide";
+import {setStatusHouseActionIdle} from "../../redux/slide/houseSlide";
 const Booking = () => {
   let house = useSelector((state) => state.house.house);
   let dispatch = useDispatch();
@@ -26,7 +26,7 @@ const Booking = () => {
   });
   useEffect(() => {
     dispatch(getOne(id));
-    dispatch(setStatusUserActionIdle);
+    dispatch(setStatusHouseActionIdle());
   }, []);
   useEffect(() => {
     if (startDay && endDay) {

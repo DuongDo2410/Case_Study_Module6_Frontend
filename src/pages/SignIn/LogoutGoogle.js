@@ -8,7 +8,6 @@ export default function LogoutGoogle(){
     const handleLogout = (res) => {
         localStorage.removeItem("currentUser");
         localStorage.removeItem("accessToken");
-
         navigate("/login");
     }
 

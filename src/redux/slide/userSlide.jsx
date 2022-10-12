@@ -2,13 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   changePasswordAction,
   getUserById,
-  loginGoogleAction,
-  updateUserAction,
-  setStatusUserAction,
     getStatistic
 } from "../actionThunk/userActionThunk";
 import { setLocale } from "yup";
-import {openNotificationWithIcon} from "../../components/notification/NotificationWithIcon";
+import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
 import booking from "../../pages/booking/booking";
 
 
@@ -37,17 +34,6 @@ const userSlide = createSlice({
     builder.addCase(getUserById.fulfilled, (state, action) => {
       state.status = "fulfilled";
       state.user = action.payload;
-    });
-    //update User
-    builder.addCase(updateUserAction.pending, (state, action) => {
-      state.status = "pending";
-    });
-    builder.addCase(updateUserAction.fulfilled, (state, action) => {
-      state.status = "fulfilled";
-      state.user = action.payload;
-      localStorage.removeItem("currentUser");
-      localStorage.setItem("currentUser", JSON.stringify(action.payload));
-      openNotificationWithIcon({type: "success", message: 'Cập Nhật Thành Công'});
     });
     //change Password
     builder.addCase(changePasswordAction.pending, (state, action) => {

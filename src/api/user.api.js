@@ -13,13 +13,9 @@ const userApi = {
     const url = `/user/updateProfile`;
     return axiosConfig.put(url, user);
   },
-  changePassword(payload, token) {
+  changePassword(payload) {
     const url = `/user/changePassword`;
-    return axiosConfig.post(url, payload, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    return axiosConfig.post(url, payload)
   },
   login(user) {
     const url = `/auth/login`;

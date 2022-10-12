@@ -10,8 +10,6 @@ import {
 import {setStatusUserActionIdle} from "../../redux/slide/userSlide";
 export function ChangePassword() {
   const disPatch = useDispatch();
-  let { status } = useSelector((state) => state.user);
-  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
