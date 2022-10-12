@@ -14,7 +14,6 @@ import {
     setStatusUserActionIdle,
     setStatusUserActionPending
 } from "../../../redux/slide/userSlide";
-import Loading from "../../Notification/loading";
 
 function RightContent() {
   let { user } = useSelector((state) => state.user);

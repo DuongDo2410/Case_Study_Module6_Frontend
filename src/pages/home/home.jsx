@@ -13,15 +13,10 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Link } from "react-router-dom";
 import ListItem from "../../components/content/listItem";
-import {getAllHouse} from "../../redux/actionThunk/houseActionThunk";
 
 const Home = () => {
-    let dispatch = useDispatch();
   let houses = useSelector((state) => state.house.houses);
   // let topHouse = useSelector((state) => state.house.topHouse);
-    const changePage = (page) => {
-        dispatch(getAllHouse(page));
-    }
   return (
     <>
       {/* <Header />

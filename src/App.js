@@ -23,8 +23,12 @@ import PendingBooking from "./components/home-management/pending-booking/pending
 import Content from "./components/search/content";
 import BookingAcceptOwner from "./components/home-management/accept-booking/accept-booking";
 import Dasboard from "./pages/admin/dasboard";
+import Statistical from "./pages/admin/statistical/statistical";
+import Houses from "./pages/admin/house/houses";
+import Create from "./pages/admin/house/create/create";
+import Update from "./pages/admin/house/update/update";
+import {setStatusUserActionIdle} from "./redux/slide/userSlide";
 import Loading from "./components/Notification/loading";
-import {setStatusUserActionIdle} from "./redux/slide/houseSlide";
 
 function App() {
     let statusUser = useSelector((state) => state.user.status);
@@ -72,11 +76,20 @@ function App() {
                     <Route path={"/detail/:id"} element={<Booking/>}/>
                     <Route path={"/notification"} element={<Notification/>}/>
                     <Route path={"/bookingPending"} element={<BookingPending/>}/>
-                    <Route path={"/admin"} element={<Dasboard/>}/>
+
+                    <Route path={"/admin"} element={<Dasboard/>}>
+                        <Route path={"/admin/statistical"} element={<Statistical/>}/>
+                        <Route path={"/admin/pending-booking"} element={<Statistical/>}/>
+                        <Route path={"/admin/accept-booking"} element={<Statistical/>}/>
+                        <Route path={"/admin/houses"} element={<Houses/>}/>
+                        <Route path={"/admin/houses/create"} element={<Create/>}/>
+                        <Route path={"/admin/houses/update/:id"} element={<Update/>}/>
+                        <Route path={"/admin/account"} element={<Statistical/>}/>
+                    </Route>
                 </Routes>
             </BrowserRouter>
         </div>
-    )
+    );
 }
 
 export default App;

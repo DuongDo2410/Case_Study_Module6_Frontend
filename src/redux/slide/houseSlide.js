@@ -5,8 +5,14 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 import {
-    getAllHouse, getHistory,
-    getOne, search, createHouse, getTop5
+  createHouse,
+  getAllHouse,
+  getHistory,
+  getHouseById,
+  getHouseByUser,
+  getOne,
+  search,
+    deleteHome
 } from "../actionThunk/houseActionThunk";
 import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
 
@@ -15,90 +21,120 @@ const houseSlide = createSlice({
   name: "house",
   initialState: {
     houses: [],
-    totalPage: 0,
+    customerHouse: [],
     topHouse: [],
     status: "idle",
     house: null,
-    history:[],
-    houseSearch:[],
+    history: [],
+    houseSearch: [],
   },
-    reducers: {
-        setStatusUserActionPending(state) {
-            state.status = "pending"
-        },
-        setStatusUserActionIdle(state) {
-            state.status = "idle"
-        },
+  reducers: {
+    setStatusUserActionPending(state) {
+      state.status = "pending"
     },
-    extraReducers: (builder) => {
-        builder
-            .addCase(getAllHouse.pending, (state, action) => {
-                state.status = "pending";
-            })
-            .addCase(getAllHouse.rejected, (state, action) => {
-                state.status = "rejected";
-            })
-            .addCase(getAllHouse.fulfilled, (state, action) => {
-                state.houses = action.payload.homes;
-                state.totalPage = action.payload.totalPage;
-                state.status = "fulfilled";
-            })
-            //get One
-            .addCase(createHouse.fulfilled, (state, action) => {
-                state.house = action.payload.checkHome;
-                state.status = "fulfilled";
-            })
-            .addCase(createHouse.pending, (state, action) => {
-                state.status = "pending";
-            })
-            .addCase(createHouse.rejected, (state, action) => {
-                state.status = "rejected";
-            })
-            //get History
-            .addCase(getHistory.fulfilled, (state, action) => {
-                state.history = action.payload;
-                state.status = "fulfilled";
-            })
-            .addCase(getHistory.pending, (state, action) => {
-                state.status = "pending";
-            })
-            .addCase(getHistory.rejected, (state, action) => {
-                state.status = "rejected";
-            })
-            //search
-            .addCase(search.fulfilled, (state, action) => {
-                state.houseSearch = action.payload
-                state.status = "fulfilled";
-                openNotificationWithIcon({type: "success", message: "Thành Công!"})
-            })
-            .addCase(search.pending, (state, action) => {
-                state.status = "pending";
-            })
-            .addCase(search.rejected, (state, action) => {
-                state.status = "rejected";
-            })
-            // addHouse
-            .addCase(getOne.fulfilled, (state, action) => {
-                state.status = "fulfilled";
-            })
-            .addCase(getOne.pending, (state, action) => {
-                state.status = "pending";
-            })
-            .addCase(getOne.rejected, (state, action) => {
-                state.status = "rejected";
-            })
-            // getTop5
-            .addCase(getTop5.fulfilled, (state, action) => {
-                state.topHouse = action.payload
-                state.status = "fulfilled";
-            })
-            .addCase(getTop5.pending, (state, action) => {
-                state.status = "pending";
-            })
-            .addCase(getTop5.rejected, (state, action) => {
-                state.status = "rejected";
-            })
+    setStatusUserActionIdle(state) {
+      state.status = "idle"
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getAllHouse.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(getAllHouse.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      .addCase(getAllHouse.fulfilled, (state, action) => {
+        state.houses = action.payload;
+        state.status = "fulfilled";
+      })
+      //getHouseByUser
+      .addCase(getHouseByUser.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(getHouseByUser.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      .addCase(getHouseByUser.fulfilled, (state, action) => {
+        state.customerHouse = action.payload;
+        state.status = "fulfilled";
+      })
+      //getHouseById
+      .addCase(getHouseById.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(getHouseById.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      .addCase(getHouseById.fulfilled, (state, action) => {
+        // state.houses = state.houses.map((house) =>
+        //   house._id == action.payload._id ? action.payload : house
+        // );
+        state.house = action.payload;
+        state.status = "fulfilled";
+      })
+      //create House
+      .addCase(createHouse.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(createHouse.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      .addCase(createHouse.fulfilled, (state, action) => {
+        state.houses.push(action.payload);
+        openNotificationWithIcon({type: "success", message: "Thành Công!"});
+        state.status = "fulfilled";
+      })
+      //delete House
+      .addCase(deleteHome.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(deleteHome.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      .addCase(deleteHome.fulfilled, (state, action) => {
+        openNotificationWithIcon({type: "success", message: "Thành Công!"});
+        state.status = "fulfilled";
+        let newHouses = state.customerHouse.filter(house => (
+            house._id !== action.payload
+        ));
+        state.customerHouse = newHouses
+      })
+      //get History
+      .addCase(getHistory.fulfilled, (state, action) => {
+        state.history = action.payload;
+        state.status = "fulfilled";
+      })
+      .addCase(getHistory.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(getHistory.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      //get One
+      .addCase(getOne.fulfilled, (state, action) => {
+        state.house = action.payload.checkHome;
+        state.status = "fulfilled";
+      })
+      .addCase(getOne.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(getOne.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      //search
+      .addCase(search.fulfilled, (state, action) => {
+        state.houseSearch = action.payload;
+        openNotificationWithIcon({type: "success", message: "Thành Công!"});
+        state.status = "fulfilled";
+      })
+      .addCase(search.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(search.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+  },
 });
 export const {setStatusUserActionPending, setStatusUserActionIdle} = houseSlide.actions
 
