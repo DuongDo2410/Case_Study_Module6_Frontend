@@ -13,7 +13,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RightContent from "./components/userProfile/content/RightContent";
 import AddHouse from "./components/addHouse/addHouse";
 import { ChangePassword } from "./components/changePassword/changePassword";
-import {openNotificationWithIcon, loading} from "./components/Notification/NotificationWithIcon";
 import HistoryRentHouse from "./components/history/HistoryRentHouse";
 import Notification from "./components/notification/Notification";
 import BookingPending from "./components/bookingPending/BookingPending";
