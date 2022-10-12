@@ -55,27 +55,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path={"/profile"} element={<UpdateProfile />}>
-            <Route path={"/profile/:fullName"} element={<RightContent />} />
+            <Route path={"/profile/:id"} element={<RightContent />} />
             <Route
               path={"/profile/changePassword"}
               element={<ChangePassword />}
             />
             <Route path={"/profile/history"} element={<HistoryRentHouse />} />
-
-            <Route path={"/profile/house/list"} element={<HomeManagement />}>
-              <Route
-                path={"/profile/house/list/create"}
-                element={<AddHouse />}
-              />
-              {/* <Route
-              path={"/profile/house/list/pending"}
-              element={<PendingBooking />}
-            /> */}
-              <Route
-                path={"/profile/house/list/accept"}
-                element={<BookingAcceptOwner />}
-              />
-            </Route>
           </Route>
           <Route path={"/"} element={<Home />} />
           <Route path={"/search"} element={<Content />} />

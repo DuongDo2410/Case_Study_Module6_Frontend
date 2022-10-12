@@ -5,7 +5,6 @@ import {
   getUserById,
   setStatusUserAction,
 } from "../../redux/actionThunk/userActionThunk";
-
 import LogoutGoogle from "../../pages/SignIn/LogoutGoogle";
 import { getHistory } from "../../redux/actionThunk/houseActionThunk";
 
@@ -13,8 +12,7 @@ const Header = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const disPatch = useDispatch();
-  let { user } = useSelector((state) => state.user);
-  console.log(user);
+  let { user } = useSelector((state) => state.auth);
   let token = localStorage.getItem("accessToken");
   const handellogout = () => {
     navigate("/login");
@@ -44,7 +42,7 @@ const Header = () => {
                   <img
                     src={user && `${user?.avatar}`}
                     alt=""
-                    className="w-10 h-10 rounded-3xl mr-2"
+                    className="w-10 h-10 rounded-3xl"
                   />
                   {user && user?.fullName}
                 </button>

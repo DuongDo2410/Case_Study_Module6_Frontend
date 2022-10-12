@@ -17,7 +17,6 @@ export function SignInPage() {
   const disPatch = useDispatch();
   const navigate = useNavigate();
 
-  let { status } = useSelector((state) => state.auth);
   useEffect(()=> {
     function start(){
       gapi.client.init({
@@ -27,14 +26,6 @@ export function SignInPage() {
     }
     gapi.load("client:auth2", start)
   })
-
-  useEffect(() => {
-    if (status === "fulfilled") {
-      navigate("/");
-    }else if (status === "rejected") {
-      openNotificationWithIcon({type: 'error', message: "Tài khoản hoặc mật khẩu sai!!!"});
-    }
-  }, [status]);
 
   const formik = useFormik({
     initialValues: {
@@ -49,6 +40,7 @@ export function SignInPage() {
     onSubmit: (values) => {
       disPatch(loginAction(values));
       disPatch(setStatusUserActionIdle());
+      navigate('/');
     },
   });
 

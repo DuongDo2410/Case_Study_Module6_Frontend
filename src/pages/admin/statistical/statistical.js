@@ -1,12 +1,17 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getbookingSuccessOwnerAction } from "../../../redux/actionThunk/bookingActionThunk";
+import { getStatistic } from "../../../redux/actionThunk/userActionThunk";
+
 const Statistical = () => {
   const { bookingSuccess } = useSelector((state) => state.booking);
-  console.log(bookingSuccess);
   const disPatch = useDispatch();
   useEffect(() => {
     disPatch(getbookingSuccessOwnerAction());
+  }, []);
+  let { statistic } = useSelector((state) => state.user);
+  useEffect(() => {
+    disPatch(getStatistic());
   }, []);
   return (
     <>
@@ -25,7 +30,7 @@ const Statistical = () => {
               <span className="text-sm font-semibold text-gray-400">
                 Spent this month
               </span>
-              <h1 className="text-2xl font-bold">$682.5</h1>
+              <h1 className="text-2xl font-bold">{statistic.week}</h1>
             </div>
             <div>
               <svg
@@ -43,7 +48,7 @@ const Statistical = () => {
               <span className="text-sm font-semibold text-gray-400">
                 Spent this month
               </span>
-              <h1 className="text-2xl font-bold">$682.5</h1>
+              <h1 className="text-2xl font-bold">{statistic.month}</h1>
             </div>
             <div>
               <svg
