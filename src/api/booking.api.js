@@ -9,6 +9,18 @@ const bookingApi = {
       },
     });
   },
+  getBooking() {
+    const url = `/booking`;
+    return axiosConfig.get(url);
+  },
+  getBookingSuccessOwner() {
+    const url = `/booking/booking-success`;
+    return axiosConfig.get(url);
+  },
+  BookingSuccessOwner(id) {
+    const url = `/booking/success/${id}`;
+    return axiosConfig.post(url);
+  },
   bookingPending(token) {
     const url = `/booking/booking-pending`;
     return axiosConfig.get(url, {

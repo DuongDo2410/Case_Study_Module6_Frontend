@@ -9,10 +9,11 @@ import {useParams} from "react-router";
 
 export default function Rate({rating}) {
     const dispatch = useDispatch();
-    let { user } = useSelector((state) => state.user);
+    let { user } = useSelector((state) => state.auth);
     const {id} = useParams();
+    console.log(user.id)
     const handleRating = (e) => {
-        dispatch(ratingHouse({id: id, rating: e.target.value, idUser: user._id}))
+        dispatch(ratingHouse({id: id, rating: e.target.value, idUser: user.id}))
     }
 
     const myRating = 0;
@@ -31,11 +32,9 @@ export default function Rate({rating}) {
                     <Rating
                         name="simple-controlled"
                         value={myRating}
-                        onChange={e => handleRating(e)
-                        }
+                        onChange={e => handleRating(e)}
                     />
                     <span style={{top: '-6px', position: 'relative', fontSize:'17px'}}>{" ("+rating+")"}</span>
-
                 </div>
             </div>
 
