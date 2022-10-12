@@ -12,15 +12,18 @@ const Comment = () => {
   return (
     <>
       <div className="container mx-auto mb-10">
-        <h2 className="text-5xl">Bình luận</h2>
+        <h2 className="text-5xl">Đánh giá chất lượng dịch vụ</h2>
         <div className="flex justify-start ">
           <img
             src={user && user.avatar}
             alt=""
             className="w-10 h-10 object-cover rounded-3xl"
+          />
+          <input
+            type="text"
+            className="ml-4 w-full border rounded-3xl pl-8"
             placeholder="Bình luận của bạn ...."
           />
-          <input type="text" className="ml-4 w-full border rounded-3xl pl-8" />
         </div>
       </div>
     </>
