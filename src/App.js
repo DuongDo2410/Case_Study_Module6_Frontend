@@ -1,18 +1,18 @@
 import "./App.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Home from "./pages/home/home";
 import { useDispatch } from "react-redux";
 import { getAllHouse } from "./redux/actionThunk/houseActionThunk";
 import { useEffect } from "react";
-import UpdateProfile from "./pages/userProfile/UpdateProfile";
-import Booking from "./pages/booking/booking";
-import { RegisterPage } from "./pages/Register/RegisterPage";
-import { SignInPage } from "./pages/SignIn/SignInPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RightContent from "./components/userProfile/content/RightContent";
 import AddHouse from "./components/addHouse/addHouse";
 import { ChangePassword } from "./components/changePassword/changePassword";
+import Home from "./Pages/Home/home";
+import {RegisterPage} from "./Pages/Register/RegisterPage";
+import {SignInPage} from "./Pages/SignIn/SignInPage";
+import Booking from "./Pages/booking/booking";
+import UpdateProfile from "./Pages/userProfile/UpdateProfile";
 
 function App() {
   let dispatch = useDispatch();
