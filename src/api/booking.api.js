@@ -17,6 +17,14 @@ const bookingApi = {
     const url = `/booking/booking-success`;
     return axiosConfig.get(url);
   },
+  getBookingPendingRenter() {
+    const url = `/booking/booking-pending-renter`;
+    return axiosConfig.get(url);
+  },
+  getBookingAcceptRenter() {
+    const url = `/booking/booking-accept-renter`;
+    return axiosConfig.get(url);
+  },
   BookingSuccessOwner(id) {
     const url = `/booking/success/${id}`;
     return axiosConfig.post(url);
@@ -48,6 +56,14 @@ const bookingApi = {
         },
       }
     );
+  },
+  BookingCanCel(id) {
+    const url = `/booking/cancel/${id}`;
+    return axiosConfig.post(url);
+  },
+  historyBooking() {
+    const url = `/booking/historyRenter`;
+    return axiosConfig.get(url);
   },
 };
 export default bookingApi;

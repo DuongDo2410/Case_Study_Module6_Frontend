@@ -42,7 +42,7 @@ const Header = () => {
                   <img
                     src={user && `${user?.avatar}`}
                     alt=""
-                    className="w-10 h-10 rounded-3xl"
+                    className="w-10 h-10 mr-3 rounded-3xl"
                   />
                   {user && user?.fullName}
                 </button>
@@ -63,11 +63,11 @@ const Header = () => {
                       tabindex="-1"
                       id="menu-item-0"
                     >
-                      Account
+                      Tài khoản
                     </Link>
                     <LogoutGoogle />
 
-                    <Link
+                    {/* <Link
                       to={"/notification"}
                       class="text-gray-700 block px-4 py-2 text-sm"
                       role="menuitem"
@@ -75,7 +75,7 @@ const Header = () => {
                       id="menu-item-0"
                     >
                       Notification
-                    </Link>
+                    </Link> */}
 
                     {/*<button*/}
                     {/*  type="submit"*/}

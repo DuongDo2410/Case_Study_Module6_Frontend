@@ -1,41 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { message, Popconfirm } from 'antd';
+import { message, Popconfirm } from "antd";
 import { BiPlus } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import {deleteHome, getHouseById, getHouseByUser} from "../../../redux/actionThunk/houseActionThunk";
+import {
+  deleteHome,
+  getHouseById,
+  getHouseByUser,
+} from "../../../redux/actionThunk/houseActionThunk";
 import { AiOutlineEye } from "react-icons/ai";
 import { BiPencil } from "react-icons/bi";
 import { BiTrash } from "react-icons/bi";
 import Create from "./create/create";
 import Update from "./update/update";
-import {Link, useNavigate} from "react-router-dom";
-import {setStatusHouseActionIdle} from "../../../redux/slide/houseSlide";
-
+import { Link, useNavigate } from "react-router-dom";
+import { setStatusHouseActionIdle } from "../../../redux/slide/houseSlide";
 
 const Houses = () => {
-  let navigate = useNavigate()
+  let navigate = useNavigate();
   let { customerHouse } = useSelector((state) => state.house);
-  console.log(customerHouse)
+  console.log(customerHouse);
   const disPatch = useDispatch();
   const handleUpdate = (id) => {
     disPatch(getHouseById(id));
-    disPatch(setStatusHouseActionIdle())
-    navigate(`/admin/houses/update/${id}`)
-  }
+    disPatch(setStatusHouseActionIdle());
+    navigate(`/admin/houses/update/${id}`);
+  };
   const confirm = (id) => {
     disPatch(deleteHome(id));
-    disPatch(setStatusHouseActionIdle())
-  }
-  const cancel = () => {
-
+    disPatch(setStatusHouseActionIdle());
   };
+  const cancel = () => {};
 
   useEffect(() => {
     disPatch(getHouseByUser());
   }, []);
   return (
     <>
-      <div className="w-full bg-white p-5 min-h-[550px] h-max">
+      <div className="w-full bg-white p-5 min-h-[550px] h-max shadow-lg rounded-lg">
         <div className="flex justify-between border-b pb-6 items-center">
           <h4 className="text-2xl">Danh sách nhà</h4>
           <Link
@@ -99,18 +100,21 @@ const Houses = () => {
                             </button>
                           </div>
                           <div className="w-4 mr-3 transform hover:text-purple-500 hover:scale-110">
-                            <div className="hover:cursor-pointer" onClick={() => handleUpdate(house._id)}>
+                            <div
+                              className="hover:cursor-pointer"
+                              onClick={() => handleUpdate(house._id)}
+                            >
                               <BiPencil size={20} />
                             </div>
                           </div>
                           <div className="w-4 transform hover:text-purple-500 hover:scale-110">
                             <Popconfirm
-                                placement="left"
-                                title="Bạn có muốn xoá không?"
-                                onConfirm={() => confirm(house._id)}
-                                onCancel={cancel}
-                                okText="Có"
-                                cancelText="Không"
+                              placement="left"
+                              title="Bạn có muốn xoá không?"
+                              onConfirm={() => confirm(house._id)}
+                              onCancel={cancel}
+                              okText="Có"
+                              cancelText="Không"
                             >
                               <button>
                                 <BiTrash size={20} />

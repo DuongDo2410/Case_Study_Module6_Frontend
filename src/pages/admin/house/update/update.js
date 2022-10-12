@@ -8,12 +8,13 @@ import { storage } from "../../../../firebase";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getHouseById, updateHouse,
+  getHouseById,
+  updateHouse,
 } from "../../../../redux/actionThunk/houseActionThunk";
 import { useNavigate, useParams } from "react-router";
 import {
   setStatusHouseActionIdle,
-  setStatusHouseActionPending
+  setStatusHouseActionPending,
 } from "../../../../redux/slide/houseSlide";
 
 const Update = () => {
@@ -65,19 +66,19 @@ const Update = () => {
       // address: Yup.string().required("Không để trống"),
     }),
     onSubmit: async (values) => {
-      console.log(123456)
-      disPatch(setStatusHouseActionPending())
+      console.log(123456);
+      disPatch(setStatusHouseActionPending());
       //   console.log(values);
       let imageUpload = image;
       if (imageUpload) {
-        console.log(9999)
+        console.log(9999);
         const imageRef = ref(storage, `images/${imageUpload?.name}`);
         uploadBytes(imageRef, imageUpload).then((snapshot) => {
           getDownloadURL(snapshot.ref).then((url) => {
             values.image = { link: url };
             console.log(values);
             console.log(id);
-            disPatch(updateHouse({id: id, house: values}));
+            disPatch(updateHouse({ id: id, house: values }));
             disPatch(setStatusHouseActionIdle());
           });
         });
@@ -86,7 +87,7 @@ const Update = () => {
   });
 
   return (
-    <div className="w-full bg-white p-5 min-h-[550px] h-max">
+    <div className="w-full bg-white p-5 min-h-[550px] h-max shadow-lg rounded-lg">
       <div className="flex justify-between border-b pb-6 items-center">
         <h4 className="text-2xl">Sửa thông tin nhà</h4>
       </div>

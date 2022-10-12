@@ -19,8 +19,8 @@ const Dasboard = () => {
   }, []);
   return (
     <>
-      <div className="min-h-screen flex">
-        <div className="p-6 w-60 flex flex-col justify-between">
+      <div className="min-h-screen flex ">
+        <div className="p-6 w-60 flex flex-col justify-between shadow-lg ">
           <div>
             <div className="flex space-2 items-center border-b-2 pb-4">
               <img

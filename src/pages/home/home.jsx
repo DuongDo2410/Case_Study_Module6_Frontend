@@ -3,7 +3,7 @@ import Banner from "../../components/banner/banner";
 import Footer from "../../components/footer/footer";
 import Header from "../../components/header/header";
 import House from "../../components/house/house";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 // Import Swiper styles
@@ -45,8 +45,8 @@ const Home = () => {
       <Footer /> */}
       <Header />
       <Banner />
-        <div className="container mx-auto">
-            <h5 className="text-2xl font-bold my-10">TOP 5 CĂN HỘ NỔI BẬT</h5>
+      <div className="container mx-auto">
+        {/* <h5 className="text-2xl font-bold my-10">TOP 5 CĂN HỘ NỔI BẬT</h5>
             <Swiper
                 modules={[Navigation, Pagination, Scrollbar, A11y]}
                 spaceBetween={50}
@@ -64,10 +64,10 @@ const Home = () => {
                             </SwiperSlide>
                         ))}
                 </div>
-            </Swiper>
+            </Swiper> */}
 
-            <ListItem houses={houses} />
-        </div>
+        <ListItem houses={houses} />
+      </div>
       <Footer />
     </>
   );

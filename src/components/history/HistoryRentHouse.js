@@ -1,66 +1,67 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { SwiperSlide } from "swiper/react";
-import HistoryChildren from "./historyChildren";
-import Nav from "./nav";
-import NavItem from "./navItem";
-import List from "./List";
-import ListItem from "./historyChildren";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { bookingHistoryRenterAction } from "../../redux/actionThunk/bookingActionThunk";
 
-const HistoryRentHouse = () => {
-  const history = useSelector((state) => state.house.history);
-  console.log(history);
+const HistoryBookingRenter = () => {
+  const { bookingHistoryRenter } = useSelector((state) => state.booking);
+  const disPatch = useDispatch();
+
+  useEffect(() => {
+    disPatch(bookingHistoryRenterAction());
+  }, []);
   return (
-    // <div>
-    //     <section class="antialiased bg-gray-100 text-gray-600 h-screen px-4">
-    //         <div class="flex flex-col justify-center h-full">
-    //             <div class="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
-    //                 <header class="px-5 py-4 border-b border-gray-100">
-    //                     <h2 class="font-semibold text-gray-800">History rent house</h2>
-    //                 </header>
-    //                 <div class="p-3">
-    //                     <div class="overflow-x-auto">
-    //                         <table class="table-auto w-full">
-    //                             <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
-    //                             <tr>
-    //                                 <th class="p-5 whitespace-nowrap">
-    //                                     <div class="font-semibold text-left">Name Home</div>
-    //                                     <td className="p-2 whitespace-nowrap"></td>
-    //                                 </th>
-    //                                 <th class="p-2 whitespace-nowrap">
-    //                                     <div class="font-semibold text-left">Start day</div>
-    //                                     <td className="p-2 whitespace-nowrap"></td>
-    //                                 </th>
-    //                                 <th class="p-2 whitespace-nowrap">
-    //                                     <div class="font-semibold text-left">End day</div>
-    //                                     <td className="p-2 whitespace-nowrap"></td>
-    //                                 </th>
-    //                                 <th class="p-2 whitespace-nowrap">
-    //                                     <div class="font-semibold text-left">Price</div>
-    //                                     <td className="p-2 whitespace-nowrap"></td>
-    //                                 </th>
-    //
-    //                             </tr>
-    //                             </thead>
-    //                             <tbody class="text-sm divide-y divide-gray-100">
-    //
-    //                             </tbody>
-    //                         </table>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     </section>
-    // </div>
-
-    <div className="divide-y divide-slate-100">
-      <List>
-        {history.map((h) => (
-          <ListItem key={h._id} history={h} />
-        ))}
-      </List>
+    <div>
+      <table className="w-full table-auto rounded-xl">
+        <thead>
+          <tr className=" bg-gray-50 text-gray-500 ">
+            <th className="py-3 px-6 text-left">Tên nhà</th>
+            <th className="py-3 px-6 text-left">Địa chỉ</th>
+            <th className="py-3 px-6 text-left">Giá tiền</th>
+            <th className="py-3 w-36 text-center">Ngày đặt</th>
+            <th className="py-3 w-36 text-center">trạng thái</th>
+          </tr>
+        </thead>
+        <tbody className="text-gray-600 text-sm font-light">
+          {bookingHistoryRenter &&
+            bookingHistoryRenter.map((booking) => (
+              <tr className="border-b border-gray-200 hover:bg-gray-100">
+                <td className="py-3 px-6 text-left">
+                  <div className="flex items-center">
+                    <p>{booking.idHome.name}</p>
+                  </div>
+                </td>
+                <td className="py-3 px-6 text-center">
+                  <div className="flex items-center">
+                    <p>{booking.idHome.address}</p>
+                  </div>
+                </td>
+                <td className="py-3 px-6 text-center">
+                  <div className="flex items-center">
+                    <p>{booking.idHome.price}</p>
+                  </div>
+                </td>
+                <td className="py-3 px-6 text-center">
+                  <div className="flex items-center">
+                    {new Date(booking.startDay).toLocaleDateString()}-
+                    {new Date(booking.endDay).toLocaleDateString()}
+                  </div>
+                </td>
+                <td className="py-3 px-2 text-center">
+                  <span
+                    className={
+                      booking.status == "SUCCESS" &&
+                      "bg-lime-500 text-white py-1 px-3 rounded-full text-xs"
+                    }
+                  >
+                    {booking.status == "SUCCESS" && "thành công"}
+                  </span>
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
     </div>
   );
 };
 
-export default HistoryRentHouse;
+export default HistoryBookingRenter;
