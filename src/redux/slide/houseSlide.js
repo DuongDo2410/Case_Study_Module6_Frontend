@@ -12,19 +12,31 @@ import {
   getHouseByUser,
   getOne,
   search,
-  setStatusHouseAction,
+    deleteHome,
+    updateHouse
 } from "../actionThunk/houseActionThunk";
+import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
+
+
 const houseSlide = createSlice({
   name: "house",
   initialState: {
     houses: [],
     customerHouse: [],
+    topHouse: [],
     status: "idle",
     house: null,
     history: [],
     houseSearch: [],
   },
-  reducers: {},
+  reducers: {
+    setStatusUserActionPending(state) {
+      state.status = "pending"
+    },
+    setStatusUserActionIdle(state) {
+      state.status = "idle"
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllHouse.pending, (state, action) => {
@@ -37,6 +49,7 @@ const houseSlide = createSlice({
         state.houses = action.payload;
         state.status = "fulfilled";
       })
+      //getHouseByUser
       .addCase(getHouseByUser.pending, (state, action) => {
         state.status = "pending";
       })
@@ -47,6 +60,7 @@ const houseSlide = createSlice({
         state.customerHouse = action.payload;
         state.status = "fulfilled";
       })
+      //getHouseById
       .addCase(getHouseById.pending, (state, action) => {
         state.status = "pending";
       })
@@ -60,6 +74,7 @@ const houseSlide = createSlice({
         state.house = action.payload;
         state.status = "fulfilled";
       })
+      //create House
       .addCase(createHouse.pending, (state, action) => {
         state.status = "pending";
       })
@@ -68,7 +83,23 @@ const houseSlide = createSlice({
       })
       .addCase(createHouse.fulfilled, (state, action) => {
         state.houses.push(action.payload);
+        openNotificationWithIcon({type: "success", message: "Thành Công!"});
         state.status = "fulfilled";
+      })
+      //delete House
+      .addCase(deleteHome.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(deleteHome.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      .addCase(deleteHome.fulfilled, (state, action) => {
+        openNotificationWithIcon({type: "success", message: "Thành Công!"});
+        state.status = "fulfilled";
+        let newHouses = state.customerHouse.filter(house => (
+            house._id !== action.payload
+        ));
+        state.customerHouse = newHouses
       })
       //get History
       .addCase(getHistory.fulfilled, (state, action) => {
@@ -79,6 +110,18 @@ const houseSlide = createSlice({
         state.status = "pending";
       })
       .addCase(getHistory.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      //Update house
+      .addCase(updateHouse.fulfilled, (state, action) => {
+        openNotificationWithIcon({type: "success", message: "Thành Công!"})
+        state.status = "fulfilled";
+      })
+      .addCase(updateHouse.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(updateHouse.rejected, (state, action) => {
+        openNotificationWithIcon({type: "error", message: "Thất Bại!"})
         state.status = "rejected";
       })
       //get One
@@ -95,6 +138,7 @@ const houseSlide = createSlice({
       //search
       .addCase(search.fulfilled, (state, action) => {
         state.houseSearch = action.payload;
+        openNotificationWithIcon({type: "success", message: "Thành Công!"});
         state.status = "fulfilled";
       })
       .addCase(search.pending, (state, action) => {
@@ -103,10 +147,8 @@ const houseSlide = createSlice({
       .addCase(search.rejected, (state, action) => {
         state.status = "rejected";
       })
-      //setStatus
-      .addCase(setStatusHouseAction.fulfilled, (state, action) => {
-        state.status = "idle";
-      });
   },
 });
+export const {setStatusUserActionPending, setStatusUserActionIdle} = houseSlide.actions
+
 export default houseSlide;

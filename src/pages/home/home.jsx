@@ -3,7 +3,7 @@ import Banner from "../../components/banner/banner";
 import Footer from "../../components/footer/footer";
 import Header from "../../components/header/header";
 import House from "../../components/house/house";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 // Import Swiper styles
@@ -12,10 +12,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Link } from "react-router-dom";
+import ListItem from "../../components/content/listItem";
 
 const Home = () => {
   let houses = useSelector((state) => state.house.houses);
-  console.log(houses);
+  // let topHouse = useSelector((state) => state.house.topHouse);
   return (
     <>
       {/* <Header />
@@ -44,32 +45,29 @@ const Home = () => {
       <Footer /> */}
       <Header />
       <Banner />
-      {/* <Swiper
-        modules={[Navigation, Pagination, Scrollbar, A11y]}
-        spaceBetween={50}
-        slidesPerView={3}
-        navigation={{ hideOnClick: true }}
-        pagination={{ clickable: true }}
-        // onSwiper={(swiper) => console.log(swiper)}
-        // onSlideChange={() => console.log("slide change")}
-      >
-        <div className="container mx-auto grid grid-cols-3 ">
-          {houses &&
-            houses.map((house) => (
-              <SwiperSlide>
-                <House house={house} />
-              </SwiperSlide>
-            ))}
+        <div className="container mx-auto">
+            <h5 className="text-2xl font-bold my-10">TOP 5 CĂN HỘ NỔI BẬT</h5>
+            <Swiper
+                modules={[Navigation, Pagination, Scrollbar, A11y]}
+                spaceBetween={50}
+                slidesPerView={3}
+                navigation={{hideOnClick: true}}
+                pagination={{clickable: true}}
+                // onSwiper={(swiper) => console.log(swiper)}
+                // onSlideChange={() => console.log("slide change")}
+            >
+                <div className="container mx-auto grid grid-cols-3">
+                    {houses &&
+                        houses.map((house) => (
+                            <SwiperSlide>
+                                <House house={house}/>
+                            </SwiperSlide>
+                        ))}
+                </div>
+            </Swiper>
+
+            <ListItem houses={houses} />
         </div>
-      </Swiper> */}
-      <div className="container mx-auto grid grid-cols-3 gap-10 mb-8">
-        {houses &&
-          houses.map((house) => (
-            <SwiperSlide>
-              <House house={house} />
-            </SwiperSlide>
-          ))}
-      </div>
       <Footer />
     </>
   );

@@ -4,16 +4,33 @@ import {
   getUserById,
   loginGoogleAction,
   updateUserAction,
-  setStatusUserAction
+  setStatusUserAction,
+    getStatistic
 } from "../actionThunk/userActionThunk";
 import { setLocale } from "yup";
+import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
+import booking from "../../pages/booking/booking";
+
+
 const userSlide = createSlice({
   name: "user",
   initialState: {
     status: "idle",
     user: JSON.parse(localStorage.getItem("currentUser")) || {},
+    bookings: [],
+    statistic: {
+      week: 0,
+      month: 0,
+    },
   },
-  reducers: {},
+  reducers: {
+    setStatusUserActionPending(state) {
+      state.status = "pending"
+    },
+    setStatusUserActionIdle(state) {
+      state.status = "idle"
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getUserById.pending, (state, action) => {
       state.status = "pending";
@@ -29,9 +46,9 @@ const userSlide = createSlice({
     builder.addCase(updateUserAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
       state.user = action.payload;
-      console.log("logggg", action.payload);
       localStorage.removeItem("currentUser");
       localStorage.setItem("currentUser", JSON.stringify(action.payload));
+      openNotificationWithIcon({type: "success", message: 'Cập Nhật Thành Công'});
     });
     //change Password
     builder.addCase(changePasswordAction.pending, (state, action) => {
@@ -39,6 +56,7 @@ const userSlide = createSlice({
     });
     builder.addCase(changePasswordAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
+      openNotificationWithIcon({type: "success", message: 'Thành Công'});
     });
     //login Google
     builder.addCase(loginGoogleAction.pending, (state, action) => {
@@ -47,16 +65,23 @@ const userSlide = createSlice({
     builder.addCase(loginGoogleAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
       state.user = action.payload.user;
+      openNotificationWithIcon({type: "success", message: "Thành Công!"})
       localStorage.setItem('accessToken', action.payload.token);
       localStorage.setItem('currentUser', JSON.stringify(action.payload.user));
     });
-    builder.addCase(loginGoogleAction.rejected, (state, action) => {
-      state.status = "rejected";
+    //getStatistic
+    builder.addCase(getStatistic.pending, (state, action) => {
+      state.status = "pending";
     });
-    //setStatus
-    builder.addCase(setStatusUserAction.fulfilled, (state, action) => {
-      state.status = "idle";
+    builder.addCase(getStatistic.fulfilled, (state, action) => {
+      state.bookings = action.payload.bookings;
+      state.statistic.week = action.payload.moneyWeek;
+      state.statistic.month = action.payload.moneyMonth
+    });
+    builder.addCase(getStatistic.rejected, (state, action) => {
+      state.status = "rejected";
     });
   },
 });
+export const {setStatusUserActionPending, setStatusUserActionIdle} = userSlide.actions
 export default userSlide;

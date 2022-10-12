@@ -8,6 +8,8 @@ import {
   getBookingAction,
   getbookingSuccessOwnerAction,
 } from "../actionThunk/bookingActionThunk";
+import { openNotificationWithIcon } from "../../components/Notification/NotificationWithIcon";
+import userSlide from "./userSlide";
 
 const bookingSlide = createSlice({
   name: "booking",
@@ -19,14 +21,20 @@ const bookingSlide = createSlice({
     bookingAccept: [],
     bookingSuccess: [],
   },
-  reducers: {},
+  reducers: {
+    setStatusUserActionPending(state) {
+      state.status = "pending";
+    },
+    setStatusUserActionIdle(state) {
+      state.status = "idle";
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(bookingSuccessOwnerAction.pending, (state, action) => {
       state.status = "pending";
     });
     builder.addCase(bookingSuccessOwnerAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
-      console.log("success", action.payload);
       state.bookingAccept = state.bookingAccept.filter((booking) =>
         booking._id != action.payload._id ? booking._id : ""
       );
@@ -37,6 +45,7 @@ const bookingSlide = createSlice({
     });
     builder.addCase(bookingAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
+      openNotificationWithIcon({ type: "success", message: "Thành Công!" });
       state.booking = action.payload;
     });
     builder.addCase(getBookingAction.pending, (state, action) => {
@@ -51,6 +60,7 @@ const bookingSlide = createSlice({
     });
     builder.addCase(bookingPendingAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
+      openNotificationWithIcon({ type: "success", message: "Thành Công!" });
       state.bookingPending = action.payload.bookings;
     });
     builder.addCase(bookingAcceptOwnerAction.pending, (state, action) => {
@@ -66,7 +76,7 @@ const bookingSlide = createSlice({
     });
     builder.addCase(bookingAcceptAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
-      console.log("slide", action.payload);
+      openNotificationWithIcon({ type: "success", message: "Thành Công!" });
       state.bookingPending = state.bookingPending.filter((booking) =>
         booking._id != action.payload.idBooking ? booking._id : ""
       );
@@ -81,4 +91,7 @@ const bookingSlide = createSlice({
     });
   },
 });
+export const { setStatusUserActionPending, setStatusUserActionIdle } =
+  bookingSlide.actions;
+
 export default bookingSlide;

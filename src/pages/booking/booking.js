@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import Footer from "../../components/footer/footer";
 import Header from "../../components/header/header";
 import SingleBedOutlinedIcon from "@mui/icons-material/SingleBedOutlined";
-import BathtubOutlinedIcon from "@mui/icons-material/BathtubOutlined";
-import SquareFootOutlinedIcon from "@mui/icons-material/SquareFootOutlined";
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getOne } from "../../redux/actionThunk/houseActionThunk";
 import moment from "moment";
 import { bookingAction } from "../../redux/actionThunk/bookingActionThunk";
 import Comment from "../../components/comment/comemnt";
+import {setStatusUserActionIdle} from "../../redux/slide/houseSlide";
 const Booking = () => {
   let house = useSelector((state) => state.house.house);
   let dispatch = useDispatch();
@@ -27,6 +25,7 @@ const Booking = () => {
   });
   useEffect(() => {
     dispatch(getOne(id));
+    dispatch(setStatusUserActionIdle);
   }, []);
   useEffect(() => {
     if (startDay && endDay) {
@@ -77,7 +76,7 @@ const Booking = () => {
                 </div>
                 <div className="flex items-center text-gray-600 gap-1">
                   <div className="text-[20px] rounded-full">
-                    <BathtubOutlinedIcon />
+                    {/*<BathtubOutlinedIcon />*/}
                   </div>
                   <div className="text-base mt-1">
                     {house && house.amountBathroom}
@@ -85,7 +84,7 @@ const Booking = () => {
                 </div>
                 <div className="flex items-center text-gray-600 gap-1">
                   <div className="text-[20px] rounded-full">
-                    <SquareFootOutlinedIcon />
+                    {/*<SquareFootOutlinedIcon />*/}
                   </div>
                   <div className="text-base mt-1">{house && house.area}m2</div>
                 </div>

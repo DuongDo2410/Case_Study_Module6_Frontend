@@ -10,24 +10,31 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import BreakfastDiningIcon from "@mui/icons-material/BreakfastDining";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { Avatar } from "@mui/material";
+import {Avatar, Typography} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getHistory } from "../../../redux/actionThunk/houseActionThunk";
+import {setStatusUserActionIdle} from "../../../redux/slide/houseSlide";
 
 export default function LeftContent() {
   let { user } = useSelector((state) => state.user);
   const disPatch = useDispatch();
   const handelGetHistory = () => {
     disPatch(getHistory());
+    disPatch(setStatusUserActionIdle());
   };
   return (
     <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-      <Avatar
-        alt="Remy Sharp"
-        src={user && user.avatar}
-        sx={{ width: "70px", height: "70px", margin: "5px 5px" }}
-      />
+      <Box sx={{ display: 'flex' }}>
+        <Avatar
+            alt="Remy Sharp"
+            src={user && user.avatar}
+            sx={{ width: "70px", height: "70px", margin: "5px 5px" }}
+        />
+        <Typography variant="h5" sx={{ lineHeight: 4, textAlign: 'center', marginLeft: 3 }} gutterBottom>
+          {user && user.fullName}
+        </Typography>
+      </Box>
       <Divider />
       <nav aria-label="main mailbox folders">
         <List>

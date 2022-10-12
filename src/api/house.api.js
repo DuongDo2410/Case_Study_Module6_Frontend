@@ -5,6 +5,10 @@ const houseApi = {
     const url = `/homes`;
     return axiosConfig.get(url);
   },
+  getTop5() {
+    const url = `/top`;
+    return axiosConfig.get(url);
+  },
   getHouseByUser() {
     const url = `/homes/get-house-by-user`;
     return axiosConfig.get(url);
@@ -21,6 +25,10 @@ const houseApi = {
     const url = `/homes`;
     return axiosConfig.post(url, house);
   },
+  update(id, house) {
+    const url = `/homes/${id}`;
+    return axiosConfig.put(url, house);
+  },
   getHistory() {
     const url = `/booking/history-renter`;
     return axiosConfig.get(url);
@@ -28,6 +36,10 @@ const houseApi = {
   search(values) {
     const url = `/homes/find`;
     return axiosConfig.post(url, values);
+  },
+  deleteHome(id) {
+    const url = `/homes/${id}`;
+    return axiosConfig.delete(url);
   },
 };
 export default houseApi;

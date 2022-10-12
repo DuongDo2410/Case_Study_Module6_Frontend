@@ -16,9 +16,6 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
-      {/* <Routes>
-                <Route path="/showDetail" element={<Booking />} />
-            </Routes> */}
     </Provider>
   </React.StrictMode>
 );
