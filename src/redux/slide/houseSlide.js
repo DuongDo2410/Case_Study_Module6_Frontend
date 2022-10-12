@@ -17,7 +17,8 @@ import {
   ratingHouse,
   updateComment,
 } from "../actionThunk/houseActionThunk";
-import { openNotificationWithIcon } from "../../components/Notification/NotificationWithIcon";
+import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
+
 
 const houseSlide = createSlice({
   name: "house",
@@ -31,11 +32,11 @@ const houseSlide = createSlice({
     houseSearch: [],
   },
   reducers: {
-    setStatusUserActionPending(state) {
-      state.status = "pending";
+    setStatusHouseActionPending(state) {
+      state.status = "pending"
     },
-    setStatusUserActionIdle(state) {
-      state.status = "idle";
+    setStatusHouseActionIdle(state) {
+      state.status = "idle"
     },
   },
   extraReducers: (builder) => {
@@ -156,7 +157,6 @@ const houseSlide = createSlice({
       });
   },
 });
-export const { setStatusUserActionPending, setStatusUserActionIdle } =
-  houseSlide.actions;
+export const {setStatusHouseActionPending, setStatusHouseActionIdle} = houseSlide.actions
 
 export default houseSlide;

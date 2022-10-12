@@ -13,7 +13,7 @@ const Comment = ({ house }) => {
   // useEffect(() => {
   //   disPatch(getUserById());
   // }, []);
-  console.log(user);
+
   const handleComment = (event) => {
     event.preventDefault();
     disPatch(updateComment({ id: id, comment: { user: user, text: comment } }));
@@ -47,7 +47,7 @@ const Comment = ({ house }) => {
           >
             <div>
               <img
-                src={user && user.avatar}
+                src={comment && comment?.user?.avatar}
                 alt=""
                 className="w-10 h-10 object-cover rounded-3xl"
                 placeholder="Bình luận của bạn ...."

@@ -7,18 +7,25 @@ import {
 } from "../../redux/actionThunk/authActionThunk";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
-import {setStatusUserActionIdle} from "../../redux/slide/authSlide";
+import {setStatusAuthActionIdle} from "../../redux/slide/authSlide";
 
 
 export function RegisterPage () {
+  const navigate = useNavigate();
+  const disPatch = useDispatch();
+  let {status} = useSelector((state) => state.auth)
+
+  useEffect(() => {
+    if (status === 'fulfilled') {
+      disPatch(setStatusAuthActionIdle());
+      navigate('/login')
+    }
+  }, [status])
+
   const handleRegister = (values) => {
     disPatch(registerAction(values));
-    disPatch(setStatusUserActionIdle());
+    disPatch(setStatusAuthActionIdle());
   }
-  const disPatch = useDispatch();
-  let { status } = useSelector((state) => state.auth);
-  console.log(status);
-  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {

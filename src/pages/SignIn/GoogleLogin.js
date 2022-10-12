@@ -10,7 +10,6 @@ export default function LoginGoogle() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSuccess = (res) => {
-    localStorage.setItem("accessToken", res.accessToken);
     // console.log(res.profileObj)
     // console.log(req.body)
     dispatch(loginGoogleAction(res.profileObj));

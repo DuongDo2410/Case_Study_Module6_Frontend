@@ -11,7 +11,10 @@ import {
   getHouseById, updateHouse,
 } from "../../../../redux/actionThunk/houseActionThunk";
 import { useNavigate, useParams } from "react-router";
-import {setStatusUserActionIdle, setStatusUserActionPending} from "../../../../redux/slide/houseSlide";
+import {
+  setStatusHouseActionIdle,
+  setStatusHouseActionPending
+} from "../../../../redux/slide/houseSlide";
 
 const Update = () => {
   const navigate = useNavigate();
@@ -63,7 +66,7 @@ const Update = () => {
     }),
     onSubmit: async (values) => {
       console.log(123456)
-      disPatch(setStatusUserActionPending())
+      disPatch(setStatusHouseActionPending())
       //   console.log(values);
       let imageUpload = image;
       if (imageUpload) {
@@ -75,7 +78,7 @@ const Update = () => {
             console.log(values);
             console.log(id);
             disPatch(updateHouse({id: id, house: values}));
-            disPatch(setStatusUserActionIdle());
+            disPatch(setStatusHouseActionIdle());
           });
         });
       }

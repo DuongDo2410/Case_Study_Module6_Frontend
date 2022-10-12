@@ -61,7 +61,7 @@ function App() {
           <Route path={"/register"} element={<RegisterPage />} />
           <Route path={"/login"} element={<SignInPage />} />
           <Route path={"/detail/:id"} element={<Booking />} />
-          {/* <Route path={"/notification"} element={<Notification />} /> */}
+          {/*<Route path={"/notification"} element={<Notification />} />*/}
           <Route path={"/bookingPending"} element={<BookingPending />} />
 
           <Route path={"/admin"} element={<Dasboard />}>

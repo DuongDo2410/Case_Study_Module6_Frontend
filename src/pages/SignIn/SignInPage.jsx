@@ -8,13 +8,16 @@ import {
 } from "../../redux/actionThunk/authActionThunk";
 import { gapi } from 'gapi-script'
 import LoginGoogle from "./GoogleLogin";
-import {setStatusUserActionIdle} from "../../redux/slide/authSlide";
+import {setStatusAuthActionIdle} from "../../redux/slide/authSlide";
 const clientID = "834466386428-j6ifk7es8vo0k3r86c50ekojr26jd1m1.apps.googleusercontent.com";
 const clientSecret = "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";
 
 export function SignInPage() {
   const disPatch = useDispatch();
   const navigate = useNavigate();
+  let {status} = useSelector((state) => state.auth);
+  console.log(status)
+
 
   useEffect(()=> {
     function start(){
@@ -25,6 +28,13 @@ export function SignInPage() {
     }
     gapi.load("client:auth2", start)
   })
+
+  useEffect(() => {
+    if (status === "fulfilled") {
+      disPatch(setStatusAuthActionIdle());
+      navigate('/');
+    }
+  }, [status])
 
   const formik = useFormik({
     initialValues: {
@@ -38,8 +48,6 @@ export function SignInPage() {
     }),
     onSubmit: (values) => {
       disPatch(loginAction(values));
-      disPatch(setStatusUserActionIdle());
-      navigate('/');
     },
   });
 
