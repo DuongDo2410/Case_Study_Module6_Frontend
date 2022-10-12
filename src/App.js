@@ -29,6 +29,7 @@ import Create from "./pages/admin/house/create/create";
 import Update from "./pages/admin/house/update/update";
 import {setStatusUserActionIdle} from "./redux/slide/userSlide";
 import Loading from "./components/Notification/loading";
+import Account from "./pages/admin/account/account";
 
 function App() {
     let statusUser = useSelector((state) => state.user.status);
