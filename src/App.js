@@ -30,6 +30,7 @@ import Statistical from "./pages/admin/statistical/statistical";
 import Houses from "./pages/admin/house/houses";
 import Create from "./pages/admin/house/create/create";
 import Update from "./pages/admin/house/update/update";
+import Account from "./pages/admin/account/account";
 
 function App() {
   let dispatch = useDispatch();
@@ -75,7 +76,7 @@ function App() {
           <Route path={"/admin/houses"} element={<Houses />} />
           <Route path={"/admin/houses/create"} element={<Create />} />
           <Route path={"/admin/houses/update/:id"} element={<Update />} />
-          <Route path={"/admin/account"} element={<Statistical />} />
+          <Route path={"/admin/account"} element={<Account />} />
         </Route>
       </Routes>
     </BrowserRouter>
