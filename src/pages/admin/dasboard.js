@@ -33,7 +33,7 @@ const Dasboard = () => {
             </div>
             <div>
               <NavLink
-                onClick={toggleStatistics}
+                to="/admin/statistical"
                 className={({ isActive }) =>
                   isActive
                     ? "flex items-center space-x-4 mt-6 p-2 bg-[#4fba81] text-white hover:text-white rounded-md cursor-pointer"

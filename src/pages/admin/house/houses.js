@@ -13,6 +13,7 @@ import {setStatusUserActionIdle} from "../../../redux/slide/houseSlide";
 const Houses = () => {
   let navigate = useNavigate()
   let { customerHouse } = useSelector((state) => state.house);
+  console.log(customerHouse)
   const disPatch = useDispatch();
   const handleUpdate = (id) => {
     disPatch(getHouseById(id));
@@ -62,7 +63,7 @@ const Houses = () => {
                       <td className="py-3 px-6 text-left whitespace-nowrap">
                         <div className="flex items-center">
                           <img
-                            src={house?.idImage[0]?.link}
+                            src={house?.idImage?.link}
                             alt=""
                             className="w-20 h-20 object-cover"
                           />

@@ -8,10 +8,8 @@ import { storage } from "../../../../firebase";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  createHouse,
   getHouseById, updateHouse,
 } from "../../../../redux/actionThunk/houseActionThunk";
-import { openNotificationWithIcon } from "../../../../components/Notification/NotificationWithIcon";
 import { useNavigate, useParams } from "react-router";
 import {setStatusUserActionIdle, setStatusUserActionPending} from "../../../../redux/slide/houseSlide";
 
@@ -40,7 +38,7 @@ const Update = () => {
       amountBathroom: house ? house?.amountBathroom : "",
       description: house ? house?.description : "",
       price: house ? house?.price : "",
-      image: house ? house?.idImage[0].link : "",
+      image: house ? house?.idImage.link : "",
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Tên không để trống!"),
@@ -74,10 +72,9 @@ const Update = () => {
         uploadBytes(imageRef, imageUpload).then((snapshot) => {
           getDownloadURL(snapshot.ref).then((url) => {
             values.image = { link: url };
-            values.idUser = user && user._id;
             console.log(values);
             console.log(id);
-            disPatch(updateHouse(id, values));
+            disPatch(updateHouse({id: id, house: values}));
             disPatch(setStatusUserActionIdle());
           });
         });

@@ -1,6 +1,14 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {getStatistic} from "../../../redux/actionThunk/userActionThunk";
 
 const Statistical = () => {
+  let dispatch = useDispatch();
+  let {statistic} = useSelector((state) => state.user);
+  console.log(statistic)
+  useEffect(() => {
+    dispatch(getStatistic());
+  }, [])
   return (
     <>
       <div className="flex justify-between">
@@ -18,7 +26,7 @@ const Statistical = () => {
               <span className="text-sm font-semibold text-gray-400">
                 Spent this month
               </span>
-              <h1 className="text-2xl font-bold">$682.5</h1>
+              <h1 className="text-2xl font-bold">{statistic.week}</h1>
             </div>
             <div>
               <svg
@@ -36,7 +44,7 @@ const Statistical = () => {
               <span className="text-sm font-semibold text-gray-400">
                 Spent this month
               </span>
-              <h1 className="text-2xl font-bold">$682.5</h1>
+              <h1 className="text-2xl font-bold">{statistic.month}</h1>
             </div>
             <div>
               <svg

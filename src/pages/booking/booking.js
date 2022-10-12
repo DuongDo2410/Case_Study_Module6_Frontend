@@ -96,7 +96,7 @@ const Booking = () => {
               </div>
               <div className="mb-8">
                 <img
-                  src={house && house?.idImage[0]?.link}
+                  src={house && house?.idImage?.link}
                   alt=""
                   className="rounded-lg object-cover"
                   style={{

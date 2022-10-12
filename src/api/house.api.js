@@ -25,9 +25,9 @@ const houseApi = {
     const url = `/homes`;
     return axiosConfig.post(url, house);
   },
-  update(id, house) {
-    const url = `/homes/${id}`;
-    return axiosConfig.put(url, house);
+  update(props) {
+    const url = `/homes/${props.id}`;
+    return axiosConfig.put(url, props.house);
   },
   getHistory() {
     const url = `/booking/history-renter`;

@@ -16,7 +16,6 @@ const userSlide = createSlice({
   name: "user",
   initialState: {
     status: "idle",
-    user: JSON.parse(localStorage.getItem("currentUser")) || {},
     bookings: [],
     statistic: {
       week: 0,
@@ -58,22 +57,12 @@ const userSlide = createSlice({
       state.status = "fulfilled";
       openNotificationWithIcon({type: "success", message: 'Thành Công'});
     });
-    //login Google
-    builder.addCase(loginGoogleAction.pending, (state, action) => {
-      state.status = "pending";
-    });
-    builder.addCase(loginGoogleAction.fulfilled, (state, action) => {
-      state.status = "fulfilled";
-      state.user = action.payload.user;
-      openNotificationWithIcon({type: "success", message: "Thành Công!"})
-      localStorage.setItem('accessToken', action.payload.token);
-      localStorage.setItem('currentUser', JSON.stringify(action.payload.user));
-    });
     //getStatistic
     builder.addCase(getStatistic.pending, (state, action) => {
       state.status = "pending";
     });
     builder.addCase(getStatistic.fulfilled, (state, action) => {
+      console.log('lôiioio', action.payload)
       state.bookings = action.payload.bookings;
       state.statistic.week = action.payload.moneyWeek;
       state.statistic.month = action.payload.moneyMonth
