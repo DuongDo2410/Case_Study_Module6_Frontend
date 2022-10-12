@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
-import {getUserById, setStatusUserAction} from "../../redux/actionThunk/userActionThunk";
 
 import LogoutGoogle from "../../pages/SignIn/LogoutGoogle";
 import {getHistory} from "../../redux/actionThunk/houseActionThunk";
@@ -10,7 +9,7 @@ const Header = () => {
     const [show, setShow] = useState(false);
     const navigate = useNavigate();
     const disPatch = useDispatch();
-    let {user} = useSelector((state) => state.user);
+    let {user} = useSelector((state) => state.auth);
     let token = localStorage.getItem("accessToken");
     const handellogout = () => {
         navigate("/login");
@@ -42,7 +41,7 @@ const Header = () => {
                                             alt=""
                                             className="w-10 h-10 rounded-3xl"
                                         />
-                                        {user && user?.username}
+                                        {user && user?.fullName}
                                     </button>
                                 </div>
                                 {show && (
@@ -55,7 +54,7 @@ const Header = () => {
                                     >
                                         <div className="py-1" role="none">
                                             <Link
-                                                to={user && `/profile/${user._id}`}
+                                                to={user && `/profile/${user.id}`}
                                                 class="text-gray-700 block px-4 py-2 text-sm"
                                                 role="menuitem"
                                                 tabindex="-1"

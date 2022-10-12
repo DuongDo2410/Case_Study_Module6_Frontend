@@ -83,7 +83,7 @@ const House = (props) => {
         <div className="bg-white shadow-1 p-5 rounded-lg rounded-tl-[90px] w-full max-w-[400px] mx-auto cursor-pointer hover:shadow-2xl transition">
           <img
             className="mb-8 rounded-lg rounded-tl-[90px] rounded-br-[90px] w-full h-80 object-cover"
-            src={props.house?.idImage[0]?.link}
+            src={props.house?.idImage?.link}
             alt=""
           />
           <div className="mb-4 flex gap-x-2 text-sm">
