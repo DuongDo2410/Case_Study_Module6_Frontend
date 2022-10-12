@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { BiCalendarMinus } from "react-icons/bi";
 import { BiClipboard } from "react-icons/bi";
@@ -8,7 +8,15 @@ import { BiUser } from "react-icons/bi";
 import { BiLogOut } from "react-icons/bi";
 import { BiBarChartAlt2 } from "react-icons/bi";
 import "./dashboard.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getbookingSuccessOwnerAction } from "../../redux/actionThunk/bookingActionThunk";
 const Dasboard = () => {
+  const { bookingSuccess } = useSelector((state) => state.booking);
+  console.log(bookingSuccess);
+  const disPatch = useDispatch();
+  useEffect(() => {
+    disPatch(getbookingSuccessOwnerAction());
+  }, []);
   return (
     <>
       <div className="min-h-screen flex">

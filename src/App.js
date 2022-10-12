@@ -22,7 +22,7 @@ import HistoryRentHouse from "./components/history/HistoryRentHouse";
 import Notification from "./components/Notification/Notification";
 import BookingPending from "./components/bookingPending/BookingPending";
 import HomeManagement from "./components/home-management";
-import PendingBooking from "./components/home-management/pending-booking/pending-booking";
+// import PendingBooking from "./components/home-management/pending-booking/pending-booking";
 import Content from "./components/search/content";
 import BookingAcceptOwner from "./components/home-management/accept-booking/accept-booking";
 import Dasboard from "./pages/admin/dasboard";
@@ -31,6 +31,8 @@ import Houses from "./pages/admin/house/houses";
 import Create from "./pages/admin/house/create/create";
 import Update from "./pages/admin/house/update/update";
 import Account from "./pages/admin/account/account";
+import PendingBooking from "./pages/admin/booking/pending-booking/pending-booking";
+import AcceptBooking from "./pages/admin/booking/accept-booking/accept-booking";
 
 function App() {
   let dispatch = useDispatch();
@@ -51,10 +53,10 @@ function App() {
 
           <Route path={"/profile/house/list"} element={<HomeManagement />}>
             <Route path={"/profile/house/list/create"} element={<AddHouse />} />
-            <Route
+            {/* <Route
               path={"/profile/house/list/pending"}
               element={<PendingBooking />}
-            />
+            /> */}
             <Route
               path={"/profile/house/list/accept"}
               element={<BookingAcceptOwner />}
@@ -71,7 +73,8 @@ function App() {
 
         <Route path={"/admin"} element={<Dasboard />}>
           <Route path={"/admin/statistical"} element={<Statistical />} />
-          <Route path={"/admin/pending-booking"} element={<Statistical />} />
+          <Route path={"/admin/pending-booking"} element={<PendingBooking />} />
+          <Route path={"/admin/accept-booking"} element={<AcceptBooking />} />
           <Route path={"/admin/accept-booking"} element={<Statistical />} />
           <Route path={"/admin/houses"} element={<Houses />} />
           <Route path={"/admin/houses/create"} element={<Create />} />
