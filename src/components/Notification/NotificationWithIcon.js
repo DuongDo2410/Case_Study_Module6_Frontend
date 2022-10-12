@@ -1,4 +1,4 @@
-import {notification, message} from 'antd';
+import {notification} from 'antd';
 import 'antd/dist/antd.css';
 
 export const openNotificationWithIcon = (props) => {
@@ -6,9 +6,4 @@ export const openNotificationWithIcon = (props) => {
         message: props.message,
         duration: 2
     });
-};
-
-export const loading = () => {
-    message.loading('Action in progress..')
-        .then(() => openNotificationWithIcon('success'));
 };

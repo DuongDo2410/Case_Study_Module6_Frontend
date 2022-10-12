@@ -7,25 +7,18 @@ import * as Yup from "yup";
 import { storage } from "../../firebase";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { useDispatch, useSelector } from "react-redux";
-import {createHouse, setStatusHouseAction} from "../../redux/actionThunk/houseActionThunk";
-import {openNotificationWithIcon} from "../Notification/NotificationWithIcon";
-import {useNavigate} from "react-router";
+import {
+  createHouse,
+} from "../../redux/actionThunk/houseActionThunk";
+import { openNotificationWithIcon } from "../notification/NotificationWithIcon";
+import { useNavigate } from "react-router";
+import {setStatusUserActionIdle, setStatusUserActionPending} from "../../redux/slide/houseSlide";
 
 export default function AddHouse() {
   const navigate = useNavigate();
   const disPatch = useDispatch();
   let { user } = useSelector((state) => state.user);
-  let { status } = useSelector((state) => state.house);
   const [image, setImage] = useState();
-    useEffect(() => {
-        if (status === "fulfilled") {
-          openNotificationWithIcon({type: 'success', message: "Thành Công!!!"});
-          disPatch(setStatusHouseAction());
-          navigate('/profile/addHouse')
-        }else if (status === "rejected") {
-          openNotificationWithIcon({type: 'error', message: "Thất Bại!!!"});
-        }
-      }, [status]);
 
   const handlePreviewAvatar = (e) => {
     const file = e.target.files[0];
@@ -64,17 +57,16 @@ export default function AddHouse() {
       // address: Yup.string().required("Không để trống"),
     }),
     onSubmit: async (values) => {
-      //   console.log(values);
+      disPatch(setStatusUserActionPending());
       let imageUpload = image;
       if (imageUpload) {
         const imageRef = ref(storage, `images/${imageUpload?.name}`);
-        uploadBytes(imageRef, imageUpload).then((snapshot) => {
-          getDownloadURL(snapshot.ref).then((url) => {
-            console.log(url);
+        await uploadBytes(imageRef, imageUpload).then(async (snapshot) => {
+          await getDownloadURL(snapshot.ref).then((url) => {
             values.image = { link: url };
             values.idUser = user && user._id;
-            console.log(values);
             disPatch(createHouse(values));
+            disPatch(setStatusUserActionIdle());
           });
         });
       }
