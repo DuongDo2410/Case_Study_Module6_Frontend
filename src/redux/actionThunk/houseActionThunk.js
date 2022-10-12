@@ -36,6 +36,26 @@ export const getOne = createAsyncThunk("house/getOne", async (id) => {
   return data;
 });
 
+export const ratingHouse = createAsyncThunk("rating", async ({id, rating, idUser}) => {
+  await houseApi.ratingHouse({id, rating, idUser});
+  return rating;
+});
+
+
+export const updateComment  = createAsyncThunk(
+    'house/comments',
+    async ({id, comment}) => {
+      const {data} = await houseApi.updateComment({id: id, comment: comment});
+        console.log(data)
+      return data;
+    }
+)
+
+export const setStatusHouseAction = createAsyncThunk(
+  "auth/setStatus",
+  async () => {}
+);
+
 export const getHistory = createAsyncThunk("house/history", async () => {
   const { data } = await houseApi.getHistory();
   console.log(data.bookings);

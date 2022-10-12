@@ -7,7 +7,6 @@ import {
 } from "../../redux/actionThunk/authActionThunk";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
-import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
 import {setStatusUserActionIdle} from "../../redux/slide/authSlide";
 
 
@@ -20,14 +19,6 @@ export function RegisterPage () {
   let { status } = useSelector((state) => state.auth);
   console.log(status);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (status === "fulfilled") {
-      navigate("/login");
-    }else if (status === "rejected") {
-      openNotificationWithIcon({type: 'error', message: "Tài Khoản Đã Tồn Tại!!!"});
-    }
-  }, [status]);
 
   const formik = useFormik({
     initialValues: {

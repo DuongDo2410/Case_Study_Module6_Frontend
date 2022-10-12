@@ -7,6 +7,7 @@ import { useParams } from "react-router";
 import { getOne } from "../../redux/actionThunk/houseActionThunk";
 import moment from "moment";
 import { bookingAction } from "../../redux/actionThunk/bookingActionThunk";
+import Rate from "../../components/house/rate/Rate.js";
 import Comment from "../../components/comment/comemnt";
 import { setStatusUserActionIdle } from "../../redux/slide/houseSlide";
 const Booking = () => {
@@ -59,7 +60,7 @@ const Booking = () => {
                 {house && house?.address}
               </h3>
             </div>
-            <div className="text-3xl font-semibold text-violet-600">******</div>
+            <div className="text-3xl font-semibold text-violet-600"></div>
           </div>
           <div className="flex flex-col items-start gap-8 lg:flex-row">
             <div className="max-w-[768px]">
@@ -102,9 +103,14 @@ const Booking = () => {
                     height: "500px",
                   }}
                 />
+
               </div>
               <p>{house && house?.description}</p>
+              <div>
+                <Rate rating={house?.rating}/>
+              </div>
             </div>
+
             <div className="w-96">
               <div className="text-3xl font-semibold text-violet-600 flex justify-end">
                 {house &&
@@ -161,11 +167,12 @@ const Booking = () => {
                     </button>
                   </div>
                 </form>
+
               </div>
             </div>
           </div>
         </div>
-        <Comment />
+        <Comment house={house}/>
       </div>
       <Footer />
     </>

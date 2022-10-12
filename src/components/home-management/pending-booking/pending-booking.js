@@ -6,7 +6,7 @@ const PendingBooking = () => {
   const bookingPending = useSelector((state) => state.booking.bookingPending);
   const disPatch = useDispatch();
   const handelClick = (idHome, idBooking) => {
-    console.log("11111", idHome, idBooking);
+    // console.log("11111", idHome, idBooking);
     let payload = { idHome, idBooking };
     disPatch(bookingAcceptAction(payload));
   };

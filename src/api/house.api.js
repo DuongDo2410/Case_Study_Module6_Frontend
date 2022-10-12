@@ -41,5 +41,13 @@ const houseApi = {
     const url = `/homes/${id}`;
     return axiosConfig.delete(url);
   },
+  ratingHouse({id,rating}) {
+    const url = `/rating`;
+    return axiosConfig.post(url, {id: id, rating: rating})
+  },
+  updateComment({id,comment}) {
+    const url = `/homes/comments/${id}`;
+    return axiosConfig.post(url, {comment})
+  },
 };
 export default houseApi;

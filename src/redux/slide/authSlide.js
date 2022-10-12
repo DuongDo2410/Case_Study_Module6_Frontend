@@ -3,7 +3,7 @@ import {
   loginAction,
   registerAction, setStatusAuthAction,
 } from "../actionThunk/authActionThunk";
-import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
+import {openNotificationWithIcon} from "../../components/notification/NotificationWithIcon";
 import userSlide from "./userSlide";
 import {loginGoogleAction} from "../actionThunk/userActionThunk";
 const authSlide = createSlice({
