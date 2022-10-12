@@ -5,8 +5,8 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  getAllHouse, getHistory,
-  getOne, search, createHouse
+    getAllHouse, getHistory,
+    getOne, search, createHouse, getTop5
 } from "../actionThunk/houseActionThunk";
 import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
 
@@ -15,6 +15,8 @@ const houseSlide = createSlice({
   name: "house",
   initialState: {
     houses: [],
+    totalPage: 0,
+    topHouse: [],
     status: "idle",
     house: null,
     history:[],
@@ -37,7 +39,8 @@ const houseSlide = createSlice({
                 state.status = "rejected";
             })
             .addCase(getAllHouse.fulfilled, (state, action) => {
-                state.houses = action.payload;
+                state.houses = action.payload.homes;
+                state.totalPage = action.payload.totalPage;
                 state.status = "fulfilled";
             })
             //get One
@@ -77,12 +80,22 @@ const houseSlide = createSlice({
             // addHouse
             .addCase(getOne.fulfilled, (state, action) => {
                 state.status = "fulfilled";
-                openNotificationWithIcon({type: "success", message: "Thành Công!"})
             })
             .addCase(getOne.pending, (state, action) => {
                 state.status = "pending";
             })
             .addCase(getOne.rejected, (state, action) => {
+                state.status = "rejected";
+            })
+            // getTop5
+            .addCase(getTop5.fulfilled, (state, action) => {
+                state.topHouse = action.payload
+                state.status = "fulfilled";
+            })
+            .addCase(getTop5.pending, (state, action) => {
+                state.status = "pending";
+            })
+            .addCase(getTop5.rejected, (state, action) => {
                 state.status = "rejected";
             })
     },

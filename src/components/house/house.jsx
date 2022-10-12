@@ -1,4 +1,4 @@
-import {memo} from "react";
+import { memo } from "react";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 import SingleBedOutlinedIcon from "@mui/icons-material/SingleBedOutlined";
@@ -11,7 +11,7 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
 const House = (props) => {
-  console.log(props)
+  console.log(props);
   let dispatch = useDispatch();
   let navigate = useNavigate();
   // const handleDetailsClick = async (id) => {
@@ -20,7 +20,7 @@ const House = (props) => {
   // };
   return (
     <>
-      <div className="rounded-lg my-10 shadow-lg shadow-slate-100 hover:shadow-slate-300 hover:scale-105 transition delay-150 duration-300 ease-in-out">
+      {/* <div className="rounded-lg my-10 shadow-lg shadow-slate-100 hover:shadow-slate-300 hover:scale-105 transition delay-150 duration-300 ease-in-out">
         <Link
           to={`/detail/${props.house?._id}`}
           className=" text-[#6a6969] font-semibold "
@@ -74,7 +74,59 @@ const House = (props) => {
             </div>
           </div>
         </Link>
-      </div>
+      </div> */}
+      <Link
+        to={`/detail/${props.house?._id}`}
+        className=" text-[#6a6969] font-semibold "
+        // onClick={() => dispatch(getOne(props.house?._id))}
+      >
+        <div className="bg-white shadow-1 p-5 rounded-lg rounded-tl-[90px] w-full max-w-[400px] mx-auto cursor-pointer hover:shadow-2xl transition">
+          <img
+            className="mb-8 rounded-lg rounded-tl-[90px] rounded-br-[90px] w-full h-80 object-cover"
+            src={props.house?.idImage[0]?.link}
+            alt=""
+          />
+          <div className="mb-4 flex gap-x-2 text-sm">
+            <div className="bg-[#4fba81] rounded-full text-white px-3 inline-block">
+              {props.house.typeRoom}
+            </div>
+          </div>
+          <div className="text-lg font-semibold truncate">
+            {props.house.name}
+          </div>
+          <div className="flex gap-x-4 my-4">
+            <div className="flex items-center text-gray-600 gap-1 ">
+              <div className="text-[20px] rounded-full">
+                <SingleBedOutlinedIcon />
+              </div>
+              <div className="text-base mt-1">{props.house.amountBedroom}</div>
+            </div>
+            <div className="flex items-center text-gray-600 gap-1">
+              <div className="text-[20px] rounded-full">
+                <BathtubOutlinedIcon />
+              </div>
+              <div className="text-base mt-1">{props.house.amountBathroom}</div>
+            </div>
+            <div className="flex items-center text-gray-600 gap-1">
+              <div className="text-[20px] rounded-full">
+                <SquareFootOutlinedIcon />
+              </div>
+              <div className="text-base mt-1">{props.house.area}m2</div>
+            </div>
+          </div>
+          <div className="flex items-center my-3">
+            <LocationOnOutlinedIcon />
+            <div className="text-base mt-1 truncate">{props.house.address}</div>
+          </div>
+          <div className="text-lg font-semibold text-violet-600 mb-4">
+            {/* {props.house.price}VND/1đêm */}
+            {new Intl.NumberFormat("vi-VN", {
+              style: "currency",
+              currency: "VND",
+            }).format(props.house.price) + " / đêm"}
+          </div>
+        </div>
+      </Link>
     </>
   );
 };

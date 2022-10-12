@@ -1,8 +1,12 @@
 import { axiosConfig } from "./axios";
 
 const houseApi = {
-  getAll() {
-    const url = `/homes`;
+  getAll(page) {
+    const url = `/homes/${page}`;
+    return axiosConfig.get(url);
+  },
+  getTop5() {
+    const url = `/top`;
     return axiosConfig.get(url);
   },
   getOne(id) {

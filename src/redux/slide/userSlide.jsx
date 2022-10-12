@@ -5,9 +5,11 @@ import {
   loginGoogleAction,
   updateUserAction,
   setStatusUserAction,
+    getStatistic
 } from "../actionThunk/userActionThunk";
 import { setLocale } from "yup";
 import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
+import booking from "../../pages/booking/booking";
 
 
 const userSlide = createSlice({
@@ -15,6 +17,11 @@ const userSlide = createSlice({
   initialState: {
     status: "idle",
     user: JSON.parse(localStorage.getItem("currentUser")) || {},
+    bookings: [],
+    statistic: {
+      week: 0,
+      month: 0,
+    },
   },
   reducers: {
     setStatusUserActionPending(state) {
@@ -62,7 +69,16 @@ const userSlide = createSlice({
       localStorage.setItem('accessToken', action.payload.token);
       localStorage.setItem('currentUser', JSON.stringify(action.payload.user));
     });
-    builder.addCase(loginGoogleAction.rejected, (state, action) => {
+    //getStatistic
+    builder.addCase(getStatistic.pending, (state, action) => {
+      state.status = "pending";
+    });
+    builder.addCase(getStatistic.fulfilled, (state, action) => {
+      state.bookings = action.payload.bookings;
+      state.statistic.week = action.payload.moneyWeek;
+      state.statistic.month = action.payload.moneyMonth
+    });
+    builder.addCase(getStatistic.rejected, (state, action) => {
       state.status = "rejected";
     });
   },

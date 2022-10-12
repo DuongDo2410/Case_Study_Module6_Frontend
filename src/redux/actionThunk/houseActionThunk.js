@@ -1,8 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import houseApi from "../../api/house.api";
 
-export const getAllHouse = createAsyncThunk("house/getAll", async () => {
-  const { data } = await houseApi.getAll();
+export const getAllHouse = createAsyncThunk("house/getAll", async (page) => {
+  const { data } = await houseApi.getAll(page);
+  return data;
+});
+export const getTop5 = createAsyncThunk("house/topHouse", async () => {
+  const { data } = await houseApi.getTop5();
   return data;
 });
 export const createHouse = createAsyncThunk("house/create", async (house) => {

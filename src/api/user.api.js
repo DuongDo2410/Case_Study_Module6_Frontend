@@ -30,6 +30,10 @@ const userApi = {
     const url = `/auth/loginGoogle`;
     return axiosConfig.post(url, user);
   },
+  getStatistic() {
+    const url = `/user/get-statistics`;
+    return axiosConfig.get(url);
+  },
 
 };
 export default userApi;

@@ -31,3 +31,10 @@ export const loginGoogleAction = createAsyncThunk(
         return res.data;
     }
 );
+export const getStatistic = createAsyncThunk(
+    "user/getStatistic",
+    async () => {
+        const res = await userApi.getStatistic();
+        return res.data;
+    }
+);

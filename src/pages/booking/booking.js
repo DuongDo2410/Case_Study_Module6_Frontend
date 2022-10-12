@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import Footer from "../../components/footer/footer";
 import Header from "../../components/header/header";
 import SingleBedOutlinedIcon from "@mui/icons-material/SingleBedOutlined";
-import BathtubOutlinedIcon from "@mui/icons-material/BathtubOutlined";
-import SquareFootOutlinedIcon from "@mui/icons-material/SquareFootOutlined";
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getOne } from "../../redux/actionThunk/houseActionThunk";
 import moment from "moment";
 import { bookingAction } from "../../redux/actionThunk/bookingActionThunk";
+import Comment from "../../components/comment/comemnt";
 import {setStatusUserActionIdle} from "../../redux/slide/houseSlide";
 const Booking = () => {
   let house = useSelector((state) => state.house.house);
@@ -27,7 +25,7 @@ const Booking = () => {
   });
   useEffect(() => {
     dispatch(getOne(id));
-    dispatch(setStatusUserActionIdle());
+    dispatch(setStatusUserActionIdle);
   }, []);
   useEffect(() => {
     if (startDay && endDay) {
@@ -36,7 +34,10 @@ const Booking = () => {
         ...booking,
         startDay: startDay,
         endDay: endDay,
-        totalMoney: mountDay * house.price,
+        totalMoney: new Intl.NumberFormat("vi-VN", {
+          style: "currency",
+          currency: "VND",
+        }).format(mountDay * house.price),
       });
     }
   }, [startDay, endDay]);
@@ -44,94 +45,113 @@ const Booking = () => {
     e.preventDefault();
     booking.idOwner = house.idUser;
     booking.idHome = house._id;
-
-    console.log(booking);
     dispatch(bookingAction(booking));
   };
   return (
-      <>
-        <Header />
-        <div className="max-w-[1440px] mx-auto bg-white mt-24">
-          <div className="container mx-auto min-h-[800px] mb-14">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-              <div>
-                <h2 className="text-2xl font-semibold">{house && house?.name}</h2>
-                <h3 className="text-lg mb-4">{house && house?.address}</h3>
-              </div>
-              <div className="mb-4 lg:mb-0 flex gap-x-2 text-sm">
-                <div className="bg-green-500 rounded-full text-black px-3 inline-block">
-                  {house && house?.typeRoom}
-                </div>
-                {/*<div className="bg-violet-500 rounded-full text-white px-3 inline-block">*/}
-                {/*  /!* {property?.country} *!/*/}
-                {/*</div>*/}
-              </div>
-              <div className="text-3xl font-semibold text-violet-600">
-                {house && house?.price}/1 ngày
-              </div>
+    <>
+      <Header />
+      <div className="max-w-[1440px] mx-auto bg-white mt-10">
+        <div className="container mx-auto min-h-[800px]">
+          <div className="flex flex-col lg:flex-row  lg:justify-between">
+            <div style={{ width: "800px" }}>
+              <h2 className="text-2xl font-semibold truncate">
+                {house && house?.name}
+              </h2>
+              <h3 className="text-lg mb-4 truncate">
+                {house && house?.address}
+              </h3>
             </div>
-            <div className="flex flex-col items-start gap-8 lg:flex-row">
-              <div className="max-w-[768px]">
-                <div className="mb-8">
-                  <img src={house && house?.idImage[0]?.link} alt="" />
-                </div>
-                <div className="flex gap-x-6 text-violet-700 mb-6">
-                  <div className="flex gap-x-2 items-center">
-                    {/* <BiBed className="text-2xl" /> */}
-                    <div className="text-lg font-medium">
-                      Phòng Ngủ: {house && house?.amountBedroom}
-                    </div>
+            <div className="text-3xl font-semibold text-violet-600">******</div>
+          </div>
+          <div className="flex flex-col items-start gap-8 lg:flex-row">
+            <div className="max-w-[768px]">
+              <div className="flex gap-x-6 text-violet-700 mb-6">
+                <div className="flex items-center text-gray-600 gap-1 ">
+                  <div className="text-[20px] rounded-full">
+                    <SingleBedOutlinedIcon />
                   </div>
-                  <div className="flex gap-x-2 items-center">
-                    {/* <BiBath className="text-2xl" /> */}
-                    <div className="text-lg font-medium">
-                      Phòng Tắm: {house && house?.amountBathroom}
-                    </div>
-                  </div>
-                  <div className="flex gap-x-2 items-center">
-                    {/* <BiArea className="text-2xl" /> */}
-                    <div className="text-lg font-medium">{}</div>
+                  <div className="text-base mt-1">
+                    {house && house.amountBedroom}
                   </div>
                 </div>
-                <p>{house && house?.description}</p>
+                <div className="flex items-center text-gray-600 gap-1">
+                  <div className="text-[20px] rounded-full">
+                    {/*<BathtubOutlinedIcon />*/}
+                  </div>
+                  <div className="text-base mt-1">
+                    {house && house.amountBathroom}
+                  </div>
+                </div>
+                <div className="flex items-center text-gray-600 gap-1">
+                  <div className="text-[20px] rounded-full">
+                    {/*<SquareFootOutlinedIcon />*/}
+                  </div>
+                  <div className="text-base mt-1">{house && house.area}m2</div>
+                </div>
+                <div className=" lg:mb-0 flex gap-x-2 text-sm items-center mt-3">
+                  <p className="bg-[#4fba81] rounded-full text-black px-3 inline-block">
+                    {house && house?.typeRoom}
+                  </p>
+                </div>
               </div>
-              <div className="flex-1 w-full mb-8 bg-white border border-gray-100 rounded-lg px-6 py-8">
+              <div className="mb-8">
+                <img
+                  src={house && house?.idImage[0]?.link}
+                  alt=""
+                  className="rounded-lg object-cover"
+                  style={{
+                    width: "800px",
+                    height: "500px",
+                  }}
+                />
+              </div>
+              <p>{house && house?.description}</p>
+            </div>
+            <div className="w-96">
+              <div className="text-3xl font-semibold text-violet-600 flex justify-end">
+                {house &&
+                  new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(house.price) + " / đêm"}
+              </div>
+              <div className="flex-1 w-full mb-8 mt-8 bg-white border border-gray-100 rounded-lg px-6 py-8">
                 <form className="flex flex-col gap-y-4" onSubmit={handelSubmit}>
                   <div>
                     <label
-                        htmlFor="first_name"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                      htmlFor="first_name"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                     >
                       Ngày bắt đầu
                     </label>
                     <input
-                        type="date"
-                        id="first_name"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        onChange={(e) => setStartDay(e.target.value)}
-                        name="startDay"
+                      type="date"
+                      id="first_name"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      onChange={(e) => setStartDay(e.target.value)}
+                      name="startDay"
                     />
                   </div>
                   <div>
                     <label
-                        htmlFor="first_name"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                      htmlFor="first_name"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                     >
                       Ngày kết thúc
                     </label>
                     <input
-                        type="date"
-                        id="first_name"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        onChange={(e) => setEndDay(e.target.value)}
-                        name="endDay"
+                      type="date"
+                      id="first_name"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      onChange={(e) => setEndDay(e.target.value)}
+                      name="endDay"
                     />
                   </div>
-                  <h2>Tổng tiền:{booking.totalMoney}</h2>
+                  <h2 className="text-xl">Tổng tiền: {booking.totalMoney}</h2>
                   <div className="flex gap-x-2">
                     <button
-                        type="submit"
-                        className="bg-violet-700 hover:bg-violet-800 text-white rounded p-4 text-sm w-full transition"
+                      type="submit"
+                      className="bg-[#4fba81] hover:bg-[#48a573] hover:text-white text-white rounded p-4 text-sm w-full transition"
                     >
                       Đặt phòng
                     </button>
@@ -141,8 +161,10 @@ const Booking = () => {
             </div>
           </div>
         </div>
-        <Footer />
-      </>
+        <Comment />
+      </div>
+      <Footer />
+    </>
   );
 };
 

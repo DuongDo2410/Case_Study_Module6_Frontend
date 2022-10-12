@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   bookingAcceptAction,
+  bookingAcceptOwnerAction,
   bookingAction,
   bookingPendingAction,
 } from "../actionThunk/bookingActionThunk";
@@ -13,6 +14,7 @@ const bookingSlide = createSlice({
     status: "idle",
     booking: [],
     bookingPending: [],
+    bookingAccept: [],
   },
   reducers: {
     setStatusUserActionPending(state) {
@@ -39,6 +41,13 @@ const bookingSlide = createSlice({
       openNotificationWithIcon({type: "success", message: "Thành Công!"})
       state.bookingPending = action.payload.bookings;
     });
+    builder.addCase(bookingAcceptOwnerAction.pending, (state, action) => {
+      state.status = "pending";
+    });
+    builder.addCase(bookingAcceptOwnerAction.fulfilled, (state, action) => {
+      state.status = "fulfilled";
+      state.bookingAccept = action.payload.bookings;
+    });
     builder.addCase(bookingAcceptAction.pending, (state, action) => {
       state.status = "pending";
     });
@@ -46,8 +55,9 @@ const bookingSlide = createSlice({
       state.status = "fulfilled";
       openNotificationWithIcon({type: "success", message: "Thành Công!"})
       state.bookingPending = state.bookingPending.filter((booking) =>
-        booking._id != action.payload ? booking._id : ""
+        booking._id != action.payload.idBooking ? booking._id : ""
       );
+      state.bookingAccept.push(action.payload.booking);
     });
   },
 });
