@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   loginAction,
-  registerAction, setStatusAuthAction,
+  registerAction,
+  setStatusAuthAction,
 } from "../actionThunk/authActionThunk";
-import {openNotificationWithIcon} from "../../components/notification/NotificationWithIcon";
 import userSlide from "./userSlide";
-import {loginGoogleAction} from "../actionThunk/userActionThunk";
+import { loginGoogleAction } from "../actionThunk/userActionThunk";
+import { openNotificationWithIcon } from "../../components/Notification/NotificationWithIcon";
 const authSlide = createSlice({
   name: "auth",
   initialState: {
@@ -15,10 +16,10 @@ const authSlide = createSlice({
   },
   reducers: {
     setStatusUserActionPending(state) {
-      state.status = "pending"
+      state.status = "pending";
     },
     setStatusUserActionIdle(state) {
-      state.status = "idle"
+      state.status = "idle";
     },
   },
   extraReducers: (builder) => {
@@ -27,7 +28,10 @@ const authSlide = createSlice({
     });
     builder.addCase(registerAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
-      openNotificationWithIcon({type: "success", message: "Đăng Kí Thành Công!!"})
+      openNotificationWithIcon({
+        type: "success",
+        message: "Đăng Kí Thành Công!!",
+      });
     });
     builder.addCase(registerAction.rejected, (state, action) => {
       state.status = "rejected";
@@ -43,7 +47,7 @@ const authSlide = createSlice({
       state.status = "fulfilled";
       state.user = action.payload.user;
       localStorage.setItem("accessToken", action.payload.token);
-      localStorage.setItem('currentUser', JSON.stringify(action.payload.user));
+      localStorage.setItem("currentUser", JSON.stringify(action.payload.user));
     });
     //LoginGoogle
     builder.addCase(loginGoogleAction.pending, (state, action) => {
@@ -52,11 +56,12 @@ const authSlide = createSlice({
     builder.addCase(loginGoogleAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
       state.user = action.payload.user;
-      openNotificationWithIcon({type: "success", message: "Thành Công!"})
-      localStorage.setItem('accessToken', action.payload.token);
-      localStorage.setItem('currentUser', JSON.stringify(action.payload.user));
+      openNotificationWithIcon({ type: "success", message: "Thành Công!" });
+      localStorage.setItem("accessToken", action.payload.token);
+      localStorage.setItem("currentUser", JSON.stringify(action.payload.user));
     });
   },
 });
-export const {setStatusUserActionPending, setStatusUserActionIdle} = authSlide.actions
+export const { setStatusUserActionPending, setStatusUserActionIdle } =
+  authSlide.actions;
 export default authSlide;

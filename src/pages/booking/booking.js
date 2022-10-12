@@ -9,7 +9,7 @@ import moment from "moment";
 import { bookingAction } from "../../redux/actionThunk/bookingActionThunk";
 import Rate from "../../components/house/rate/Rate.js";
 import Comment from "../../components/comment/comemnt";
-import {setStatusUserActionIdle} from "../../redux/slide/houseSlide";
+import { setStatusUserActionIdle } from "../../redux/slide/houseSlide";
 const Booking = () => {
   let house = useSelector((state) => state.house.house);
   let dispatch = useDispatch();
@@ -35,10 +35,7 @@ const Booking = () => {
         ...booking,
         startDay: startDay,
         endDay: endDay,
-        totalMoney: new Intl.NumberFormat("vi-VN", {
-          style: "currency",
-          currency: "VND",
-        }).format(mountDay * house.price),
+        totalMoney: mountDay * house.price,
       });
     }
   }, [startDay, endDay]);
@@ -46,6 +43,7 @@ const Booking = () => {
     e.preventDefault();
     booking.idOwner = house.idUser;
     booking.idHome = house._id;
+    console.log("ssssssssss", booking);
     dispatch(bookingAction(booking));
   };
   return (
@@ -153,7 +151,13 @@ const Booking = () => {
                       name="endDay"
                     />
                   </div>
-                  <h2 className="text-xl">Tổng tiền: {booking.totalMoney}</h2>
+                  <h2 className="text-xl">
+                    Tổng tiền:{" "}
+                    {new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(booking.totalMoney)}
+                  </h2>
                   <div className="flex gap-x-2">
                     <button
                       type="submit"
