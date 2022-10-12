@@ -7,34 +7,24 @@ import { BiPencil } from "react-icons/bi";
 import { BiTrash } from "react-icons/bi";
 import Create from "./create/create";
 import Update from "./update/update";
+import { Link } from "react-router-dom";
 const Houses = () => {
   let { customerHouse } = useSelector((state) => state.house);
-  const [createForm, setCreateForm] = useState(false);
-  const [updateForm, setUpdateForm] = useState(false);
-  const [id, setId] = useState();
   const disPatch = useDispatch();
   useEffect(() => {
     disPatch(getHouseByUser());
   }, []);
-
   return (
     <>
-      {createForm && (
-        <Create createForm={createForm} setCreateForm={setCreateForm} />
-      )}
-      {updateForm && id && <Update id={id} setUpdateForm={setUpdateForm} />}
-
-      <div className="w-full bg-white p-5 h-[550px]">
+      <div className="w-full bg-white p-5 min-h-[550px] h-max">
         <div className="flex justify-between border-b pb-6 items-center">
           <h4 className="text-2xl">Danh sách nhà</h4>
-          <button
+          <Link
+            to={"/admin/houses/create"}
             className="flex justify-between items-center rounded-3xl bg-[#4fba81] text-white cursor-pointer font-medium px-3 py-2 text-base shadow-lg shadow-slate-100 hover:shadow-slate-300 hover:scale-105 transition delay-150 duration-300 ease-in-out"
-            data-modal-toggle="defaultModal"
-            onClick={() => setCreateForm(true)}
           >
             <p className="ml-3">Thêm mới</p>
-            <BiPlus />
-          </button>
+          </Link>
         </div>
         <div className="w-full flex items-center justify-center  font-sans overflow-hidden">
           <div className="w-full bg-white shadow-md rounded my-6">
@@ -90,14 +80,9 @@ const Houses = () => {
                             </button>
                           </div>
                           <div className="w-4 mr-3 transform hover:text-purple-500 hover:scale-110">
-                            <button
-                              onClick={() => {
-                                setUpdateForm(true);
-                                setId(house._id);
-                              }}
-                            >
+                            <Link to={`/admin/houses/update/${house._id}`}>
                               <BiPencil size={20} />
-                            </button>
+                            </Link>
                           </div>
                           <div className="w-4 transform hover:text-purple-500 hover:scale-110">
                             <button>

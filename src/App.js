@@ -28,6 +28,8 @@ import BookingAcceptOwner from "./components/home-management/accept-booking/acce
 import Dasboard from "./pages/admin/dasboard";
 import Statistical from "./pages/admin/statistical/statistical";
 import Houses from "./pages/admin/house/houses";
+import Create from "./pages/admin/house/create/create";
+import Update from "./pages/admin/house/update/update";
 
 function App() {
   let dispatch = useDispatch();
@@ -71,6 +73,8 @@ function App() {
           <Route path={"/admin/pending-booking"} element={<Statistical />} />
           <Route path={"/admin/accept-booking"} element={<Statistical />} />
           <Route path={"/admin/houses"} element={<Houses />} />
+          <Route path={"/admin/houses/create"} element={<Create />} />
+          <Route path={"/admin/houses/update/:id"} element={<Update />} />
           <Route path={"/admin/account"} element={<Statistical />} />
         </Route>
       </Routes>
