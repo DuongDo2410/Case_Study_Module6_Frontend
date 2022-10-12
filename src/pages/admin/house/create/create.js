@@ -12,7 +12,7 @@ import {
 } from "../../../../redux/actionThunk/houseActionThunk";
 import { openNotificationWithIcon } from "../../../../components/Notification/NotificationWithIcon";
 import { useNavigate } from "react-router";
-import {setStatusUserActionPending} from "../../../../redux/slide/houseSlide";
+import {setStatusUserActionIdle, setStatusUserActionPending} from "../../../../redux/slide/houseSlide";
 
 const Create = ({ createForm, setCreateForm }) => {
   const navigate = useNavigate();
@@ -66,11 +66,11 @@ const Create = ({ createForm, setCreateForm }) => {
         const imageRef = ref(storage, `images/${imageUpload?.name}`);
         uploadBytes(imageRef, imageUpload).then((snapshot) => {
           getDownloadURL(snapshot.ref).then((url) => {
-            console.log(url);
             values.image = { link: url };
             values.idUser = user && user._id;
             console.log(values);
             disPatch(createHouse(values));
+            disPatch(setStatusUserActionIdle());
           });
         });
       }

@@ -27,6 +27,10 @@ export const createHouse = createAsyncThunk("house/create", async (house) => {
   const { data } = await houseApi.create(house);
   return data;
 });
+export const updateHouse = createAsyncThunk("house/update", async (id, house) => {
+  const { data } = await houseApi.update(id, house);
+  return data;
+});
 export const getOne = createAsyncThunk("house/getOne", async (id) => {
   const { data } = await houseApi.getOne(id);
   return data;

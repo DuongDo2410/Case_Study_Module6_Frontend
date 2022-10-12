@@ -12,7 +12,8 @@ import {
   getHouseByUser,
   getOne,
   search,
-    deleteHome
+    deleteHome,
+    updateHouse
 } from "../actionThunk/houseActionThunk";
 import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
 
@@ -109,6 +110,18 @@ const houseSlide = createSlice({
         state.status = "pending";
       })
       .addCase(getHistory.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      //Update house
+      .addCase(updateHouse.fulfilled, (state, action) => {
+        openNotificationWithIcon({type: "success", message: "Thành Công!"})
+        state.status = "fulfilled";
+      })
+      .addCase(updateHouse.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(updateHouse.rejected, (state, action) => {
+        openNotificationWithIcon({type: "error", message: "Thất Bại!"})
         state.status = "rejected";
       })
       //get One

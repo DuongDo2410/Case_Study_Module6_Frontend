@@ -9,10 +9,11 @@ import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createHouse,
-  getHouseById,
+  getHouseById, updateHouse,
 } from "../../../../redux/actionThunk/houseActionThunk";
 import { openNotificationWithIcon } from "../../../../components/Notification/NotificationWithIcon";
 import { useNavigate, useParams } from "react-router";
+import {setStatusUserActionIdle, setStatusUserActionPending} from "../../../../redux/slide/houseSlide";
 
 const Update = () => {
   const navigate = useNavigate();
@@ -20,11 +21,10 @@ const Update = () => {
   let { user } = useSelector((state) => state.user);
   let { house } = useSelector((state) => state.house);
   const [image, setImage] = useState();
-  // const { id } = useParams();
+  const { id } = useParams();
   // useEffect(() => {
   //   disPatch(getHouseById(id));
   // }, []);
-  console.log("aa", house && house);
   const handlePreviewAvatar = (e) => {
     const file = e.target.files[0];
     // file.preview = URL.createObjectURL(file);
@@ -32,16 +32,15 @@ const Update = () => {
   };
   const formik = useFormik({
     initialValues: {
-      name: house ? house?.name : "111",
-      typeRoom: house?.typeRoom || "",
-      address: house?.address || "",
-      area: house?.area || "",
-      amountBedroom: house?.amountBedroom || "",
-      amountBathroom: house?.amountBathroom || "",
-      description: house?.description || "",
-      price: house?.price || "",
-      image: "",
-      idUser: "",
+      name: house ? house?.name : "",
+      typeRoom: house ? house?.typeRoom : "",
+      address: house ? house?.address : "",
+      area: house ? house?.area : "",
+      amountBedroom: house ? house?.amountBedroom : "",
+      amountBathroom: house ? house?.amountBathroom : "",
+      description: house ? house?.description : "",
+      price: house ? house?.price : "",
+      image: house ? house?.idImage[0].link : "",
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Tên không để trống!"),
@@ -65,28 +64,31 @@ const Update = () => {
       // address: Yup.string().required("Không để trống"),
     }),
     onSubmit: async (values) => {
+      console.log(123456)
+      disPatch(setStatusUserActionPending())
       //   console.log(values);
       let imageUpload = image;
       if (imageUpload) {
+        console.log(9999)
         const imageRef = ref(storage, `images/${imageUpload?.name}`);
         uploadBytes(imageRef, imageUpload).then((snapshot) => {
           getDownloadURL(snapshot.ref).then((url) => {
-            console.log(url);
             values.image = { link: url };
             values.idUser = user && user._id;
             console.log(values);
-            disPatch(createHouse(values));
+            console.log(id);
+            disPatch(updateHouse(id, values));
+            disPatch(setStatusUserActionIdle());
           });
         });
       }
     },
   });
-  console.log("loooo",formik.initialValues);
 
   return (
     <div className="w-full bg-white p-5 min-h-[550px] h-max">
       <div className="flex justify-between border-b pb-6 items-center">
-        <h4 className="text-2xl">Thêm mới nhà</h4>
+        <h4 className="text-2xl">Sửa thông tin nhà</h4>
       </div>
       <div className="mt-10">
         <form onSubmit={formik.handleSubmit}>
@@ -135,7 +137,7 @@ const Update = () => {
                   }
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.initialValues.typeRoom}
+                  value={formik.values.typeRoom}
                 >
                   <option selected>Chọn loại phòng</option>
                   <option value="phòng đơn">Phòng đơn</option>
@@ -169,7 +171,7 @@ const Update = () => {
                 }
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.initialValues?.amountBedroom}
+                value={formik.values?.amountBedroom}
               />
               {formik.touched.amountBedroom && formik.errors.amountBedroom ? (
                 <p className="mt-2 text-sm text-red-600 dark:text-red-500">
@@ -195,7 +197,7 @@ const Update = () => {
                 }
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.initialValues?.amountBathroom}
+                value={formik.values?.amountBathroom}
               />
               {formik.touched.amountBathroom && formik.errors.amountBathroom ? (
                 <p className="mt-2 text-sm text-red-600 dark:text-red-500">
@@ -221,7 +223,7 @@ const Update = () => {
                 }
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.initialValues?.address}
+                value={formik.values?.address}
               />
               {formik.touched.address && formik.errors.address ? (
                 <p className="mt-2 text-sm text-red-600 dark:text-red-500">
@@ -247,7 +249,7 @@ const Update = () => {
                 }
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.initialValues?.price}
+                value={formik.values?.price}
               />
               {formik.touched.price && formik.errors.price ? (
                 <p className="mt-2 text-sm text-red-600 dark:text-red-500">
@@ -291,7 +293,7 @@ const Update = () => {
                   }
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.initialValues?.area}
+                  value={formik.values?.area}
                 />
                 {formik.touched.area && formik.errors.area ? (
                   <p className="mt-2 text-sm text-red-600 dark:text-red-500">
@@ -315,7 +317,7 @@ const Update = () => {
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               name="description"
               onChange={formik.handleChange}
-              value={formik.initialValues?.description}
+              value={formik.values?.description}
             />
           </div>
 
@@ -323,13 +325,12 @@ const Update = () => {
             type="submit"
             className="text-white my-4 bg-[#4fba81] hover:bg- focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            Tạo mới
+            Sửa
           </button>
         </form>
       </div>
     </div>
   );
-  return <></>;
 };
 
 export default Update;
