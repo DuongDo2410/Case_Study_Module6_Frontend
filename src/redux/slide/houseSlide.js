@@ -13,9 +13,10 @@ import {
   getOne,
   search,
     deleteHome,
-    updateHouse
+    updateHouse,
+    ratingHouse, updateComment
 } from "../actionThunk/houseActionThunk";
-import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
+import {openNotificationWithIcon} from "../../components/notification/NotificationWithIcon";
 
 
 const houseSlide = createSlice({
@@ -147,6 +148,12 @@ const houseSlide = createSlice({
       .addCase(search.rejected, (state, action) => {
         state.status = "rejected";
       })
+        .addCase(ratingHouse.fulfilled, (state, action) => {
+            state.house.rating = action.payload
+        })
+        .addCase(updateComment.fulfilled, (state, action) => {
+            state.house = action.payload;
+        })
   },
 });
 export const {setStatusUserActionPending, setStatusUserActionIdle} = houseSlide.actions

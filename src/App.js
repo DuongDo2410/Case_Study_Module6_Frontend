@@ -14,9 +14,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RightContent from "./components/userProfile/content/RightContent";
 import AddHouse from "./components/addHouse/addHouse";
 import { ChangePassword } from "./components/changePassword/changePassword";
-
+import {
+  openNotificationWithIcon,
+  loading,
+} from "./components/notification/NotificationWithIcon";
 import HistoryRentHouse from "./components/history/HistoryRentHouse";
-import Notification from "./components/Notification/Notification";
+import Notification from "./components/notification/Notification";
 import BookingPending from "./components/bookingPending/BookingPending";
 import HomeManagement from "./components/home-management";
 // import PendingBooking from "./components/home-management/pending-booking/pending-booking";
@@ -28,14 +31,14 @@ import Houses from "./pages/admin/house/houses";
 import Create from "./pages/admin/house/create/create";
 import Update from "./pages/admin/house/update/update";
 import { setStatusUserActionIdle } from "./redux/slide/userSlide";
-import Loading from "./components/Notification/loading";
 import Account from "./pages/admin/account/account";
 import PendingBooking from "./pages/admin/booking/pending-booking/pending-booking";
 import AcceptBooking from "./pages/admin/booking/accept-booking/accept-booking";
+import Loading from "./components/notification/loading";
 
 function App() {
   let statusUser = useSelector((state) => state.user.status);
-  console.log(statusUser);
+  console.log(statusUser)
   let statusHouse = useSelector((state) => state.house.status);
   let statusBooking = useSelector((state) => state.booking.status);
   let statusAuth = useSelector((state) => state.auth.status);

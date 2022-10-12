@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   createHouse,
 } from "../../../../redux/actionThunk/houseActionThunk";
-import { openNotificationWithIcon } from "../../../../components/Notification/NotificationWithIcon";
 import { useNavigate } from "react-router";
 import {setStatusUserActionIdle, setStatusUserActionPending} from "../../../../redux/slide/houseSlide";
 
