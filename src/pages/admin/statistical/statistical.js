@@ -30,7 +30,12 @@ const Statistical = () => {
               <span className="text-3xl font-semibold text-gray-400">
                 Doanh thu của tuần
               </span>
-              <h1 className="text-2xl font-bold">{statistic.week}</h1>
+              <h1 className="text-2xl font-bold">
+                {new Intl.NumberFormat("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                }).format(statistic.week)}
+              </h1>
             </div>
             <div>
               <svg
@@ -54,7 +59,12 @@ const Statistical = () => {
               <span className="text-3xl font-semibold text-gray-400">
                 Doanh thu của tháng
               </span>
-              <h1 className="text-2xl font-bold">{statistic.month}</h1>
+              <h1 className="text-2xl font-bold">
+                {new Intl.NumberFormat("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                }).format(statistic.month)}
+              </h1>
             </div>
             <div>
               <svg
@@ -85,11 +95,13 @@ const Statistical = () => {
               <table className="w-full table-auto rounded-xl">
                 <thead>
                   <tr className=" bg-gray-50 text-gray-500 ">
-                    <th className="py-3 pl-6 w-32 text-left">Tên người đặt</th>
-                    <th className="py-3 px-6 text-left">Tên nhà</th>
-                    <th className="py-3 px-6 text-left">Địa chỉ</th>
-                    <th className="py-3 px-6 text-left">Giá tiền</th>
-                    <th className="py-3 px-6 text-left">Ngày đặt</th>
+                    <th className="py-3 pl-6 w-32 text-center">
+                      Tên người đặt
+                    </th>
+                    <th className="py-3 px-6 w-32 text-center">Tên nhà</th>
+                    <th className="py-3 px-6 text-center">Địa chỉ</th>
+                    <th className="py-3 px-6 text-center">Giá tiền</th>
+                    <th className="py-3 px-6 text-center">Ngày đặt</th>
                     <th className="py-3 w-36 text-center">trạng thái</th>
                   </tr>
                 </thead>
@@ -97,12 +109,12 @@ const Statistical = () => {
                   {bookingSuccess &&
                     bookingSuccess.map((booking) => (
                       <tr className="border-b border-gray-200 hover:bg-gray-100">
-                        <td className="py-3 px-6 text-left whitespace-nowrap">
+                        <td className="py-3 px-6 text-center whitespace-nowrap">
                           <div className="flex items-center">
                             <p>{booking.idRenter.username}</p>
                           </div>
                         </td>
-                        <td className="py-3 px-6 text-left">
+                        <td className="py-3 px-6 text-center">
                           <div className="flex items-center">
                             <p>{booking.idHome.name}</p>
                           </div>
@@ -114,7 +126,12 @@ const Statistical = () => {
                         </td>
                         <td className="py-3 px-6 text-center">
                           <div className="flex items-center">
-                            <p>{booking.idHome.price}</p>
+                            <p>
+                              {new Intl.NumberFormat("vi-VN", {
+                                style: "currency",
+                                currency: "VND",
+                              }).format(booking.idHome.price)}
+                            </p>
                           </div>
                         </td>
                         <td className="py-3 px-6 text-center">

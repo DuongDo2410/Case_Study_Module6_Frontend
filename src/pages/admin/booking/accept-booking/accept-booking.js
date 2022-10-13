@@ -33,10 +33,10 @@ const AcceptBooking = () => {
             <table className="w-full table-auto rounded-xl">
               <thead>
                 <tr className=" bg-gray-50 text-gray-500 ">
-                  <th className="py-3 pl-6 w-32 text-left">Tên người đặt</th>
-                  <th className="py-3 px-6 text-left">Tên nhà</th>
-                  <th className="py-3 px-6 text-left">Địa chỉ</th>
-                  <th className="py-3 px-6 text-left">Giá tiền</th>
+                  <th className="py-3 pl-6 w-32 text-center">Tên người đặt</th>
+                  <th className="py-3 px-6 w-32 text-center">Tên nhà</th>
+                  <th className="py-3 px-6 text-center">Địa chỉ</th>
+                  <th className="py-3 px-6 text-center">Giá tiền</th>
                   <th className="py-3 w-36 text-center">Ngày đặt</th>
                   <th className="py-3 w-36 text-center">trạng thái</th>
                   <th className="py-3 w-36 text-center">hành động</th>
@@ -46,12 +46,12 @@ const AcceptBooking = () => {
                 {bookingAccept &&
                   bookingAccept.map((booking) => (
                     <tr className="border-b border-gray-200 hover:bg-gray-100">
-                      <td className="py-3 px-6 text-left whitespace-nowrap">
+                      <td className="py-3 px-6 text-center whitespace-nowrap">
                         <div className="flex items-center">
                           <p>{booking.idRenter.username}</p>
                         </div>
                       </td>
-                      <td className="py-3 px-6 text-left">
+                      <td className="py-3 px-6 text-center">
                         <div className="flex items-center">
                           <p>{booking.idHome.name}</p>
                         </div>
@@ -63,7 +63,12 @@ const AcceptBooking = () => {
                       </td>
                       <td className="py-3 px-6 text-center">
                         <div className="flex items-center">
-                          <p>{booking.idHome.price}</p>
+                          <p>
+                            {new Intl.NumberFormat("vi-VN", {
+                              style: "currency",
+                              currency: "VND",
+                            }).format(booking.idHome.price)}
+                          </p>
                         </div>
                       </td>
                       <td className="py-3 px-6 text-center">

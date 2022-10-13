@@ -3,16 +3,26 @@ import bookingApi from "../../api/booking.api";
 
 export const bookingAction = createAsyncThunk(
   "booking/create",
-  async (payload) => {
-    let token = localStorage.getItem("accessToken");
-    const { data } = await bookingApi.booking(payload, token);
-    return data;
+  async (payload, { rejectWithValue }) => {
+    try {
+      const { data } = await bookingApi.booking(payload);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
   }
 );
 export const getBookingAction = createAsyncThunk("booking/getAll", async () => {
   const { data } = await bookingApi.getBooking();
   return data;
 });
+export const getBookingByIdHomeAction = createAsyncThunk(
+  "booking/getBookingByIdHome",
+  async (id) => {
+    const { data } = await bookingApi.getBookingByIdHOme(id);
+    return data.bookings;
+  }
+);
 export const bookingPendingAction = createAsyncThunk(
   "booking/pending",
   async () => {

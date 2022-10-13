@@ -7,12 +7,10 @@ import * as Yup from "yup";
 import { storage } from "../../../firebase";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { useDispatch, useSelector } from "react-redux";
+import { updateUserAction } from "../../../redux/actionThunk/userActionThunk";
 import {
-    updateUserAction
-} from "../../../redux/actionThunk/userActionThunk";
-import {
-    setStatusUserActionIdle,
-    setStatusUserActionPending
+  setStatusUserActionIdle,
+  setStatusUserActionPending,
 } from "../../../redux/slide/userSlide";
 
 function RightContent() {
@@ -29,36 +27,36 @@ function RightContent() {
     },
     validationSchema: Yup.object({
       fullName: Yup.string()
-        .min(2, "Must be more than  2 characters")
-        .max(15, "Must be 15 characters or less")
-        .required("Name is valid required!"),
+        .min(2, "Phải nhiều hơn 2 ký tự.")
+        .max(15, "Phải nhỏ hơn 15 ký tự.")
+        .required("Họ và tên không để trống!"),
       email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is valid required!"),
+        .email("Email không đúng định dạng.")
+        .required("Email không để trống!"),
       phoneNumber: Yup.number()
         .typeError("Chỉ bao gồm các số từ 0-9")
-        .integer("Số điện thoại không được bao gồm dấu thập phân")
+        .integer("Số điện thoại không được bao gồm dấu thập phân.")
         .required("Không để trống"),
-      address: Yup.string().required("Không để trống"),
+      address: Yup.string().required("Địa chỉ không để trống."),
     }),
-      onSubmit: async (values, helpers) => {
-        disPatch(setStatusUserActionPending())
-          disPatch(setStatusUserActionPending());
-          let imageUpload = image;
-          if (imageUpload) {
-              const imageRef = ref(storage, `images/${imageUpload?.name}`);
-              await uploadBytes(imageRef, imageUpload).then(async (snapshot) => {
-                  await getDownloadURL(snapshot.ref).then((url) => {
-                      values.avatar = url;
-                  });
-              });
-          }
-          let payload = {
-              user: values,
-          };
-          disPatch(updateUserAction(payload));
-          disPatch(setStatusUserActionIdle())
-      },
+    onSubmit: async (values, helpers) => {
+      disPatch(setStatusUserActionPending());
+      disPatch(setStatusUserActionPending());
+      let imageUpload = image;
+      if (imageUpload) {
+        const imageRef = ref(storage, `images/${imageUpload?.name}`);
+        await uploadBytes(imageRef, imageUpload).then(async (snapshot) => {
+          await getDownloadURL(snapshot.ref).then((url) => {
+            values.avatar = url;
+          });
+        });
+      }
+      let payload = {
+        user: values,
+      };
+      disPatch(updateUserAction(payload));
+      disPatch(setStatusUserActionIdle());
+    },
   });
 
   const [infor, setInfor] = useState({});
@@ -75,151 +73,151 @@ function RightContent() {
     setImage(file);
   };
   return (
-      <div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-          <form onSubmit={formik.handleSubmit}>
+    <div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <form onSubmit={formik.handleSubmit}>
           <div style={{ display: "flex", flexDirection: "row" }}>
-          <div style={{ margin: "7px 10px" }}>
-          <Avatar
-          alt="Remy Sharp"
-          src={image?.preview}
-          sx={{ width: "100px", height: "100px", margin: "5px 5px" }}
-          />
-          </div>
-          <div
-          style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-          >
-          <label htmlFor="upload-photo">
-          <input
-          style={{ display: "none" }}
-          id="upload-photo"
-          name="upload-photo"
-          type="file"
-          onChange={handlePreviewAvatar}
-          />
-          <br />
-          <Button color="success" variant="contained" component="span">
-          Tải ảnh lên
-          </Button>{" "}
-          </label>
-          </div>
-          </div>
-
-          <div
-          style={{ display: "flex", alignItems: "left", margin: " 20px 7px" }}
-          >
-          <TextField
-          id="outlined-basic"
-          label="Họ và tên "
-          variant="outlined"
-          sx={{ width: "70%" }}
-          name="fullName"
-          type="text"
-          onChange={formik.handleChange}
-          error={
-          formik.touched.fullName && formik.errors.fullName
-          ? formik.errors.fullName
-          : ""
-        }
-          helperText={
-          formik.touched.fullName && formik.errors.fullName
-          ? formik.errors.fullName
-          : ""
-        }
-          onBlur={formik.handleBlur}
-          value={formik.values.fullName}
-          />
+            <div style={{ margin: "7px 10px" }}>
+              <Avatar
+                alt="Remy Sharp"
+                src={image?.preview}
+                sx={{ width: "100px", height: "100px", margin: "5px 5px" }}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <label htmlFor="upload-photo">
+                <input
+                  style={{ display: "none" }}
+                  id="upload-photo"
+                  name="upload-photo"
+                  type="file"
+                  onChange={handlePreviewAvatar}
+                />
+                <br />
+                <Button color="success" variant="contained" component="span">
+                  Tải ảnh lên
+                </Button>{" "}
+              </label>
+            </div>
           </div>
 
           <div
-          style={{ display: "flex", alignItems: "left", margin: " 20px 7px" }}
+            style={{ display: "flex", alignItems: "left", margin: " 20px 7px" }}
           >
-          <TextField
-          id="outlined-basic"
-          label="Email"
-          variant="outlined"
-          sx={{ width: "70%" }}
-          name="email"
-          type="email"
-          onChange={formik.handleChange}
-          error={
-          formik.touched.email && formik.errors.email
-          ? formik.errors.email
-          : ""
-        }
-          helperText={
-          formik.touched.email && formik.errors.email
-          ? formik.errors.email
-          : ""
-        }
-          onBlur={formik.handleBlur}
-          value={formik.values.email}
-          />
+            <TextField
+              id="outlined-basic"
+              label="Họ và tên "
+              variant="outlined"
+              sx={{ width: "70%" }}
+              name="fullName"
+              type="text"
+              onChange={formik.handleChange}
+              error={
+                formik.touched.fullName && formik.errors.fullName
+                  ? formik.errors.fullName
+                  : ""
+              }
+              helperText={
+                formik.touched.fullName && formik.errors.fullName
+                  ? formik.errors.fullName
+                  : ""
+              }
+              onBlur={formik.handleBlur}
+              value={formik.values.fullName}
+            />
+          </div>
+
+          <div
+            style={{ display: "flex", alignItems: "left", margin: " 20px 7px" }}
+          >
+            <TextField
+              id="outlined-basic"
+              label="Email"
+              variant="outlined"
+              sx={{ width: "70%" }}
+              name="email"
+              type="email"
+              onChange={formik.handleChange}
+              error={
+                formik.touched.email && formik.errors.email
+                  ? formik.errors.email
+                  : ""
+              }
+              helperText={
+                formik.touched.email && formik.errors.email
+                  ? formik.errors.email
+                  : ""
+              }
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+            />
           </div>
           <div
-          style={{ display: "flex", alignItems: "left", margin: " 20px 7px" }}
+            style={{ display: "flex", alignItems: "left", margin: " 20px 7px" }}
           >
-          <TextField
-          id="outlined-basic"
-          label="Phone number"
-          variant="outlined"
-          sx={{ width: "70%" }}
-          name="phoneNumber"
-          type="text"
-          onChange={formik.handleChange}
-          error={
-          formik.touched.phoneNumber && formik.errors.phoneNumber
-          ? formik.errors.phoneNumber
-          : ""
-        }
-          helperText={
-          formik.touched.phoneNumber && formik.errors.phoneNumber
-          ? formik.errors.phoneNumber
-          : ""
-        }
-          onBlur={formik.handleBlur}
-          value={formik.values.phoneNumber}
-          />
+            <TextField
+              id="outlined-basic"
+              label="Phone number"
+              variant="outlined"
+              sx={{ width: "70%" }}
+              name="phoneNumber"
+              type="text"
+              onChange={formik.handleChange}
+              error={
+                formik.touched.phoneNumber && formik.errors.phoneNumber
+                  ? formik.errors.phoneNumber
+                  : ""
+              }
+              helperText={
+                formik.touched.phoneNumber && formik.errors.phoneNumber
+                  ? formik.errors.phoneNumber
+                  : ""
+              }
+              onBlur={formik.handleBlur}
+              value={formik.values.phoneNumber}
+            />
           </div>
           <div
-          style={{ display: "flex", alignItems: "left", margin: " 20px 7px" }}
+            style={{ display: "flex", alignItems: "left", margin: " 20px 7px" }}
           >
-          <TextField
-          id="outlined-basic"
-          label="Address"
-          variant="outlined"
-          sx={{ width: "70%" }}
-          name="address"
-          type="text"
-          onChange={formik.handleChange}
-          error={
-          formik.touched.address && formik.errors.address
-          ? formik.errors.address
-          : ""
-        }
-          helperText={
-          formik.touched.address && formik.errors.address
-          ? formik.errors.address
-          : ""
-        }
-          onBlur={formik.handleBlur}
-          value={formik.values.address}
-          />
+            <TextField
+              id="outlined-basic"
+              label="Address"
+              variant="outlined"
+              sx={{ width: "70%" }}
+              name="address"
+              type="text"
+              onChange={formik.handleChange}
+              error={
+                formik.touched.address && formik.errors.address
+                  ? formik.errors.address
+                  : ""
+              }
+              helperText={
+                formik.touched.address && formik.errors.address
+                  ? formik.errors.address
+                  : ""
+              }
+              onBlur={formik.handleBlur}
+              value={formik.values.address}
+            />
           </div>
           <div
-          style={{display: "flex", alignItems: "left", margin: " 20px 7px"}}
+            style={{ display: "flex", alignItems: "left", margin: " 20px 7px" }}
           >
-          <Button variant="contained" color="success" type="submit">
-          Cập nhật
-          </Button>
+            <Button variant="contained" color="success" type="submit">
+              Cập nhật
+            </Button>
           </div>
-          </form>
-          </div>
+        </form>
       </div>
+    </div>
   );
 }
 export default RightContent;

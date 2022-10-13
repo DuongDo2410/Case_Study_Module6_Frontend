@@ -9,6 +9,7 @@ import {
   bookingSuccessOwnerAction,
   getbookingAcceptRenterAction,
   getBookingAction,
+  getBookingByIdHomeAction,
   getbookingPendingRenterAction,
   getbookingSuccessOwnerAction,
 } from "../actionThunk/bookingActionThunk";
@@ -27,6 +28,7 @@ const bookingSlide = createSlice({
     bookingHistoryRenter: [],
     bookingAccept: [],
     bookingSuccess: [],
+    bookingByIdHome: [],
   },
   reducers: {
     setStatusBookingActionPending(state) {
@@ -51,10 +53,24 @@ const bookingSlide = createSlice({
     builder.addCase(bookingAction.pending, (state, action) => {
       state.status = "pending";
     });
+    builder.addCase(bookingAction.rejected, (state, action) => {
+      state.status = "rejected";
+      openNotificationWithIcon({
+        type: "error",
+        message: action.payload.message,
+      });
+    });
     builder.addCase(bookingAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
       openNotificationWithIcon({ type: "success", message: "Thành Công!" });
       state.booking = action.payload;
+    });
+    builder.addCase(getBookingByIdHomeAction.pending, (state, action) => {
+      state.status = "pending";
+    });
+    builder.addCase(getBookingByIdHomeAction.fulfilled, (state, action) => {
+      state.status = "fulfilled";
+      state.bookingByIdHome = action.payload;
     });
     builder.addCase(getBookingAction.pending, (state, action) => {
       state.status = "pending";

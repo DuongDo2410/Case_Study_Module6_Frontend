@@ -28,6 +28,8 @@ import AcceptBooking from "./pages/admin/booking/accept-booking/accept-booking";
 import PendingBookingRenter from "./components/home-management/pending-booking/pending-booking";
 import AcceptBookingRenter from "./components/home-management/accept-booking/accept-booking";
 import HistoryBookingRenter from "./components/history/HistoryRentHouse";
+import { ChangePasswordOwner } from "./pages/admin/account/change-password";
+import Detail from "./pages/admin/house/detail/detail";
 import Loading from "./components/notification/loading";
 
 function App() {
@@ -88,6 +90,11 @@ function App() {
             <Route path={"/admin/houses/create"} element={<Create />} />
             <Route path={"/admin/houses/update/:id"} element={<Update />} />
             <Route path={"/admin/account"} element={<Account />} />
+            <Route path={"/admin/houses/:id"} element={<Detail />} />
+            <Route
+              path={"/admin/changePassword"}
+              element={<ChangePasswordOwner />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>
