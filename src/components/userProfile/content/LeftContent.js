@@ -14,14 +14,15 @@ import { Avatar, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getHistory } from "../../../redux/actionThunk/houseActionThunk";
-import { setStatusUserActionIdle } from "../../../redux/slide/houseSlide";
+import { setStatusHouseActionIdle } from "../../../redux/slide/houseSlide";
+import { BiCalendarCheck } from "react-icons/bi";
 
 export default function LeftContent() {
   let { user } = useSelector((state) => state.auth);
   const disPatch = useDispatch();
   const handelGetHistory = () => {
     disPatch(getHistory());
-    disPatch(setStatusUserActionIdle());
+    disPatch(setStatusHouseActionIdle());
   };
   return (
     <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
@@ -54,17 +55,18 @@ export default function LeftContent() {
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <BreakfastDiningIcon />
+                {/* <BreakfastDiningIcon /> */}
+                <BiCalendarCheck size={25} style={{ marginRight: "12px" }} />
               </ListItemIcon>
               {/*<ListItemText primary="Đơn chờ " />*/}
-              <Link to={"/bookingPending"}>Quản lý đơn </Link>
+              <Link to={"/profile/bookingPending"}>Đơn chờ </Link>
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>{/* <FavoriteBorderIcon /> */}</ListItemIcon>
               {/* <ListItemText primary="Bất động sản yêu thích " /> */}
-              <Link to={"/profile/house/list"}>Quản lý nhà</Link>
+              <Link to={"/profile/bookingAccept"}>Đơn đã xác nhận</Link>
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>

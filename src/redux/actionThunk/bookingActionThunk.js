@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
 import bookingApi from "../../api/booking.api";
 
 export const bookingAction = createAsyncThunk(
@@ -51,11 +51,44 @@ export const getbookingSuccessOwnerAction = createAsyncThunk(
     return data.bookings;
   }
 );
+export const getbookingPendingRenterAction = createAsyncThunk(
+  "booking/getbookingPendingRenter",
+  async () => {
+    const { data } = await bookingApi.getBookingPendingRenter();
+    return data.bookings;
+  }
+);
+export const getbookingAcceptRenterAction = createAsyncThunk(
+  "booking/getbookingAcceptRenter",
+  async () => {
+    const { data } = await bookingApi.getBookingAcceptRenter();
+    return data.bookings;
+  }
+);
+export const bookingHistoryRenterAction = createAsyncThunk(
+  "booking/bookingHistoryRenter",
+  async () => {
+    const { data } = await bookingApi.historyBooking();
+    return data.bookings;
+  }
+);
 export const bookingSuccessOwnerAction = createAsyncThunk(
   "booking/bookingSuccessOwner",
   async (id) => {
     const { data } = await bookingApi.BookingSuccessOwner(id);
 
     return data.booking;
+  }
+);
+
+export const bookingCanCelAction = createAsyncThunk(
+  "booking/bookingCanCel",
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await bookingApi.BookingCanCel(id);
+      return data.booking;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
   }
 );

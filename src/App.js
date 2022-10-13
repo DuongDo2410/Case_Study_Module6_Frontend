@@ -12,17 +12,8 @@ import { SignInPage } from "./pages/SignIn/SignInPage";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RightContent from "./components/userProfile/content/RightContent";
-import AddHouse from "./components/addHouse/addHouse";
 import { ChangePassword } from "./components/changePassword/changePassword";
-import {
-  openNotificationWithIcon,
-  loading,
-} from "./components/notification/NotificationWithIcon";
-import HistoryRentHouse from "./components/history/HistoryRentHouse";
-import Notification from "./components/notification/Notification";
 import BookingPending from "./components/bookingPending/BookingPending";
-import HomeManagement from "./components/home-management";
-// import PendingBooking from "./components/home-management/pending-booking/pending-booking";
 import Content from "./components/search/content";
 import BookingAcceptOwner from "./components/home-management/accept-booking/accept-booking";
 import Dasboard from "./pages/admin/dasboard";
@@ -34,11 +25,13 @@ import { setStatusUserActionIdle } from "./redux/slide/userSlide";
 import Account from "./pages/admin/account/account";
 import PendingBooking from "./pages/admin/booking/pending-booking/pending-booking";
 import AcceptBooking from "./pages/admin/booking/accept-booking/accept-booking";
-import Loading from "./components/notification/loading";
+import Loading from "./components/Notification/loading";
+import PendingBookingRenter from "./components/home-management/pending-booking/pending-booking";
+import AcceptBookingRenter from "./components/home-management/accept-booking/accept-booking";
+import HistoryBookingRenter from "./components/history/HistoryRentHouse";
 
 function App() {
   let statusUser = useSelector((state) => state.user.status);
-  console.log(statusUser)
   let statusHouse = useSelector((state) => state.house.status);
   let statusBooking = useSelector((state) => state.booking.status);
   let statusAuth = useSelector((state) => state.auth.status);
@@ -63,15 +56,25 @@ function App() {
               path={"/profile/changePassword"}
               element={<ChangePassword />}
             />
-            <Route path={"/profile/history"} element={<HistoryRentHouse />} />
+            <Route
+              path={"/profile/history"}
+              element={<HistoryBookingRenter />}
+            />
+            <Route
+              path={"/profile/bookingPending"}
+              element={<PendingBookingRenter />}
+            />
+            <Route
+              path={"/profile/bookingAccept"}
+              element={<AcceptBookingRenter />}
+            />
           </Route>
           <Route path={"/"} element={<Home />} />
           <Route path={"/search"} element={<Content />} />
           <Route path={"/register"} element={<RegisterPage />} />
           <Route path={"/login"} element={<SignInPage />} />
           <Route path={"/detail/:id"} element={<Booking />} />
-          <Route path={"/notification"} element={<Notification />} />
-          <Route path={"/bookingPending"} element={<BookingPending />} />
+          {/*<Route path={"/notification"} element={<Notification />} />*/}
 
           <Route path={"/admin"} element={<Dasboard />}>
             <Route path={"/admin/statistical"} element={<Statistical />} />

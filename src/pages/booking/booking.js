@@ -9,7 +9,7 @@ import moment from "moment";
 import { bookingAction } from "../../redux/actionThunk/bookingActionThunk";
 import Rate from "../../components/house/rate/Rate.js";
 import Comment from "../../components/comment/comemnt";
-import {setStatusUserActionIdle} from "../../redux/slide/houseSlide";
+import { setStatusHouseActionIdle } from "../../redux/slide/houseSlide";
 const Booking = () => {
   let house = useSelector((state) => state.house.house);
   let dispatch = useDispatch();
@@ -26,7 +26,7 @@ const Booking = () => {
   });
   useEffect(() => {
     dispatch(getOne(id));
-    dispatch(setStatusUserActionIdle);
+    dispatch(setStatusHouseActionIdle());
   }, []);
   useEffect(() => {
     if (startDay && endDay) {
@@ -35,10 +35,7 @@ const Booking = () => {
         ...booking,
         startDay: startDay,
         endDay: endDay,
-        totalMoney: new Intl.NumberFormat("vi-VN", {
-          style: "currency",
-          currency: "VND",
-        }).format(mountDay * house.price),
+        totalMoney: mountDay * house.price,
       });
     }
   }, [startDay, endDay]);
@@ -105,11 +102,10 @@ const Booking = () => {
                     height: "500px",
                   }}
                 />
-
               </div>
               <p>{house && house?.description}</p>
               <div>
-                <Rate rating={house?.rating}/>
+                <Rate rating={house?.rating} />
               </div>
             </div>
 
@@ -153,7 +149,13 @@ const Booking = () => {
                       name="endDay"
                     />
                   </div>
-                  <h2 className="text-xl">Tổng tiền: {booking.totalMoney}</h2>
+                  <h2 className="text-xl">
+                    Tổng tiền:{" "}
+                    {new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(booking.totalMoney)}
+                  </h2>
                   <div className="flex gap-x-2">
                     <button
                       type="submit"
@@ -163,12 +165,11 @@ const Booking = () => {
                     </button>
                   </div>
                 </form>
-
               </div>
             </div>
           </div>
         </div>
-        <Comment house={house}/>
+        <Comment house={house} />
       </div>
       <Footer />
     </>

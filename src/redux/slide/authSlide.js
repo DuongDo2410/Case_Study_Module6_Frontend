@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { loginAction, registerAction } from "../actionThunk/authActionThunk";
+import { openNotificationWithIcon } from "../../components/Notification/NotificationWithIcon";
 import {
-  loginAction,
-  registerAction, setStatusAuthAction,
-} from "../actionThunk/authActionThunk";
-import {openNotificationWithIcon} from "../../components/notification/NotificationWithIcon";
-import userSlide from "./userSlide";
-import {loginGoogleAction} from "../actionThunk/userActionThunk";
+  loginGoogleAction,
+  updateUserAction,
+} from "../actionThunk/userActionThunk";
 const authSlide = createSlice({
   name: "auth",
   initialState: {
@@ -14,11 +13,11 @@ const authSlide = createSlice({
     user: JSON.parse(localStorage.getItem("currentUser")) || {},
   },
   reducers: {
-    setStatusUserActionPending(state) {
-      state.status = "pending"
+    setStatusAuthActionPending(state) {
+      state.status = "pending";
     },
-    setStatusUserActionIdle(state) {
-      state.status = "idle"
+    setStatusAuthActionIdle(state) {
+      state.status = "idle";
     },
   },
   extraReducers: (builder) => {
@@ -26,8 +25,11 @@ const authSlide = createSlice({
       state.status = "pending";
     });
     builder.addCase(registerAction.fulfilled, (state, action) => {
+      openNotificationWithIcon({
+        type: "success",
+        message: "Đăng Kí Thành Công!!",
+      });
       state.status = "fulfilled";
-      openNotificationWithIcon({type: "success", message: "Đăng Kí Thành Công!!"})
     });
     builder.addCase(registerAction.rejected, (state, action) => {
       state.status = "rejected";
@@ -35,6 +37,10 @@ const authSlide = createSlice({
     //Login
     builder.addCase(loginAction.rejected, (state, action) => {
       state.status = "rejected";
+      openNotificationWithIcon({
+        type: "error",
+        message: "Tài Khoản Hoặc Mật Khẩu Sai!",
+      });
     });
     builder.addCase(loginAction.pending, (state, action) => {
       state.status = "pending";
@@ -42,8 +48,12 @@ const authSlide = createSlice({
     builder.addCase(loginAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
       state.user = action.payload.user;
+      openNotificationWithIcon({
+        type: "success",
+        message: "Đăng nhập thành Công!",
+      });
       localStorage.setItem("accessToken", action.payload.token);
-      localStorage.setItem('currentUser', JSON.stringify(action.payload.user));
+      localStorage.setItem("currentUser", JSON.stringify(action.payload.user));
     });
     //LoginGoogle
     builder.addCase(loginGoogleAction.pending, (state, action) => {
@@ -52,11 +62,29 @@ const authSlide = createSlice({
     builder.addCase(loginGoogleAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
       state.user = action.payload.user;
-      openNotificationWithIcon({type: "success", message: "Thành Công!"})
-      localStorage.setItem('accessToken', action.payload.token);
-      localStorage.setItem('currentUser', JSON.stringify(action.payload.user));
+      openNotificationWithIcon({
+        type: "success",
+        message: "Đăng nhập thành Công!",
+      });
+      localStorage.setItem("accessToken", action.payload.token);
+      localStorage.setItem("currentUser", JSON.stringify(action.payload.user));
+    });
+    //update User
+    builder.addCase(updateUserAction.pending, (state, action) => {
+      state.status = "pending";
+    });
+    builder.addCase(updateUserAction.fulfilled, (state, action) => {
+      state.status = "fulfilled";
+      state.user = action.payload;
+      localStorage.removeItem("currentUser");
+      localStorage.setItem("currentUser", JSON.stringify(action.payload));
+      openNotificationWithIcon({
+        type: "success",
+        message: "Cập Nhật thông tin thành Công",
+      });
     });
   },
 });
-export const {setStatusUserActionPending, setStatusUserActionIdle} = authSlide.actions
+export const { setStatusAuthActionPending, setStatusAuthActionIdle } =
+  authSlide.actions;
 export default authSlide;

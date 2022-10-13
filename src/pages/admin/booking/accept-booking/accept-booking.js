@@ -24,7 +24,7 @@ const AcceptBooking = () => {
   }, []);
   return (
     <>
-      <div className="w-full bg-white p-5 min-h-[550px] h-max">
+      <div className="w-full bg-white p-5 min-h-[550px] h-max shadow-lg rounded-lg">
         <div className="flex justify-between border-b pb-6 items-center">
           <h4 className="text-2xl">Danh sách đã xác nhận</h4>
         </div>

@@ -3,12 +3,16 @@ import {
   bookingAcceptAction,
   bookingAcceptOwnerAction,
   bookingAction,
+  bookingCanCelAction,
+  bookingHistoryRenterAction,
   bookingPendingAction,
   bookingSuccessOwnerAction,
+  getbookingAcceptRenterAction,
   getBookingAction,
+  getbookingPendingRenterAction,
   getbookingSuccessOwnerAction,
 } from "../actionThunk/bookingActionThunk";
-import { openNotificationWithIcon } from "../../components/notification/NotificationWithIcon";
+import { openNotificationWithIcon } from "../../components/Notification/NotificationWithIcon";
 import userSlide from "./userSlide";
 
 const bookingSlide = createSlice({
@@ -18,14 +22,17 @@ const bookingSlide = createSlice({
     booking: [],
     bookingOwner: [],
     bookingPending: [],
+    bookingPendingRenter: [],
+    bookingAcceptRenter: [],
+    bookingHistoryRenter: [],
     bookingAccept: [],
     bookingSuccess: [],
   },
   reducers: {
-    setStatusUserActionPending(state) {
+    setStatusBookingActionPending(state) {
       state.status = "pending";
     },
-    setStatusUserActionIdle(state) {
+    setStatusBookingActionIdle(state) {
       state.status = "idle";
     },
   },
@@ -35,6 +42,7 @@ const bookingSlide = createSlice({
     });
     builder.addCase(bookingSuccessOwnerAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
+      openNotificationWithIcon({ type: "success", message: "Thành Công!" });
       state.bookingAccept = state.bookingAccept.filter((booking) =>
         booking._id != action.payload._id ? booking._id : ""
       );
@@ -60,7 +68,6 @@ const bookingSlide = createSlice({
     });
     builder.addCase(bookingPendingAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
-      openNotificationWithIcon({ type: "success", message: "Thành Công!" });
       state.bookingPending = action.payload.bookings;
     });
     builder.addCase(bookingAcceptOwnerAction.pending, (state, action) => {
@@ -68,8 +75,31 @@ const bookingSlide = createSlice({
     });
     builder.addCase(bookingAcceptOwnerAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
-      console.log("slide", action.payload);
       state.bookingAccept = action.payload;
+    });
+    builder.addCase(getbookingPendingRenterAction.pending, (state, action) => {
+      state.status = "pending";
+    });
+    builder.addCase(
+      getbookingPendingRenterAction.fulfilled,
+      (state, action) => {
+        state.status = "fulfilled";
+        state.bookingPendingRenter = action.payload;
+      }
+    );
+    builder.addCase(bookingHistoryRenterAction.pending, (state, action) => {
+      state.status = "pending";
+    });
+    builder.addCase(bookingHistoryRenterAction.fulfilled, (state, action) => {
+      state.status = "fulfilled";
+      state.bookingHistoryRenter = action.payload;
+    });
+    builder.addCase(getbookingAcceptRenterAction.pending, (state, action) => {
+      state.status = "pending";
+    });
+    builder.addCase(getbookingAcceptRenterAction.fulfilled, (state, action) => {
+      state.status = "fulfilled";
+      state.bookingAcceptRenter = action.payload;
     });
     builder.addCase(bookingAcceptAction.pending, (state, action) => {
       state.status = "pending";
@@ -89,9 +119,27 @@ const bookingSlide = createSlice({
       state.status = "fulfilled";
       state.bookingSuccess = action.payload;
     });
+    builder.addCase(bookingCanCelAction.pending, (state, action) => {
+      state.status = "pending";
+    });
+    builder.addCase(bookingCanCelAction.rejected, (state, action) => {
+      state.status = "rejected";
+      console.log(action.payload);
+      openNotificationWithIcon({
+        type: "error",
+        message: action.payload.message,
+      });
+    });
+    builder.addCase(bookingCanCelAction.fulfilled, (state, action) => {
+      state.status = "fulfilled";
+      openNotificationWithIcon({ type: "success", message: "Thành Công!" });
+      state.bookingPendingRenter = state.bookingPendingRenter.filter(
+        (booking) => (booking._id != action.payload._id ? booking._id : "")
+      );
+    });
   },
 });
-export const { setStatusUserActionPending, setStatusUserActionIdle } =
+export const { setStatusBookingActionPending, setStatusBookingActionIdle } =
   bookingSlide.actions;
 
 export default bookingSlide;

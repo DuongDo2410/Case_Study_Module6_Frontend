@@ -2,23 +2,22 @@ import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  registerAction,
-} from "../../redux/actionThunk/authActionThunk";
+import { registerAction } from "../../redux/actionThunk/authActionThunk";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
-import {setStatusUserActionIdle} from "../../redux/slide/authSlide";
+import { setStatusAuthActionIdle } from "../../redux/slide/authSlide";
 
-
-export function RegisterPage () {
-  const handleRegister = (values) => {
-    disPatch(registerAction(values));
-    disPatch(setStatusUserActionIdle());
-  }
+export function RegisterPage() {
+  const navigate = useNavigate();
   const disPatch = useDispatch();
   let { status } = useSelector((state) => state.auth);
-  console.log(status);
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (status === "fulfilled") {
+      disPatch(setStatusAuthActionIdle());
+      navigate("/login");
+    }
+  }, [status]);
 
   const formik = useFormik({
     initialValues: {
@@ -26,6 +25,7 @@ export function RegisterPage () {
       phoneNumber: "",
       password: "",
       confirmPassword: "",
+      role: "",
     },
 
     validationSchema: Yup.object({
@@ -41,152 +41,228 @@ export function RegisterPage () {
       confirmPassword: Yup.string()
         .required("Không để trống")
         .oneOf([Yup.ref("password"), null], "Mật khẩu không khớp"),
+      role: Yup.string().required("Không để trống"),
     }),
     onSubmit: (values) => {
       values.avatar =
         "https://firebasestorage.googleapis.com/v0/b/shop-11594.appspot.com/o/image%2Favatar.jpg?alt=media&token=0cf016f4-f295-4d46-942f-ae8a8a79c53d";
-      handleRegister(values);
+      disPatch(registerAction(values));
+      disPatch(setStatusAuthActionIdle());
     },
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <section className="bg-gray-50 dark:bg-gray-900 mt-10">
-        <div className=" bg-[#ffffff] flex justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <a
-            href="#"
-            className="flex items-center mb-6 text-2xl font-semibold text-gray-900 white:text-white"
-          ></a>
-          <div className=" regal-write w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-white dark:border-gray-700">
-            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black">
-                Đăng ký
-              </h1>
-              <div>
-                <label
-                  htmlFor="username"
-                  className="flex justify-start  mb-2 text-sm font-medium  dark:text-black"
-                >
-                  Nhập tên đăng nhập *
-                </label>
-                <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  className={
-                    formik.touched.username && formik.errors.username
-                      ? "bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:outline-none focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                      : "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  }
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.username}
-                />
-                {formik.touched.username && formik.errors.username ? (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                    {formik.errors.username}
-                  </p>
-                ) : null}
-              </div>
-              <div>
-                <label
-                  htmlFor="phoneNumber"
-                  className="flex justify-start  mb-2 text-sm font-medium  dark:text-black"
-                >
-                  Nhập Số Điện Thoại *
-                </label>
-                <input
-                  type="text"
-                  name="phoneNumber"
-                  id="phoneNumber"
-                  className={
-                    formik.touched.phoneNumber && formik.errors.phoneNumber
-                      ? "bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:outline-none focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                      : "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  }
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.phoneNumber}
-                />
-                {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                    {formik.errors.phoneNumber}
-                  </p>
-                ) : null}
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="  flex justify-start  mb-2 text-sm font-medium text-gray-900 "
-                >
-                  Mật khẩu *
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  className={
-                    formik.touched.password && formik.errors.password
-                      ? "bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:outline-none focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                      : "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  }
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.password}
-                />
-                {formik.touched.password && formik.errors.password ? (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                    {formik.errors.password}
-                  </p>
-                ) : null}
-              </div>
-
-              <div>
-                <label
-                  htmlFor="confirmPassword"
-                  className="  flex justify-start  mb-2 text-sm font-medium text-gray-900 "
-                >
-                  Mật khẩu *
-                </label>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  id="confirmPassword"
-                  className={
-                    formik.touched.confirmPassword &&
-                    formik.errors.confirmPassword
-                      ? "bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:outline-none focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                      : "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  }
-                  onChange={formik.handleChange}
-                  value={formik.values.confirmPassword}
-                />
-                {formik.touched.confirmPassword &&
-                formik.errors.confirmPassword ? (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                    {formik.errors.confirmPassword}
-                  </p>
-                ) : null}
-              </div>
-              <button
-                type="submit"
-                className="w-full text-white bg-[#14f1d7] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+    <>
+      <div className="container mx-auto mb-12">
+        <div className="flex justify-center px-6 my-12 pb-12">
+          {/* Row */}
+          <div className="w-full xl:w-3/4 lg:w-11/12 flex shadow-lg shadow-slate-500 rounded-lg">
+            {/* Col */}
+            <div
+              className="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg"
+              style={{
+                backgroundImage:
+                  'url("https://source.unsplash.com/K4mSJ7kc0As/600x800")',
+              }}
+            />
+            {/* Col */}
+            <div className="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+              <h3 className="pt-4 text-2xl text-center">Đăng ký!</h3>
+              <form
+                className="px-8 pt-6 pb-8 mb-4 bg-white rounded"
+                onSubmit={formik.handleSubmit}
               >
-                Tạo một tài khoản{" "}
-              </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400 ">
-                Bạn có sẵn sàng tạo một tài khoản?
-                <Link
-                  to={"/login"}
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                >
-                  Đăng nhập
-                </Link>
-              </p>
+                <div className="mb-4">
+                  <label
+                    className="block mb-2 text-sm font-bold text-gray-700"
+                    htmlFor="username"
+                  >
+                    Tên đăng nhập
+                  </label>
+                  <input
+                    className={
+                      formik.touched.username && formik.errors.username
+                        ? "w-full px-3 py-2 mb-3 text-sm leading-tight border rounded shadow appearance-none border-red-500 text-red-900 placeholder-red-700 focus:outline-none focus:ring-red-500  focus:border-red-500 block"
+                        : "w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-gray-300 rounded shadow appearance-none focus:outline-none focus:shadow-outline focus:ring-blue-500 focus:border-blue-500"
+                    }
+                    id="username"
+                    type="text"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.username}
+                  />
+                  {formik.touched.username && formik.errors.username ? (
+                    <p className="text-xs italic text-red-500">
+                      {formik.errors.username}
+                    </p>
+                  ) : null}
+                </div>
+                <div className="mb-4">
+                  <label
+                    className="block mb-2 text-sm font-bold text-gray-700"
+                    htmlFor="phoneNumber"
+                  >
+                    Số điện thoại
+                  </label>
+                  <input
+                    className={
+                      formik.touched.phoneNumber && formik.errors.phoneNumber
+                        ? "w-full px-3 py-2 mb-3 text-sm leading-tight border rounded shadow appearance-none border-red-500 text-red-900 placeholder-red-700 focus:outline-none focus:ring-red-500  focus:border-red-500 block"
+                        : "w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-gray-300 rounded shadow appearance-none focus:outline-none focus:shadow-outline focus:ring-blue-500 focus:border-blue-500"
+                    }
+                    id="phoneNumber"
+                    type="text"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.phoneNumber}
+                  />
+                  {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
+                    <p className="text-xs italic text-red-500">
+                      {formik.errors.phoneNumber}
+                    </p>
+                  ) : null}
+                </div>
+                <div className="mb-4">
+                  <label
+                    className="block mb-2 text-sm font-bold text-gray-700"
+                    htmlFor="password"
+                  >
+                    Mật khẩu
+                  </label>
+                  <input
+                    className={
+                      formik.touched.password && formik.errors.password
+                        ? "w-full px-3 py-2 mb-3 text-sm leading-tight border rounded shadow appearance-none border-red-500 text-red-900 placeholder-red-700 focus:outline-none focus:ring-red-500  focus:border-red-500 block"
+                        : "w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-gray-300 rounded shadow appearance-none focus:outline-none focus:shadow-outline focus:ring-blue-500 focus:border-blue-500"
+                    }
+                    id="password"
+                    type="password"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.password}
+                  />
+                  {formik.touched.password && formik.errors.password ? (
+                    <p className="text-xs italic text-red-500">
+                      {formik.errors.password}
+                    </p>
+                  ) : null}
+                </div>
+                <div className="mb-4">
+                  <label
+                    className="block mb-2 text-sm font-bold text-gray-700"
+                    htmlFor="confirmPassword"
+                  >
+                    Nhập lại mật khẩu
+                  </label>
+                  <input
+                    className={
+                      formik.touched.confirmPassword &&
+                      formik.errors.confirmPassword
+                        ? "w-full px-3 py-2 mb-3 text-sm leading-tight border rounded shadow appearance-none border-red-500 text-red-900 placeholder-red-700 focus:outline-none focus:ring-red-500  focus:border-red-500 block"
+                        : "w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-gray-300 rounded shadow appearance-none focus:outline-none focus:shadow-outline focus:ring-blue-500 focus:border-blue-500"
+                    }
+                    id="confirmPassword"
+                    type="password"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.confirmPassword}
+                  />
+                  {formik.touched.confirmPassword &&
+                  formik.errors.confirmPassword ? (
+                    <p className="text-xs italic text-red-500">
+                      {formik.errors.confirmPassword}
+                    </p>
+                  ) : null}
+                </div>
+
+                <div className="mb-10 ">
+                  <label
+                    className="block mb-2 text-sm font-bold text-gray-700"
+                    htmlFor="confirmPassword"
+                  >
+                    Chức năng
+                  </label>
+                  <div className="flex items-center mt-2">
+                    <div className="flex items-center mr-20">
+                      <input
+                        id="default-radio-1"
+                        type="radio"
+                        defaultValue
+                        name="role"
+                        className={
+                          formik.touched.role && formik.errors.role
+                            ? "w-4 h-4 text-red-500 bg-red-500 border-red-500 "
+                            : "w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
+                        }
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value="user"
+                      />
+
+                      <label
+                        htmlFor="default-radio-1"
+                        className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                      >
+                        Người thuê nhà
+                      </label>
+                    </div>
+                    <div className="flex items-center">
+                      <input
+                        id="default-radio-2"
+                        type="radio"
+                        defaultValue
+                        name="role"
+                        valu
+                        className={
+                          formik.touched.role && formik.errors.role
+                            ? "w-4 h-4 text-red-500 bg-red-500 border-red-500 "
+                            : "w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
+                        }
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value="owner"
+                      />
+                      <label
+                        htmlFor="default-radio-2"
+                        className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                      >
+                        Chủ nhà
+                      </label>
+                    </div>
+                  </div>
+                  {formik.touched.role && formik.errors.role ? (
+                    <p className="text-xs italic text-red-500 mt-2">
+                      {formik.errors.role}
+                    </p>
+                  ) : null}
+                </div>
+
+                <div className="mb-6 text-center">
+                  <button
+                    className="w-full px-4 py-2 font-bold text-white bg-[#4fba81] rounded-full hover:bg-[#48a573] focus:outline-none focus:shadow-outline"
+                    type="submit"
+                  >
+                    Đăng ký
+                  </button>
+                </div>
+                <hr className="mb-6 border-t" />
+
+                <div className="text-center">
+                  <p className="text-sm font-light text-gray-500 dark:text-gray-400 ">
+                    Bạn có sẵn một tài khoản?
+                    <Link
+                      to={"/login"}
+                      className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                    >
+                      Đăng nhập
+                    </Link>
+                  </p>
+                </div>
+              </form>
             </div>
           </div>
         </div>
-      </section>
-    </form>
+      </div>
+    </>
   );
 }

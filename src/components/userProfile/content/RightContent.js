@@ -16,7 +16,7 @@ import {
 } from "../../../redux/slide/userSlide";
 
 function RightContent() {
-  let { user } = useSelector((state) => state.user);
+  let { user } = useSelector((state) => state.auth);
   // let { status } = useSelector((state) => state.user);
   const disPatch = useDispatch();
 

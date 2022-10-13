@@ -7,17 +7,16 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   createHouse,
   getAllHouse,
-  getHistory,
   getHouseById,
   getHouseByUser,
   getOne,
   search,
-    deleteHome,
-    updateHouse,
-    ratingHouse, updateComment
+  deleteHome,
+  updateHouse,
+  ratingHouse,
+  updateComment,
 } from "../actionThunk/houseActionThunk";
-import {openNotificationWithIcon} from "../../components/notification/NotificationWithIcon";
-
+import { openNotificationWithIcon } from "../../components/Notification/NotificationWithIcon";
 
 const houseSlide = createSlice({
   name: "house",
@@ -31,11 +30,11 @@ const houseSlide = createSlice({
     houseSearch: [],
   },
   reducers: {
-    setStatusUserActionPending(state) {
-      state.status = "pending"
+    setStatusHouseActionPending(state) {
+      state.status = "pending";
     },
-    setStatusUserActionIdle(state) {
-      state.status = "idle"
+    setStatusHouseActionIdle(state) {
+      state.status = "idle";
     },
   },
   extraReducers: (builder) => {
@@ -84,7 +83,7 @@ const houseSlide = createSlice({
       })
       .addCase(createHouse.fulfilled, (state, action) => {
         state.houses.push(action.payload);
-        openNotificationWithIcon({type: "success", message: "Thành Công!"});
+        openNotificationWithIcon({ type: "success", message: "Thành Công!" });
         state.status = "fulfilled";
       })
       //delete House
@@ -95,34 +94,24 @@ const houseSlide = createSlice({
         state.status = "rejected";
       })
       .addCase(deleteHome.fulfilled, (state, action) => {
-        openNotificationWithIcon({type: "success", message: "Thành Công!"});
+        openNotificationWithIcon({ type: "success", message: "Thành Công!" });
         state.status = "fulfilled";
-        let newHouses = state.customerHouse.filter(house => (
-            house._id !== action.payload
-        ));
-        state.customerHouse = newHouses
+        let newHouses = state.customerHouse.filter(
+          (house) => house._id !== action.payload
+        );
+        state.customerHouse = newHouses;
       })
-      //get History
-      .addCase(getHistory.fulfilled, (state, action) => {
-        state.history = action.payload;
-        state.status = "fulfilled";
-      })
-      .addCase(getHistory.pending, (state, action) => {
-        state.status = "pending";
-      })
-      .addCase(getHistory.rejected, (state, action) => {
-        state.status = "rejected";
-      })
+
       //Update house
       .addCase(updateHouse.fulfilled, (state, action) => {
-        openNotificationWithIcon({type: "success", message: "Thành Công!"})
+        openNotificationWithIcon({ type: "success", message: "Thành Công!" });
         state.status = "fulfilled";
       })
       .addCase(updateHouse.pending, (state, action) => {
         state.status = "pending";
       })
       .addCase(updateHouse.rejected, (state, action) => {
-        openNotificationWithIcon({type: "error", message: "Thất Bại!"})
+        openNotificationWithIcon({ type: "error", message: "Thất Bại!" });
         state.status = "rejected";
       })
       //get One
@@ -139,7 +128,7 @@ const houseSlide = createSlice({
       //search
       .addCase(search.fulfilled, (state, action) => {
         state.houseSearch = action.payload;
-        openNotificationWithIcon({type: "success", message: "Thành Công!"});
+        openNotificationWithIcon({ type: "success", message: "Thành Công!" });
         state.status = "fulfilled";
       })
       .addCase(search.pending, (state, action) => {
@@ -148,14 +137,15 @@ const houseSlide = createSlice({
       .addCase(search.rejected, (state, action) => {
         state.status = "rejected";
       })
-        .addCase(ratingHouse.fulfilled, (state, action) => {
-            state.house.rating = action.payload
-        })
-        .addCase(updateComment.fulfilled, (state, action) => {
-            state.house = action.payload;
-        })
+      .addCase(ratingHouse.fulfilled, (state, action) => {
+        state.house.rating = action.payload;
+      })
+      .addCase(updateComment.fulfilled, (state, action) => {
+        state.house = action.payload;
+      });
   },
 });
-export const {setStatusUserActionPending, setStatusUserActionIdle} = houseSlide.actions
+export const { setStatusHouseActionPending, setStatusHouseActionIdle } =
+  houseSlide.actions;
 
 export default houseSlide;
