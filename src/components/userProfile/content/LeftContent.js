@@ -16,7 +16,9 @@ import { Link } from "react-router-dom";
 import { getHistory } from "../../../redux/actionThunk/houseActionThunk";
 import { setStatusHouseActionIdle } from "../../../redux/slide/houseSlide";
 import { BiCalendarCheck } from "react-icons/bi";
-
+import { BiCalendarMinus } from "react-icons/bi";
+import { TiLockClosed } from "react-icons/ti";
+import { BiCalendar } from "react-icons/bi";
 export default function LeftContent() {
   let { user } = useSelector((state) => state.auth);
   const disPatch = useDispatch();
@@ -46,44 +48,41 @@ export default function LeftContent() {
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <NotificationsNoneIcon />
+                <PermIdentityIcon />
               </ListItemIcon>
-              {/* <ListItemText primary="Thông tin cá nhân  " /> */}
               <Link to={`/profile/${user.id}`}>Thông tin tài khoản</Link>
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {/* <BreakfastDiningIcon /> */}
-                <BiCalendarCheck size={25} style={{ marginRight: "12px" }} />
+                <BiCalendarMinus size={25} style={{ marginRight: "12px" }} />
               </ListItemIcon>
-              {/*<ListItemText primary="Đơn chờ " />*/}
               <Link to={"/profile/bookingPending"}>Đơn chờ </Link>
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
             <ListItemButton>
-              <ListItemIcon>{/* <FavoriteBorderIcon /> */}</ListItemIcon>
-              {/* <ListItemText primary="Bất động sản yêu thích " /> */}
+              <ListItemIcon>
+                <BiCalendarCheck size={25} />
+              </ListItemIcon>
+
               <Link to={"/profile/bookingAccept"}>Đơn đã xác nhận</Link>
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <PermIdentityIcon />
+                <TiLockClosed size={25} />
               </ListItemIcon>
-              {/* <ListItemText primary="Thông tin cá nhân  " /> */}
               <Link to={"/profile/changePassword"}>Thay đổi mật khẩu </Link>
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <LogoutIcon />
+                <BiCalendar size={25} />
               </ListItemIcon>
-              {/*<ListItemText primary="Lịch sử thuê nhà  "/>*/}
               <Link to={"/profile/history"} onClick={handelGetHistory}>
                 Lịch sử thuê nhà
               </Link>

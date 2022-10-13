@@ -30,9 +30,9 @@ export function SignInPage() {
   useEffect(() => {
     if (status === "fulfilled") {
       disPatch(setStatusAuthActionIdle());
-      let role = localStorage.getItem("currentUser");
-      console.log(role);
-      role.role == "user" ? navigate("/") : navigate("/admin/statistical");
+      let user = JSON.parse(localStorage.getItem("currentUser"));
+      console.log("aaaaaaaaaaa", user.role);
+      user.role == "user" ? navigate("/") : navigate("/admin/statistical");
     }
   }, [status]);
 

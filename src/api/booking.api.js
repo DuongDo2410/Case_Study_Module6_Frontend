@@ -1,16 +1,16 @@
 import { axiosConfig } from "./axios";
 
 const bookingApi = {
-  booking(payload, token) {
+  booking(payload) {
     const url = `/booking`;
-    return axiosConfig.post(url, payload, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    return axiosConfig.post(url, payload);
   },
   getBooking() {
     const url = `/booking`;
+    return axiosConfig.get(url);
+  },
+  getBookingByIdHOme(id) {
+    const url = `/booking/booking-by-home/${id}`;
     return axiosConfig.get(url);
   },
   getBookingSuccessOwner() {

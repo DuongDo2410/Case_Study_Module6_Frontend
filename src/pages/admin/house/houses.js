@@ -41,9 +41,9 @@ const Houses = () => {
           <h4 className="text-2xl">Danh sách nhà</h4>
           <Link
             to={"/admin/houses/create"}
-            className="flex justify-between items-center rounded-3xl bg-[#4fba81] text-white cursor-pointer font-medium px-3 py-2 text-base shadow-lg shadow-slate-100 hover:shadow-slate-300 hover:scale-105 transition delay-150 duration-300 ease-in-out"
+            className="flex justify-between items-center rounded-lg bg-[#4fba81] hover:text-white text-white cursor-pointer font-medium px-3 py-2 text-base shadow-lg shadow-slate-100 hover:shadow-slate-300 hover:scale-105 transition delay-150 duration-300 ease-in-out"
           >
-            <p className="ml-3">Thêm mới</p>
+            <p>Thêm mới</p>
           </Link>
         </div>
         <div className="w-full flex items-center justify-center  font-sans overflow-hidden">
@@ -95,9 +95,12 @@ const Houses = () => {
                       <td className="py-3 px-6 text-center">
                         <div className="flex item-center justify-center">
                           <div className="w-4 mr-3 transform hover:text-purple-500 hover:scale-110">
-                            <button>
+                            <Link
+                              to={`/admin/houses/${house._id}`}
+                              className="text-gray-700"
+                            >
                               <AiOutlineEye size={20} />
-                            </button>
+                            </Link>
                           </div>
                           <div className="w-4 mr-3 transform hover:text-purple-500 hover:scale-110">
                             <div
