@@ -39,7 +39,7 @@ export default function LeftContent() {
           sx={{ lineHeight: 4, textAlign: "center", marginLeft: 3 }}
           gutterBottom
         >
-          {user && user.fullName}
+          {user && user.username}
         </Typography>
       </Box>
       <Divider />

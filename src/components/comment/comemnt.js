@@ -29,12 +29,11 @@ const Comment = ({ house }) => {
             src={user && user.avatar}
             alt=""
             className="w-10 h-10 object-cover rounded-3xl"
-            placeholder="Bình luận của bạn ...."
           />
           <input
             type="text"
             value={comment}
-            placeholder={"Write comment ...."}
+            placeholder="Bình luận của bạn ...."
             className="ml-4 w-3/5 border rounded-3xl pl-8 focus:outline-0 "
             onChange={(e) => setComment(e.target.value)}
           />
@@ -50,7 +49,6 @@ const Comment = ({ house }) => {
                 src={comment && comment?.user?.avatar}
                 alt=""
                 className="w-10 h-10 object-cover rounded-3xl"
-                placeholder="Bình luận của bạn ...."
               />
             </div>
             <div

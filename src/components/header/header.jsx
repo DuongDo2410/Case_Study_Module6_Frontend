@@ -44,7 +44,7 @@ const Header = () => {
                     alt=""
                     className="w-10 h-10 mr-3 rounded-3xl"
                   />
-                  {user && user?.fullName}
+                  {user && user?.username}
                 </button>
               </div>
               {show && (

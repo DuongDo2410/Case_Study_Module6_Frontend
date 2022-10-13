@@ -168,17 +168,17 @@ const Banner = () => {
 
               <div className="absolute top-1/3 left-52">
                 <div className="">
-                  <div>
-                    <h1 className="text-4xl font-semibold leading-none ">
+                  <div className="mb-6">
+                    <h1 className="text-4xl font-semibold leading-none  text-black">
                       <span className="text-[#4fba81]">Thuê</span> Ngôi nhà mơ
                       ước của bạn với chúng tôi.
                     </h1>
-                    <p className=" mb-6">
+                    <p className=" mb-6 text-black">
                       Phân tích tăng trưởng và sản phẩm mạnh mẽ, tự phục vụ để
                       giúp bạn chuyển đổi, tương tác và giữ chân nhiều hơn.
                     </p>
                   </div>
-                  <div className=" bg-black p-6 rounded-lg bg-opacity-5">
+                  <div className=" bg-black p-6 rounded-lg bg-opacity-10">
                     <div className="relative w-full mt-3">
                       <input
                         type="text"
@@ -222,7 +222,7 @@ const Banner = () => {
                         <input
                           type="number"
                           name="min"
-                          className="mr-4 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-11/12 p-2.5 py-3 "
+                          className="text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-11/12 p-2.5 py-3 "
                           onChange={props.handleChange}
                           placeholder="0"
                         />
@@ -236,7 +236,7 @@ const Banner = () => {
                         </label>
                         <input
                           type="number"
-                          className="mr-4 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-11/12 p-2.5 py-3 "
+                          className=" text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-11/12 p-2.5 py-3 "
                           name="max"
                           onChange={props.handleChange}
                           placeholder="0"
@@ -253,7 +253,7 @@ const Banner = () => {
                           id="countries"
                           name="amountBedroom"
                           onChange={props.handleChange}
-                          className="bg-gray-50 text-[#6a6969] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-14 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          className="mr-4 bg-gray-50 text-[#6a6969] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-14 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         >
                           <option selected>Chọn số lượng</option>
                           <option value="1">1</option>

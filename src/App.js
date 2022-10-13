@@ -30,7 +30,7 @@ import AcceptBookingRenter from "./components/home-management/accept-booking/acc
 import HistoryBookingRenter from "./components/history/HistoryRentHouse";
 import { ChangePasswordOwner } from "./pages/admin/account/change-password";
 import Detail from "./pages/admin/house/detail/detail";
-import Loading from "./components/notification/loading";
+import Loading from "./components/Notification/loading";
 
 function App() {
   let statusUser = useSelector((state) => state.user.status);
