@@ -2,12 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   changePasswordAction,
   getUserById,
-    getStatistic
+  getStatistic,
 } from "../actionThunk/userActionThunk";
 import { setLocale } from "yup";
-import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
+import { openNotificationWithIcon } from "../../components/Notification/NotificationWithIcon";
 import booking from "../../pages/booking/booking";
-
 
 const userSlide = createSlice({
   name: "user",
@@ -41,7 +40,10 @@ const userSlide = createSlice({
     });
     builder.addCase(changePasswordAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
-      openNotificationWithIcon({ type: "success", message: "Thành Công" });
+      openNotificationWithIcon({
+        type: "success",
+        message: " Cập nhật mật khẩu thành Công",
+      });
     });
     //getStatistic
     builder.addCase(getStatistic.pending, (state, action) => {

@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { loginAction, registerAction } from "../actionThunk/authActionThunk";
+import { openNotificationWithIcon } from "../../components/Notification/NotificationWithIcon";
 import {
-  loginAction,
-  registerAction,
-} from "../actionThunk/authActionThunk";
-import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
-import {loginGoogleAction, updateUserAction} from "../actionThunk/userActionThunk";
+  loginGoogleAction,
+  updateUserAction,
+} from "../actionThunk/userActionThunk";
 const authSlide = createSlice({
   name: "auth",
   initialState: {
@@ -14,10 +14,10 @@ const authSlide = createSlice({
   },
   reducers: {
     setStatusAuthActionPending(state) {
-      state.status = "pending"
+      state.status = "pending";
     },
     setStatusAuthActionIdle(state) {
-      state.status = "idle"
+      state.status = "idle";
     },
   },
   extraReducers: (builder) => {
@@ -25,7 +25,10 @@ const authSlide = createSlice({
       state.status = "pending";
     });
     builder.addCase(registerAction.fulfilled, (state, action) => {
-      openNotificationWithIcon({type: "success", message: "Đăng Kí Thành Công!!"})
+      openNotificationWithIcon({
+        type: "success",
+        message: "Đăng Kí Thành Công!!",
+      });
       state.status = "fulfilled";
     });
     builder.addCase(registerAction.rejected, (state, action) => {
@@ -34,7 +37,10 @@ const authSlide = createSlice({
     //Login
     builder.addCase(loginAction.rejected, (state, action) => {
       state.status = "rejected";
-      openNotificationWithIcon({type: "error", message: "Tài Khoản Hoặc Mật Khẩu Sai!"})
+      openNotificationWithIcon({
+        type: "error",
+        message: "Tài Khoản Hoặc Mật Khẩu Sai!",
+      });
     });
     builder.addCase(loginAction.pending, (state, action) => {
       state.status = "pending";
@@ -42,6 +48,10 @@ const authSlide = createSlice({
     builder.addCase(loginAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
       state.user = action.payload.user;
+      openNotificationWithIcon({
+        type: "success",
+        message: "Đăng nhập thành Công!",
+      });
       localStorage.setItem("accessToken", action.payload.token);
       localStorage.setItem("currentUser", JSON.stringify(action.payload.user));
     });
@@ -52,7 +62,10 @@ const authSlide = createSlice({
     builder.addCase(loginGoogleAction.fulfilled, (state, action) => {
       state.status = "fulfilled";
       state.user = action.payload.user;
-      openNotificationWithIcon({ type: "success", message: "Thành Công!" });
+      openNotificationWithIcon({
+        type: "success",
+        message: "Đăng nhập thành Công!",
+      });
       localStorage.setItem("accessToken", action.payload.token);
       localStorage.setItem("currentUser", JSON.stringify(action.payload.user));
     });
@@ -65,9 +78,13 @@ const authSlide = createSlice({
       state.user = action.payload;
       localStorage.removeItem("currentUser");
       localStorage.setItem("currentUser", JSON.stringify(action.payload));
-      openNotificationWithIcon({type: "success", message: 'Cập Nhật Thành Công'});
+      openNotificationWithIcon({
+        type: "success",
+        message: "Cập Nhật thông tin thành Công",
+      });
     });
   },
 });
-export const {setStatusAuthActionPending, setStatusAuthActionIdle} = authSlide.actions
+export const { setStatusAuthActionPending, setStatusAuthActionIdle } =
+  authSlide.actions;
 export default authSlide;

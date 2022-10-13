@@ -7,7 +7,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   createHouse,
   getAllHouse,
-  getHistory,
   getHouseById,
   getHouseByUser,
   getOne,
@@ -17,8 +16,7 @@ import {
   ratingHouse,
   updateComment,
 } from "../actionThunk/houseActionThunk";
-import {openNotificationWithIcon} from "../../components/Notification/NotificationWithIcon";
-
+import { openNotificationWithIcon } from "../../components/Notification/NotificationWithIcon";
 
 const houseSlide = createSlice({
   name: "house",
@@ -33,10 +31,10 @@ const houseSlide = createSlice({
   },
   reducers: {
     setStatusHouseActionPending(state) {
-      state.status = "pending"
+      state.status = "pending";
     },
     setStatusHouseActionIdle(state) {
-      state.status = "idle"
+      state.status = "idle";
     },
   },
   extraReducers: (builder) => {
@@ -103,17 +101,7 @@ const houseSlide = createSlice({
         );
         state.customerHouse = newHouses;
       })
-      //get History
-      .addCase(getHistory.fulfilled, (state, action) => {
-        state.history = action.payload;
-        state.status = "fulfilled";
-      })
-      .addCase(getHistory.pending, (state, action) => {
-        state.status = "pending";
-      })
-      .addCase(getHistory.rejected, (state, action) => {
-        state.status = "rejected";
-      })
+
       //Update house
       .addCase(updateHouse.fulfilled, (state, action) => {
         openNotificationWithIcon({ type: "success", message: "Thành Công!" });
@@ -157,6 +145,7 @@ const houseSlide = createSlice({
       });
   },
 });
-export const {setStatusHouseActionPending, setStatusHouseActionIdle} = houseSlide.actions
+export const { setStatusHouseActionPending, setStatusHouseActionIdle } =
+  houseSlide.actions;
 
 export default houseSlide;

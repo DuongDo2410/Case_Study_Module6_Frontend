@@ -24,7 +24,7 @@ export default function Content() {
         paddingBottom: "30px",
       }}
     >
-      <Box sx={{ flexGrow: 1, margin: "0 100px" }}>
+      <Box sx={{ flexGrow: 1, margin: "0 120px 0 62px" }}>
         <Grid container spacing={4} sx={{ margin: "0px 0px" }}>
           <Grid item xs={4}>
             <Item>

@@ -7,11 +7,12 @@ import * as Yup from "yup";
 import { storage } from "../../../../firebase";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  createHouse,
-} from "../../../../redux/actionThunk/houseActionThunk";
+import { createHouse } from "../../../../redux/actionThunk/houseActionThunk";
 import { useNavigate } from "react-router";
-import {setStatusHouseActionIdle, setStatusHouseActionPending} from "../../../../redux/slide/houseSlide";
+import {
+  setStatusHouseActionIdle,
+  setStatusHouseActionPending,
+} from "../../../../redux/slide/houseSlide";
 
 const Create = ({ createForm, setCreateForm }) => {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const Create = ({ createForm, setCreateForm }) => {
       // address: Yup.string().required("Không để trống"),
     }),
     onSubmit: async (values) => {
-      disPatch(setStatusHouseActionPending())
+      disPatch(setStatusHouseActionPending());
       let imageUpload = image;
       if (imageUpload) {
         const imageRef = ref(storage, `images/${imageUpload?.name}`);
@@ -77,7 +78,7 @@ const Create = ({ createForm, setCreateForm }) => {
   });
 
   return (
-    <div className="w-full bg-white p-5 min-h-[550px] h-max">
+    <div className="w-full bg-white p-5 min-h-[550px] h-max shadow-lg rounded-lg">
       <div className="flex justify-between border-b pb-6 items-center">
         <h4 className="text-2xl">Thêm mới nhà</h4>
       </div>
