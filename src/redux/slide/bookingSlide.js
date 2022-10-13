@@ -12,7 +12,7 @@ import {
   getbookingPendingRenterAction,
   getbookingSuccessOwnerAction,
 } from "../actionThunk/bookingActionThunk";
-import { openNotificationWithIcon } from "../../components/Notification/NotificationWithIcon";
+import { openNotificationWithIcon } from "../../components/notification/NotificationWithIcon";
 import userSlide from "./userSlide";
 
 const bookingSlide = createSlice({

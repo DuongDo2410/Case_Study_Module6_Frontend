@@ -5,7 +5,7 @@ import {
   getStatistic,
 } from "../actionThunk/userActionThunk";
 import { setLocale } from "yup";
-import { openNotificationWithIcon } from "../../components/Notification/NotificationWithIcon";
+import { openNotificationWithIcon } from "../../components/notification/NotificationWithIcon";
 import booking from "../../pages/booking/booking";
 
 const userSlide = createSlice({
