@@ -59,15 +59,15 @@ export function RegisterPage() {
           <div className="w-full xl:w-3/4 lg:w-11/12 flex shadow-lg shadow-slate-500 rounded-lg">
             {/* Col */}
             <div
-              className="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg"
+              className=" h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg object-cover"
               style={{
                 backgroundImage:
-                  'url("https://source.unsplash.com/K4mSJ7kc0As/600x800")',
+                  'url("https://firebasestorage.googleapis.com/v0/b/shop-11594.appspot.com/o/image%2Fsky-landscape-lake-tree.jpg?alt=media&token=31cedbca-9dae-4a06-ae32-4850c88f9666")',
               }}
             />
             {/* Col */}
             <div className="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
-              <h3 className="pt-4 text-2xl text-center">Đăng ký!</h3>
+              <h3 className="pt-4 text-2xl text-center">Đăng ký</h3>
               <form
                 className="px-8 pt-6 pb-8 mb-4 bg-white rounded"
                 onSubmit={formik.handleSubmit}

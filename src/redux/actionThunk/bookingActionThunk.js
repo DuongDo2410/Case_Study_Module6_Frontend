@@ -5,8 +5,13 @@ export const bookingAction = createAsyncThunk(
   "booking/create",
   async (payload, { rejectWithValue }) => {
     try {
-      const { data } = await bookingApi.booking(payload);
-      return data;
+      let token = localStorage.getItem("accessToken");
+      if (token) {
+        const { data } = await bookingApi.booking(payload);
+        return data;
+      } else {
+        return rejectWithValue({ message: "Bạn cần đăng nhập!" });
+      }
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
