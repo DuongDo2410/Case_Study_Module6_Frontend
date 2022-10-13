@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { BiCalendarMinus } from "react-icons/bi";
 import { BiClipboard } from "react-icons/bi";
 import { BiBuildingHouse } from "react-icons/bi";
@@ -10,17 +10,23 @@ import { BiBarChartAlt2 } from "react-icons/bi";
 import "./dashboard.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getbookingSuccessOwnerAction } from "../../redux/actionThunk/bookingActionThunk";
+import { TiLockClosed } from "react-icons/ti";
 const Dasboard = () => {
   const { bookingSuccess } = useSelector((state) => state.booking);
-  console.log(bookingSuccess);
   const disPatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     disPatch(getbookingSuccessOwnerAction());
   }, []);
+  const handleLogout = (res) => {
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("accessToken");
+    navigate("/login");
+  };
   return (
     <>
       <div className="min-h-screen flex ">
-        <div className="p-6 w-60 flex flex-col justify-between shadow-lg ">
+        <div className="py-3 px-6 w-60 shadow-lg fixed top-0 left-0 bottom-0 ">
           <div>
             <div className="flex space-2 items-center border-b-2 pb-4">
               <img
@@ -34,8 +40,8 @@ const Dasboard = () => {
                 to={"/admin/statistical"}
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center space-x-4 mt-6 p-2 bg-[#4fba81] text-white hover:text-white rounded-md cursor-pointer"
-                    : "p-2 flex items-center space-x-4 mt-6 text-gray-500  hover:bg-[#4fba81] hover:rounded-md hover:text-white hover: cursor-pointer transition duration-200"
+                    ? "flex items-center space-x-4 p-2 bg-[#4fba81] text-white hover:text-white rounded-md cursor-pointer"
+                    : "p-2 flex items-center space-x-4 text-gray-500  hover:bg-[#4fba81] hover:rounded-md hover:text-white hover: cursor-pointer transition duration-200"
                 }
               >
                 <div>
@@ -53,8 +59,8 @@ const Dasboard = () => {
                     to="/admin/pending-booking"
                     className={({ isActive }) =>
                       isActive
-                        ? "flex items-center space-x-4 mt-6 p-2 bg-[#4fba81] text-white hover:text-white rounded-md cursor-pointer"
-                        : "p-2 flex items-center space-x-4 mt-6 text-gray-500  hover:bg-[#4fba81] hover:rounded-md hover:text-white hover: cursor-pointer transition duration-200"
+                        ? "flex items-center space-x-4 p-2 bg-[#4fba81] text-white hover:text-white rounded-md cursor-pointer"
+                        : "p-2 flex items-center space-x-4 text-gray-500  hover:bg-[#4fba81] hover:rounded-md hover:text-white hover: cursor-pointer transition duration-200"
                     }
                   >
                     <BiCalendarMinus
@@ -69,8 +75,8 @@ const Dasboard = () => {
                     to="/admin/accept-booking"
                     className={({ isActive }) =>
                       isActive
-                        ? "flex items-center space-x-4 mt-6 p-2 bg-[#4fba81] text-white hover:text-white rounded-md cursor-pointer"
-                        : "p-2 flex items-center space-x-4 mt-6 text-gray-500  hover:bg-[#4fba81] hover:rounded-md hover:text-white hover: cursor-pointer transition duration-200"
+                        ? "flex items-center space-x-4 p-2 bg-[#4fba81] text-white hover:text-white rounded-md cursor-pointer"
+                        : "p-2 flex items-center space-x-4 text-gray-500  hover:bg-[#4fba81] hover:rounded-md hover:text-white hover: cursor-pointer transition duration-200"
                     }
                   >
                     <BiCalendarCheck
@@ -85,8 +91,8 @@ const Dasboard = () => {
                     to="/admin/houses"
                     className={({ isActive }) =>
                       isActive
-                        ? "flex items-center space-x-4 mt-6 p-2 bg-[#4fba81] text-white hover:text-white rounded-md cursor-pointer"
-                        : "p-2 flex items-center space-x-4 mt-6 text-gray-500  hover:bg-[#4fba81] hover:rounded-md hover:text-white hover: cursor-pointer transition duration-200"
+                        ? "flex items-center space-x-4 p-2 bg-[#4fba81] text-white hover:text-white rounded-md cursor-pointer"
+                        : "p-2 flex items-center space-x-4 text-gray-500  hover:bg-[#4fba81] hover:rounded-md hover:text-white hover: cursor-pointer transition duration-200"
                     }
                   >
                     <BiBuildingHouse
@@ -101,25 +107,41 @@ const Dasboard = () => {
                     to="/admin/account"
                     className={({ isActive }) =>
                       isActive
-                        ? "flex items-center space-x-4 mt-6 p-2 bg-[#4fba81] text-white hover:text-white rounded-md cursor-pointer"
-                        : "p-2 flex items-center space-x-4 mt-6 text-gray-500  hover:bg-[#4fba81] hover:rounded-md hover:text-white hover: cursor-pointer transition duration-200"
+                        ? "flex items-center space-x-4 p-2 bg-[#4fba81] text-white hover:text-white rounded-md cursor-pointer"
+                        : "p-2 flex items-center space-x-4 text-gray-500  hover:bg-[#4fba81] hover:rounded-md hover:text-white hover: cursor-pointer transition duration-200"
                     }
                   >
                     <BiUser size={25} style={{ marginRight: "12px" }} />
                     Tài khoản
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink
+                    to="/admin/changePassword"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "flex items-center space-x-4 p-2 bg-[#4fba81] text-white hover:text-white rounded-md cursor-pointer"
+                        : "p-2 flex items-center space-x-4 text-gray-500  hover:bg-[#4fba81] hover:rounded-md hover:text-white hover: cursor-pointer transition duration-200"
+                    }
+                  >
+                    <TiLockClosed size={25} style={{ marginRight: "12px" }} />
+                    Thay đổi mật khẩu
+                  </NavLink>
+                </li>
+                <li>
+                  <button
+                    onClick={() => handleLogout()}
+                    className="flex items-center font-semibold w-full text-gray-500 hover:bg-[#4fba81] hover:rounded-md p-2 hover:text-white cursor-pointer transition duration-200"
+                  >
+                    <BiLogOut size={25} style={{ marginRight: "12px" }} />
+                    Logout
+                  </button>
+                </li>
               </ul>
             </div>
           </div>
-          <div className="flex items-center text-sm font-semibold text-gray-500  transition duration-200">
-            <button className="flex items-center font-semibold w-full text-gray-500 hover:bg-[#4fba81] hover:rounded-md p-2 hover:text-white cursor-pointer transition duration-200">
-              <BiLogOut size={25} style={{ marginRight: "12px" }} />
-              Logout
-            </button>
-          </div>
         </div>
-        <div className="bg-gray-50 flex-grow py-12 px-10">
+        <div className="bg-gray-50 flex-grow py-12 px-10 ml-60">
           <Outlet />
         </div>
         <div />
