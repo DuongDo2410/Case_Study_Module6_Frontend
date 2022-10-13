@@ -55,7 +55,7 @@ const Houses = () => {
                   <th className="py-3 px-6 text-left">Tên nhà</th>
                   <th className="py-3 px-6 text-left">Địa chỉ</th>
                   <th className="py-3 px-6 text-left">Giá tiền</th>
-                  <th className="py-3 w-36 text-center">trạng thái</th>
+                  {/* <th className="py-3 w-36 text-center">trạng thái</th> */}
                   <th className="py-3 w-36 text-center">Hành động</th>
                 </tr>
               </thead>
@@ -87,11 +87,11 @@ const Houses = () => {
                           <p>{house.price}</p>
                         </div>
                       </td>
-                      <td className="py-3 px-6 text-center">
+                      {/* <td className="py-3 px-6 text-center">
                         <span className="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">
                           Active
                         </span>
-                      </td>
+                      </td> */}
                       <td className="py-3 px-6 text-center">
                         <div className="flex item-center justify-center">
                           <div className="w-4 mr-3 transform hover:text-purple-500 hover:scale-110">
