@@ -16,7 +16,7 @@ import {
   ratingHouse,
   updateComment,
 } from "../actionThunk/houseActionThunk";
-import { openNotificationWithIcon } from "../../components/Notification/NotificationWithIcon";
+import { openNotificationWithIcon } from "../../components/notification/NotificationWithIcon";
 
 const houseSlide = createSlice({
   name: "house",

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginAction, registerAction } from "../actionThunk/authActionThunk";
-import { openNotificationWithIcon } from "../../components/Notification/NotificationWithIcon";
+import { openNotificationWithIcon } from "../../components/notification/NotificationWithIcon";
 import {
   loginGoogleAction,
   updateUserAction,

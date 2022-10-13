@@ -10,7 +10,6 @@ export default function Rate({ rating }) {
   const dispatch = useDispatch();
   let { user } = useSelector((state) => state.auth);
   const { id } = useParams();
-  console.log(user.id);
   const handleRating = (e) => {
     dispatch(ratingHouse({ id: id, rating: e.target.value, idUser: user.id }));
   };
@@ -35,7 +34,7 @@ export default function Rate({ rating }) {
             onChange={(e) => handleRating(e)}
           />
           <span style={{ top: "-6px", position: "relative", fontSize: "17px" }}>
-            {" (" + rating + ")"}
+            {" (" + Math.floor(rating) + ")"}
           </span>
         </div>
       </div>

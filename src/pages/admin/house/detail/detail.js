@@ -13,6 +13,8 @@ import { BiBed } from "react-icons/bi";
 import { BiBath } from "react-icons/bi";
 import { BiShapeSquare } from "react-icons/bi";
 import { getBookingByIdHomeAction } from "../../../../redux/actionThunk/bookingActionThunk";
+
+
 const Detail = () => {
   let { house } = useSelector((state) => state.house);
   let { bookingByIdHome } = useSelector((state) => state.booking);
@@ -23,7 +25,6 @@ const Detail = () => {
     dispatch(getBookingByIdHomeAction(id));
     dispatch(setStatusHouseActionIdle());
   }, []);
-  console.log(house);
   return (
     <div className="w-full bg-white p-5 min-h-[550px] h-max shadow-lg rounded-lg">
       <div className="flex justify-between border-b pb-6 items-center">
